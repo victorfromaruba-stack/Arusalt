@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
+    <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
+    
+    <!-- Social Sharing (Open Graph) -->
+    <meta property="og:title" content="AruSalt - The Essence of Aruba">
+    <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
+    <meta property="og:image" content="product-pure.jpg">
+    <meta property="og:url" content="https://arusalt.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="logo.png" type="image/png">
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles --><style>
+        /* --- Scroll Padding for Fixed Header --- */
+        html {
+            scroll-padding-top: 85px; /* Perfectly aligns content to clear the header */
+        }
+
+        /* --- Custom Selection Color --- */
+        ::selection {
+            background-color: #0ea5e9;
+            color: white;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfdfd; 
+            color: #1a1a1a; 
+            overflow-x: hidden;
+        }
+
+        /* --- Theme Colors --- */
+        .text-theme-blue { color: #0ea5e9; }
+        .bg-theme-blue { background-color: #0ea5e9; }
+        .hover\:bg-theme-blue-dark:hover { background-color: #0284c7; }
+
+        /* --- Preloader Styles --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #fdfdfd;
+            z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+        .loader-crystal {
+            width: 80px; height: 80px;
+            stroke: #0ea5e9;
+            stroke-width: 3;
+            fill: none;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.9); opacity: 0.6; }
+        }
+        .preloader-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* --- Light Glassmorphism Header --- */
+        header {
+            background-color: rgba(253, 253, 253, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            background-color: #fdfdfd;
+        }
+        #mobile-menu.hidden {
+            transform: translateX(100%);
+        }
+
+        /* --- Particle Cursor --- */
+        .particle {
+            position: fixed;
+            top: 0; left: 0;
+            width: 8px; height: 8px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        @media (max-width: 768px) { .particle { display: none; } }
+        
+        /* --- Animated SVG Crystal (Hero) --- */
+        #svg-crystal {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px; height: 220px;
+            stroke: #0ea5e9;
+            stroke-width: 5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            z-index: 2;
+            filter: drop-shadow(0 0 15px rgba(14, 165, 233, 0.3));
+        }
+        
+        #svg-crystal path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            transition: stroke-dashoffset 2.5s ease-out; 
+        }
+        
+        .start-hero-anim #svg-crystal path {
+             stroke-dashoffset: 0;
+        }
+        
+        /* --- Interactive Particle Background --- */
+        #particle-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+            background-color: #fdfdfd;
+            overflow: hidden;
+        }
+
+        /* --- Hero Text Animation --- */
+        #hero-text {
+            position: relative;
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1.2s ease-out;
+            text-shadow: 0 4px 20px rgba(255,255,255,0.8);
+        }
+        .start-hero-anim #hero-text {
+            opacity: 1;
+            transition-delay: 1.5s;
+        }
+        
+        /* --- Scroll Down Indicator --- */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2.5rem; left: 50%;
+            transform: translateX(-50%);
+            z-index: 3;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        .start-hero-anim .scroll-indicator {
+            opacity: 1;
+            transition-delay: 2.5s;
+            animation: bounce 2s infinite ease-in-out 2.5s;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+
+        /* --- Scrollytelling Structure --- */
+        #sticky-wrapper {
+            position: sticky; top: 0;
+            height: 100vh; width: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        #scrolly-text { position: relative; z-index: 10; }
+        /* TIGHTER spacing: Reduced scene height to 70vh */
+        .scroll-scene { height: 70vh; width: 100%; padding: 0 1.5rem; }
+
+        /* --- Content Sections (Reduced Padding for Tightness) --- */
+        .content-section { position: relative; z-index: 11; background-color: #fdfdfd; padding-top: 3rem; padding-bottom: 3rem; }
+        .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 3rem; padding-bottom: 3rem; }
+
+        /* --- Scroll Animation Classes --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .delay-1 { transition-delay: 100ms; }
+        .delay-2 { transition-delay: 200ms; }
+        
+        /* --- Magnetic Link --- */
+        .magnetic-link { display: inline-block; transition: transform 0.1s linear; }
+        
+        /* --- Product Card --- */
+        .product-card {
+            background: white;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid #f1f5f9;
+        }
+        .product-card:hover {
+            transform: translateY(-5px) scale(1.01);
+            box-shadow: 0 20px 40px -5px rgba(14, 165, 233, 0.15);
+            border-color: #e0f2fe;
+        }
+
+        /* --- Feature Card --- */
+        .feature-card {
+            position: relative;
+            min-height: 400px;
+            overflow: hidden;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 30px -5px rgba(0,0,0,0.1);
+        }
+        .feature-card-bg {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+            transform: scale(1.0);
+            transition: transform 8s ease-out;
+        }
+        .feature-card:hover .feature-card-bg { transform: scale(1.15); }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+            z-index: 1;
+        }
+        .feature-card-content { position: relative; z-index: 2; }
+        
+        /* --- Animated Gradient Text --- */
+        .animated-gradient-text {
+            background: linear-gradient(90deg, #0284c7, #38bdf8, #0ea5e9, #0284c7);
+            background-size: 200% auto;
+            color: transparent;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: shimmer 5s linear infinite;
+        }
+        @keyframes shimmer { to { background-position: -200% center; } }
+        
+        /* --- Contact Form Styles --- */
+        .glass-form {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+        }
+        .form-input {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1rem;
+            border-radius: 0.75rem;
+            transition: all 0.3s;
+            color: #1a1a1a;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #4b5563;
+            text-align: left;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* --- Testimonial Card --- */
+        .testimonial-card {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        /* --- Modal Styles --- */
+        .modal {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal:not(.hidden) {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-backdrop {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+        .modal-content {
+            position: relative;
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+        .modal:not(.hidden) .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <svg class="loader-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-theme-blue" fill="currentColor">
+                <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
+                <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
+            </g>
+        </svg>
+    </div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="#home" class="flex-shrink-0 flex items-center z-10 group">
+                    <svg class="h-10 w-auto transition-transform duration-500 group-hover:rotate-180" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <g class="text-theme-blue" fill="currentColor">
+                            <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
+                            <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
+                        </g>
+                    </svg>
+                    <span class="ml-3 text-xl font-bold text-gray-900 tracking-tight">AruSalt</span>
+                </a>
+                
+                <div class="hidden md:flex space-x-8">
+                    <a href="#products" class="text-sm font-medium text-gray-600 hover:text-theme-blue transition-colors py-2 px-2">Products</a>
+                    <a href="#locations" class="text-sm font-medium text-gray-600 hover:text-theme-blue transition-colors py-2 px-2">Where to Buy</a>
+                    <a href="#features" class="text-sm font-medium text-gray-600 hover:text-theme-blue transition-colors py-2 px-2">Our Salt</a>
+                    <a href="#story" class="text-sm font-medium text-gray-600 hover:text-theme-blue transition-colors py-2 px-2">Our Story</a>
+                    <a href="#contact" class="text-sm font-medium text-white bg-theme-blue hover:bg-theme-blue-dark transition-colors rounded-full py-2 px-5">Contact</a>
+                </div>
+                
+                <button id="menu-btn" class="md:hidden p-2 text-gray-600">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+    
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8">
+        <a href="#products" class="menu-link text-2xl font-medium text-gray-800">Products</a>
+        <a href="#locations" class="menu-link text-2xl font-medium text-gray-800">Where to Buy</a>
+        <a href="#features" class="menu-link text-2xl font-medium text-gray-800">Our Salt</a>
+        <a href="#story" class="menu-link text-2xl font-medium text-gray-800">Our Story</a>
+        <a href="#contact" class="menu-link text-2xl font-medium text-theme-blue">Contact</a>
+    </div>
+
+    <main>
+        <!-- Hero & Scrollytelling Section -->
+        <div class="relative">
+            <div id="sticky-wrapper">
+                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                    <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                    <path d="M 50 10 L 50 30"></path>
+                    <path d="M 90 50 L 70 50"></path>
+                    <path d="M 50 90 L 50 70"></path>
+                    <path d="M 10 50 L 30 50"></path>
+                </svg>
+                <div id="particle-bg"><canvas id="particle-canvas"></canvas></div>
+            </div>
+
+            <div id="scrolly-text">
+                <section id="home" class="scroll-scene flex items-center justify-center relative">
+                    <div id="hero-text" class="text-center px-4">
+                        <h1 class="text-6xl md:text-9xl font-extrabold tracking-tighter text-gray-900">AruSalt</h1>
+                        <p class="mt-4 text-xl md:text-3xl font-light text-gray-600 tracking-wide">The Essence of Aruba.</p>
+                    </div>
+                    <div class="scroll-indicator text-theme-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 9l-7 7-7-7" /></svg>
+                    </div>
+                </section>
+                
+                <section class="scroll-scene pointer-events-none">
+                    <div class="max-w-3xl mx-auto text-center animate-on-scroll p-6">
+                        <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">It begins with the <span class="text-theme-blue">purest</span> Aruban water.</h2>
+                    </div>
+                </section>
+                
+                <section class="scroll-scene pointer-events-none">
+                    <div class="max-w-3xl mx-auto text-center animate-on-scroll p-6">
+                        <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">Crafted by the sun & <span class="text-theme-blue">Caribbean trade winds</span>.</h2>
+                    </div>
+                </section>
+                
+                <section class="scroll-scene pointer-events-none">
+                    <div class="max-w-3xl mx-auto text-center animate-on-scroll p-6">
+                        <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-gray-900 leading-tight">Pure. Natural. <br>Unforgettable.</h2>
+                    </div>
+                </section>
+                
+                <div class="h-[20vh]"></div>
+            </div>
+        </div>
+
+        <!-- Products Section (TIGHTER PADDING) -->
+        <section id="products" class="content-section px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-bold tracking-tight animated-gradient-text animate-on-scroll">Taste the Island.</h2>
+                    <p class="mt-4 text-xl text-gray-500 max-w-2xl mx-auto animate-on-scroll delay-1">Explore our exquisite range of finishing salts.</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Lime -->
+                    <div class="product-card rounded-3xl p-6 animate-on-scroll">
+                        <div class="aspect-square rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                            <img src="product-lime.png" alt="Lime Salt" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/f7f7f7/333?text=Lime+Salt'">
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">Lime Sea Salt</h3>
+                        <p class="mt-2 text-gray-600">Bright and zesty, perfect for seafood and cocktails.</p>
+                    </div>
+                    <!-- Pure -->
+                    <div class="product-card rounded-3xl p-6 animate-on-scroll delay-1">
+                        <div class="aspect-square rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                            <img src="product-pure.jpg" alt="Pure Salt" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/f7f7f7/333?text=Pure+Salt'">
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">Pure Sea Salt</h3>
+                        <p class="mt-2 text-gray-600">Our classic, unadulterated flake salt for everything.</p>
+                    </div>
+                    <!-- Wine -->
+                    <div class="product-card rounded-3xl p-6 animate-on-scroll delay-2">
+                        <div class="aspect-square rounded-2xl overflow-hidden mb-6 bg-gray-100">
+                            <img src="product-wine.jpg" alt="Wine Salt" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600/f7f7f7/333?text=Wine+Salt'">
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900">Wine Sea Salt</h3>
+                        <p class="mt-2 text-gray-600">Infused with rich red wine for meats and cheeses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Locations Section -->
+        <section id="locations" class="content-section-alt px-6 text-center">
+            <div class="container mx-auto max-w-4xl">
+                <h2 class="text-4xl md:text-5xl font-bold tracking-tight animated-gradient-text animate-on-scroll">Where to Buy</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-12">
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md animate-on-scroll">Super Food Plaza</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md animate-on-scroll delay-1">Ling & Sons</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md animate-on-scroll delay-2">Certified Market</div>
+                    <div class="bg-white p-6 rounded-2xl shadow-sm hover:shadow-md animate-on-scroll">Hotel Shops</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="content-section px-6">
+            <div class="container mx-auto max-w-7xl">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="feature-card animate-on-scroll">
+                        <div class="feature-card-bg" style="background-image: url('feature-flakes.jpg')"></div>
+                        <div class="feature-card-content absolute bottom-0 left-0 p-8 text-white"><h3 class="text-2xl font-bold">Flake Texture</h3></div>
+                    </div>
+                    <div class="feature-card animate-on-scroll delay-1">
+                        <div class="feature-card-bg" style="background-image: url('feature-pans.jpg')"></div>
+                        <div class="feature-card-content absolute bottom-0 left-0 p-8 text-white"><h3 class="text-2xl font-bold">Solar Evaporated</h3></div>
+                    </div>
+                    <div class="feature-card animate-on-scroll delay-2">
+                        <div class="feature-card-bg" style="background-image: url('feature-water.jpg')"></div>
+                        <div class="feature-card-content absolute bottom-0 left-0 p-8 text-white"><h3 class="text-2xl font-bold">Trace Minerals</h3></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Story Section -->
+        <section id="story" class="content-section-alt px-6">
+            <div class="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="rounded-3xl overflow-hidden shadow-2xl animate-on-scroll">
+                    <img src="story-image.jpg" alt="Story" class="w-full h-auto" onerror="this.src='https://placehold.co/800x600/e0e0e0/333?text=Our+Story'">
+                </div>
+                <div class="animate-on-scroll">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-gray-900 mb-8">From Our Island to Your Table.</h2>
+                    <p class="text-lg text-gray-600 mb-6 leading-relaxed">AruSalt isn't just an ingredient; it's a piece of Aruba. We're a family-run company sharing the flavor of our "One Happy Island" with you.</p>
+                    <p class="text-lg text-gray-600 leading-relaxed">Each crystal is hand-harvested with care, ensuring a product that's as good for the earth as it is for your table.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="content-section py-16 px-6">
+            <div class="container mx-auto max-w-2xl text-center">
+                <h2 class="text-4xl font-bold tracking-tight animated-gradient-text animate-on-scroll mb-10">Get in Touch</h2>
+                <form id="contact-form" class="glass-form p-8 rounded-3xl text-left animate-on-scroll">
+                    <div class="mb-6"><label class="form-label">Name</label><input type="text" class="form-input" required></div>
+                    <div class="mb-6"><label class="form-label">Email</label><input type="email" class="form-input" required></div>
+                    <div class="mb-8"><label class="form-label">Message</label><textarea rows="4" class="form-input" required></textarea></div>
+                    <button class="w-full bg-theme-blue text-white font-bold py-4 rounded-xl hover:bg-theme-blue-dark transition-all transform hover:scale-[1.01] shadow-lg">Send Message</button>
+                </form>
+                <div id="form-success" class="hidden mt-8 p-4 bg-green-50 text-green-800 rounded-2xl border border-green-100">Thank you! Your message was received.</div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-50 border-t border-gray-200 py-16 px-6">
+        <div class="container mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <a href="#" class="text-2xl font-bold text-gray-900">AruSalt</a>
+                <p class="mt-4 text-gray-500 max-w-xs text-sm">Premium sea salt from the pristine waters of Aruba.</p>
+                <div class="mt-8">
+                    <h5 class="text-xs font-bold text-gray-900 uppercase tracking-widest mb-3">Stay Updated</h5>
+                    <form class="flex gap-2">
+                        <input type="email" placeholder="Email" class="bg-white border rounded-lg text-sm w-full p-2.5">
+                        <button type="button" class="bg-theme-blue text-white text-xs font-bold px-4 rounded-lg">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4">Quick Links</h4>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="#products" class="hover:text-theme-blue">Products</a></li>
+                    <li><a href="#locations" class="hover:text-theme-blue">Where to Buy</a></li>
+                    <li><a href="#story" class="hover:text-theme-blue">Our Story</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-gray-900 mb-4">Connect</h4>
+                <div class="flex space-x-4 mb-6">
+                    <!-- Correct Social Links pointing to arusaltaruba -->
+                    <a href="https://instagram.com/arusaltaruba" target="_blank" class="text-gray-400 hover:text-theme-blue transition-colors">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.262 0-3.67.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    </a>
+                    <a href="https://facebook.com/arusaltaruba" target="_blank" class="text-gray-400 hover:text-theme-blue transition-colors">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                    </a>
+                    <a href="https://pinterest.com/arusaltaruba" target="_blank" class="text-gray-400 hover:text-theme-blue transition-colors">
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.162-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.399.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.951-7.252 4.173 0 7.41 2.967 7.41 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C23.97 5.39 18.592.026 11.985.026L12.017 0z"/></svg>
+                    </a>
+                </div>
+                <div class="flex space-x-3 text-xs text-gray-400">
+                    <a href="#" id="link-privacy">Privacy Policy</a>
+                    <a href="#" id="link-terms">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+        <div class="container mx-auto text-center mt-12 pt-8 border-t border-gray-200 text-gray-400 text-xs">
+            &copy; 2026 AruSalt. All Rights Reserved.
+        </div>
+    </footer>
+
+    <!-- Legal Modals -->
+    <div id="privacy-modal" class="modal hidden"><div class="modal-backdrop"></div><div class="modal-content"><h2 class="text-xl font-bold mb-4">Privacy Policy</h2><p class="text-gray-600 text-sm mb-4">We protect your personal information and only use data required to fulfill your experience.</p><button class="bg-theme-blue text-white px-4 py-2 rounded-lg modal-close">Close</button></div></div>
+    <div id="terms-modal" class="modal hidden"><div class="modal-backdrop"></div><div class="modal-content"><h2 class="text-xl font-bold mb-4">Terms of Service</h2><p class="text-gray-600 text-sm mb-4">By using our site, you agree to our island-inspired trade policies and sustainable use guidelines.</p><button class="bg-theme-blue text-white px-4 py-2 rounded-lg modal-close">Close</button></div></div>
+
+    <!-- Scripts -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+            mobileMenu.onclick = () => mobileMenu.classList.add('hidden');
+
+            // --- Canvas Particles ---
+            const canvas = document.getElementById('particle-canvas');
+            const ctx = canvas.getContext('2d');
+            let ps = [];
+            function init() {
+                ps = [];
+                for(let i=0; i<40; i++) ps.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, s:Math.random()*2+1, v:Math.random()*0.3});
+            }
+            function draw() {
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.2)';
+                ps.forEach(p => {
+                    ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+                    p.y -= p.v; if(p.y < 0) p.y = canvas.height;
+                });
+                requestAnimationFrame(draw);
+            }
+            window.onresize = () => { canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); };
+            window.onresize(); draw();
+
+            // --- Scrollytelling Crystal Fade ---
+            const crystal = document.getElementById('svg-crystal');
+            window.onscroll = () => {
+                let op = 1 - (window.scrollY / 400);
+                crystal.style.opacity = Math.max(0, op);
+            };
+
+            // --- Scroll Observer ---
+            const obs = new IntersectionObserver((es) => {
+                es.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+            }, { threshold: 0.1 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+
+            // --- Modals ---
+            document.getElementById('link-privacy').onclick = (e) => { e.preventDefault(); document.getElementById('privacy-modal').classList.remove('hidden'); };
+            document.getElementById('link-terms').onclick = (e) => { e.preventDefault(); document.getElementById('terms-modal').classList.remove('hidden'); };
+            document.querySelectorAll('.modal-close, .modal-backdrop').forEach(b => b.onclick = () => document.querySelectorAll('.modal').forEach(m => m.classList.add('hidden')));
+
+            // --- Preloader ---
+            window.onload = () => {
+                setTimeout(() => {
+                    document.getElementById('preloader').classList.add('preloader-hidden');
+                    document.body.classList.add('start-hero-anim');
+                }, 400);
+            };
+        });
+    </script>
+</body>
+</html>
+
