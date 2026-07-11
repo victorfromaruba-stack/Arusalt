@@ -1,469 +1,649 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AruSalt - Finishing Sea Salt from Aruba</title>
-    <style>
-        /* --- Base & Typography --- */
-        :root {
-            --primary-blue: #34B7EB;
-            --white: #FFFFFF;
-            --dark-text: #012A4A;
-            --light-grey: #f8f9fa;
-        }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AruSalt - The Essence of Aruba</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles --><style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfdfd; /* Welcoming soft white */
+            color: #1a1a1a; /* Soft black */
+            overflow-x: hidden;
+        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        /* --- Theme Colors --- */
+        .text-theme-blue { color: #0ea5e9; }
+        .bg-theme-blue { background-color: #0ea5e9; }
+        .hover\:bg-theme-blue-dark:hover { background-color: #0284c7; }
 
-        html {
-            scroll-behavior: smooth;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
+        /* --- Light Glassmorphism Header --- */
+        header {
+            background-color: rgba(253, 253, 253, 0.5); /* Light glass */
+        }
+        @supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+            header {
+                background-color: rgba(253, 253, 253, 0.3);
+                -webkit-backdrop-filter: blur(10px);
+                backdrop-filter: blur(10px);
+            }
+        }
+        
+        /* --- Mobile Menu --- */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            background-color: #fdfdfd; /* Solid white for menu */
+        }
+        #mobile-menu.hidden {
+            transform: translateX(100%);
+        }
 
-        body {
-            font-size: 16px;
-            color: var(--dark-text);
-            line-height: 1.6;
-        }
+        /* --- Particle Cursor --- */
+        .particle {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 8px;
+            height: 8px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        @media (max-width: 768px) {
+            .particle { display: none; }
+        }
+        
+        /* --- Animated SVG Crystal --- */
+        #svg-crystal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px; /* Adjust size as needed */
+            height: 200px;
+            stroke: #0ea5e9; /* Your theme blue */
+            stroke-width: 6; /* Slightly thinner for more detail */
+            fill: none;
+            transition: opacity 0.8s ease-out;
+        }
+        
+        #svg-crystal path {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: draw 2s ease-out forwards; /* Made animation a bit faster */
+        }
 
-        h1, h2, h3 {
-            font-weight: 600;
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        /* Stagger the animation of each line (now 12 paths) */
+        #svg-crystal path:nth-child(1) { animation-delay: 0.1s; }
+        #svg-crystal path:nth-child(2) { animation-delay: 0.2s; }
+        #svg-crystal path:nth-child(3) { animation-delay: 0.3s; }
+        #svg-crystal path:nth-child(4) { animation-delay: 0.4s; }
+        #svg-crystal path:nth-child(5) { animation-delay: 0.5s; }
+        #svg-crystal path:nth-child(6) { animation-delay: 0.6s; }
+        #svg-crystal path:nth-child(7) { animation-delay: 0.7s; }
+        #svg-crystal path:nth-child(8) { animation-delay: 0.8s; }
+        #svg-crystal path:nth-child(9) { animation-delay: 0.9s; }
+        #svg-crystal path:nth-child(10) { animation-delay: 1.0s; }
+        #svg-crystal path:nth-child(11) { animation-delay: 1.1s; }
+        #svg-crystal path:nth-child(12) { animation-delay: 1.2s; }
 
-        h1 { font-size: 3rem; }
-        h2 { font-size: 2.25rem; color: var(--primary-blue); }
-        h3 { font-size: 1.5rem; }
+        /* --- Hero Text Animation --- */
+        #hero-text {
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards; /* Fades in after SVG draws */
+        }
+        
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
 
-        p {
-            margin-bottom: 1rem;
-        }
 
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+        /* --- Scrollytelling Structure --- */
+        #sticky-wrapper {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            z-index: 1; /* Behind scrolly-text */
+        }
+        
+        #scrolly-text {
+            position: relative;
+            z-index: 10; /* In front of sticky-wrapper */
+        }
 
-        section {
-            padding: 6rem 0;
-        }
+        .scroll-scene {
+            height: 100vh;
+            width: 100%;
+            padding: 0 1.5rem; /* 24px */
+        }
 
-        /* --- Header & Navigation --- */
-        .header {
-            background: var(--white);
-            border-bottom: 1px solid #eee;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            transition: all 0.3s ease-in-out;
-        }
+        /* --- Content sections *after* scrolly --- */
+        .content-section {
+            position: relative;
+            z-index: 11; /* In front of everything */
+            background-color: #fdfdfd; /* Opaque to cover canvas */
+        }
+        .content-section-alt {
+            position: relative;
+            z-index: 11;
+            background-color: #f5f5f5; /* Light gray for variation */
+        }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-            transition: all 0.3s ease-in-out;
-        }
+        /* --- Scroll Animation Classes --- */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease-out, transform 0.8s ease-out;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .animate-on-scroll.delay-1 { transition-delay: 100ms; }
+        .animate-on-scroll.delay-2 { transition-delay: 200ms; }
+        .animate-on-scroll.delay-3 { transition-delay: 300ms; }
+        .animate-on-scroll.delay-4 { transition-delay: 400ms; }
+        .animate-on-scroll.delay-5 { transition-delay: 500ms; }
+        
+        /* --- Magnetic Link --- */
+        #magnetic-link {
+            display: inline-block;
+            transition: transform 0.1s linear;
+        }
+        #magnetic-link:hover {
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        /* --- Product Card Hover Effect --- */
+        .product-card {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .product-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
 
-        .header.scrolled .navbar {
-            height: 60px;
-        }
-
-        .logo img {
-            height: 60px;
-            /* Using the blue from your logo's background as a fallback */
-            background: var(--primary-blue);
-            padding: 5px;
-            border-radius: 5px;
-            transition: all 0.3s ease-in-out;
-        }
-        
-        .header.scrolled .logo img {
-             height: 45px;
-        }
-
-        .nav-menu ul {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-menu li {
-            margin-left: 30px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--dark-text);
-            font-weight: 600;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            position: relative;
-            padding-bottom: 5px;
-        }
-
-        .nav-menu a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-blue);
-            transition: width 0.3s ease;
-        }
-
-        .nav-menu a:hover::after,
-        .nav-menu a.active::after {
-            width: 100%;
-        }
-        
-        /* Mobile Menu Hamburger */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            font-size: 1.5rem;
-        }
-
-        /* --- Hero Section (#home) --- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(1, 42, 74, 0.5), rgba(1, 42, 74, 0.5)), 
-                        url('https://loremflickr.com/1600/1200/aruba,beach?lock=1') no-repeat center center/cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: var(--white);
-            padding: 0 2rem;
-        }
-
-        .hero-content h1 {
-            font-size: 4.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
-
-        .hero-content p {
-            font-size: 1.5rem;
-            font-weight: 300;
-            letter-spacing: 1px;
-        }
-
-        /* --- Content Sections (Our Salt, About) --- */
-        #salt, #about {
-            background-color: var(--white);
-        }
-        
-        #about {
-            background-color: var(--light-grey);
-        }
-
-        .content-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .content-layout img {
-            width: 100%;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        /* --- Contact Section --- */
-        .contact-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-        }
-
-        .contact-form .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-form label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-
-        .contact-form input,
-        .contact-form textarea {
-            width: 100%;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-
-        .contact-form textarea {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .btn {
-            background: var(--primary-blue);
-            color: var(--white);
-            padding: 12px 25px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        .btn:hover {
-            background: #2a9ecf;
-        }
-
-        .contact-info p {
-            font-size: 1.1rem;
-        }
-
-        /* --- Footer --- */
-        .footer {
-            background: var(--dark-text);
-            color: var(--white);
-            text-align: center;
-            padding: 2rem 0;
-        }
-        
-        .footer p {
-            margin: 0;
-            opacity: 0.8;
-        }
-        
-        /* --- Responsive Design --- */
-        @media (max-width: 992px) {
-            .hero-content h1 {
-                font-size: 3.5rem;
-            }
-            .hero-content p {
-                font-size: 1.25rem;
-            }
-            
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-        }
-
-        @media (max-width: 768px) {
-            .navbar {
-                padding: 0 2rem;
-            }
-        
-            .nav-menu {
-                position: fixed;
-                top: 80px; /* Adjust to header height */
-                left: -100%;
-                width: 100%;
-                height: calc(100vh - 80px);
-                background: var(--white);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                transition: left 0.3s ease-in-out;
-            }
-            
-            .nav-menu.active {
-                left: 0;
-            }
-
-            .nav-menu ul {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .nav-menu li {
-                margin: 1.5rem 0;
-            }
-            
-            .nav-menu a {
-                font-size: 1.2rem;
-            }
-
-            .hamburger {
-                display: block;
-            }
-            
-            .content-layout,
-            .contact-layout {
-                grid-template-columns: 1fr;
-            }
-            
-            /* Reverse order for 'About' section image on mobile */
-            #about .content-layout img {
-                grid-row: 1;
-            }
-            
-            .hero {
-                height: 80vh;
-            }
-            
-            .hero-content h1 {
-                font-size: 2.8rem;
-            }
-            .hero-content p {
-                font-size: 1.1rem;
-            }
-        }
-    </style>
+        /* --- Visual Feature Card --- */
+        .feature-card {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            min-height: 400px;
+        }
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.1));
+            z-index: 1;
+        }
+        .feature-card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+    </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <header class="header" id="header">
-        <nav class="navbar container">
-            <a href="#home" class="logo">
-                <img src="image.png" alt="AruSalt Logo">
-            </a>
-            <div class="hamburger" id="hamburger">
-                &#9776; </div>
-            <div class="nav-menu" id="nav-menu">
-                <ul>
-                    <li><a href="#home" class="nav-link">Home</a></li>
-                    <li><a href="#salt" class="nav-link">Our Salt</a></li>
-                    <li><a href="#about" class="nav-link">About Us</a></li>
-                    <li><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+    <!-- Particle Cursor Container --><div id="particle-container"></div>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="hero-content">
-                <h1>AruSalt</h1>
-                <p>Finishing Sea Salt from Aruba</p>
-            </div>
-        </section>
+    <!-- Header --><header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo --><a href="#home" class="flex-shrink-0 flex items-center z-10">
+                    <!-- This is a placeholder for the preview. -->
+                    <!-- When you go live, change this src to your actual logo file name, e.g., "image.png-9b2c..." -->
+                    <img class="h-16 w-auto" 
+                         src="https://placehold.co/200x100/fdfdfd/0ea5e9?text=AruSalt&font=inter" 
+                         alt="AruSalt Logo"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML = '<span class=\'font-bold text-2xl text-theme-blue\'>AruSalt</span>';">
+                </a>
+                
+                <!-- Desktop Navigation --><div class="hidden md:flex space-x-10">
+                    <a href="#products" class="font-medium text-gray-700 hover:text-theme-blue transition-colors">Our Products</a>
+                    <a href="#stockists" class="font-medium text-gray-700 hover:text-theme-blue transition-colors">Stockists</a>
+                    <a href="#features" class="font-medium text-gray-700 hover:text-theme-blue transition-colors">Our Salt</a>
+                    <a href="#story" class="font-medium text-gray-700 hover:text-theme-blue transition-colors">Our Story</a>
+                    <a href="#contact" class="font-medium text-gray-700 hover:text-theme-blue transition-colors">Contact</a>
+                </div>
+                
+                <!-- Mobile Menu Button --><div class="md:hidden flex items-center z-10">
+                    <button id="menu-btn" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-gray-900 focus:outline-none">
+                        <span class="sr-only">Open main menu</span>
+                        <svg id="menu-icon-open" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                        <svg id="menu-icon-close" class="h-6 w-6 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    
+    <!-- Mobile Menu --><div id="mobile-menu" class="hidden fixed top-0 left-0 w-full h-full z-40 md:hidden">
+        <div class="flex flex-col items-center justify-center h-full pt-20">
+            <a href="#products" class="menu-link block px-3 py-4 text-3xl font-medium text-gray-700 hover:text-theme-blue">Our Products</a>
+            <a href="#stockists" class="menu-link block px-3 py-4 text-3xl font-medium text-gray-700 hover:text-theme-blue">Stockists</a>
+            <a href="#features" class="menu-link block px-3 py-4 text-3xl font-medium text-gray-700 hover:text-theme-blue">Our Salt</a>
+            <a href="#story" class="menu-link block px-3 py-4 text-3xl font-medium text-gray-700 hover:text-theme-blue">Our Story</a>
+            <a href="#contact" class="menu-link block px-3 py-4 text-3xl font-medium text-gray-700 hover:text-theme-blue">Contact</a>
+        </div>
+    </div>
 
-        <section id="salt">
-            <div class="container">
-                <div class="content-layout">
-                    <div class="content-text">
-                        <h2>The Soul of the Caribbean</h2>
-                        <h3>AruSalt Finishing Salt</h3>
-                        <p>Our salt is not just an ingredient; it's an experience. Harvested by hand from the crystal-clear waters of Aruba, AruSalt is a pure, artisanal finishing salt that brings a clean, bright flavor and a delicate crunch to every dish.</p>
-                        <p>Untouched by artificial processes, our salt flakes are dried by the same sun and wind that make Aruba famous. This natural evaporation preserves vital minerals and trace elements, offering a taste that is as healthy as it is delicious.</p>
-                        <p>Perfect for sprinkling over grilled seafood, fresh salads, or even chocolate desserts. Discover the final touch your meals have been missing.</p>
-                    </div>
-                    <div class="content-image">
-                        <img src="https://loremflickr.com/800/600/sea,salt,crystals?lock=2" alt="AruSalt crystals">
-                    </div>
-                </div>
-            </div>
-        </section>
+    <main>
 
-        <section id="about">
-            <div class="container">
-                <div class="content-layout">
-                    <div class="content-image">
-                        <img src="https://loremflickr.com/800/600/aruba,coastline?lock=3" alt="Coastline of Aruba">
-                    </div>
-                    <div class="content-text">
-                        <h2>From Our Island, To Your Table</h2>
-                        <p>AruSalt was born from a love for this island and a passion for pure, authentic flavor. We are a local Aruban family dedicated to sustainable practices and traditional methods.</p>
-                        <p>Our mission is simple: to capture the pristine essence of the Aruban sea and deliver it to food lovers around the world. We work in harmony with nature, ensuring that every crystal of AruSalt is a true gift from the ocean.</p>
-                        <p>We believe in quality, community, and the power of food to bring people together. Thank you for letting us be a part of your culinary journey.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <!-- === SCROLLYTELLING CONTAINER === -->
+        <div class="relative">
+            <!-- Sticky SVG Wrapper --><div id="sticky-wrapper">
+                <!-- NEW: This SVG is a 1-to-1 match of your logo's crystal -->
+                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Outer Diamond -->
+                    <path d="M 50 10 L 90 50"></path>
+                    <path d="M 90 50 L 50 90"></path>
+                    <path d="M 50 90 L 10 50"></path>
+                    <path d="M 10 50 L 50 10"></path>
+                    <!-- Inner Diamond -->
+                    <path d="M 50 30 L 70 50"></path>
+                    <path d="M 70 50 L 50 70"></path>
+                    <path d="M 50 70 L 30 50"></path>
+                    <path d="M 30 50 L 50 30"></path>
+                    <!-- Connectors -->
+                    <path d="M 50 10 L 50 30"></path>
+                    <path d="M 90 50 L 70 50"></path>
+                    <path d="M 50 90 L 50 70"></path>
+                    <path d="M 10 50 L 30 50"></path>
+                </svg>
+            </div>
 
-        <section id="contact">
-            <div class="container">
-                <h2>Get In Touch</h2>
-                <div class="contact-layout">
-                    <div class="contact-info">
-                        <h3>Contact Us</h3>
-                        <p>We'd love to hear from you. For inquiries, press, or just to say hello, please use the form or contact us directly.</p>
-                        <br>
-                        <p><strong>Email:</strong><br> info@arusalt.com (replace with your email)</p>
-                        <br>
-                        <p><strong>Phone:</strong><br> +297 123 4567 (replace with your phone)</p>
-                        <br>
-                        <p><strong>Where to Find Us:</strong><br>AruSalt is available at fine grocers and specialty gift shops across Aruba. Contact us for a full list of partners.</p>
-                    </div>
-                    <form class="contact-form" id="main-contact-form">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="message">Message</label>
-                            <textarea id="message" name="message" required></textarea>
-                        </div>
-                        <button type="submit" class="btn">Send Message</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
+            <!-- Scrolling Text Wrapper --><div id="scrolly-text">
+                
+                <!-- Scene 1: Hero --><section id="home" class="scroll-scene flex items-center justify-center">
+                    <div id="hero-text" class="text-center">
+                        <h1 class="text-5xl md:text-8xl font-extrabold tracking-tighter">
+                            AruSalt
+                        </h1>
+                        <p class="mt-2 text-xl md:text-2xl font-medium text-gray-600">
+                            The Essence of Aruba.
+                        </p>
+                    </div>
+                </section>
+                
+                <!-- Scene 2: Text --><section class="scroll-scene flex items-center justify-center">
+                    <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tight">
+                            It begins with the <span class="text-theme-blue">purest</span> Aruban water.
+                        </h2>
+                    </div>
+                </section>
+                
+                <!-- Scene 3: Text --><section class="scroll-scene flex items-center justify-center">
+                    <div class="max-w-2xl mx-auto text-center animate-on-scroll">
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tight">
+                            Crafted by the relentless sun & Caribbean <span class="text-theme-blue">trade winds</span>.
+                        </h2>
+                    </div>
+                </section>
+                
+                <!-- Scene 4: Text --><section class="scroll-scene flex items-center justify-center">
+                    <div class="max-w-xl mx-auto text-center animate-on-scroll">
+                        <h2 class="text-4xl md:text-6xl font-bold tracking-tight">
+                            Pure. Natural. Unforgettable.
+                        </h2>
+                    </div>
+                </section>
+                
+                <!-- Scene 5: Spacer --><section class="scroll-scene"></section>
+            </div>
+        </div>
+        <!-- === END SCROLLYTELLING === -->
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; <span id="year"></span> AruSalt. All Rights Reserved. Crafted in Aruba.</p>
-        </div>
-    </footer>
 
-    <script>
-        // --- Sticky Header & Scrolled State ---
-        const header = document.getElementById('header');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
+        <!-- Section: Products --><section id="products" class="content-section py-28 px-6 flex flex-col items-center justify-center text-center">
+            <div class="container mx-auto max-w-5xl">
+                <h2 class="animate-on-scroll text-5xl md:text-6xl font-bold tracking-tight">
+                    Taste the Island.
+                </h2>
+                <p class="animate-on-scroll delay-1 mt-6 text-xl text-gray-600 max-w-3xl mx-auto">
+                    Explore our exquisite range of finishing salts, each carefully crafted to bring a unique flavor of Aruba to your home.
+                </p>
+            </div>
+            
+            <!-- Product Grid -->
+            <div class="container mx-auto mt-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 lg:gap-12">
+                
+                <!-- Product 1: Lime --><div class="product-card animate-on-scroll delay-1 flex flex-col items-center text-center p-4 rounded-2xl">
+                    <img src="https://storage.googleapis.com/gemini-api-prod.appspot.com/image_generation_content/0" 
+                         alt="AruSalt Lime Finishing Sea Salt" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square">
+                    <h3 class="mt-6 text-2xl font-semibold">Lime Sea Salt</h3>
+                    <p class="mt-2 text-gray-600">
+                        Bright and zesty, perfect for seafood, cocktails, and fresh salads.
+                    </p>
+                </div>
 
-        // --- Mobile Menu ---
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        const navLinks = document.querySelectorAll('.nav-link');
+                <!-- Product 2: Lemon --><div class="product-card animate-on-scroll delay-2 flex flex-col items-center text-center p-4 rounded-2xl">
+                    <img src="https://placehold.co/600x600/facc15/1a1a1a?text=Lemon+Salt" 
+                         alt="AruSalt Lemon Finishing Sea Salt" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square">
+                    <h3 class="mt-6 text-2xl font-semibold">Lemon Sea Salt</h3>
+                    <p class="mt-2 text-gray-600">
+                        Tangy and aromatic, a delightful finish for roasted vegetables and poultry.
+                    </p>
+                </div>
 
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('active');
-        });
+                <!-- Product 3: Wine --><div class="product-card animate-on-scroll delay-3 flex flex-col items-center text-center p-4 rounded-2xl">
+                    <img src="https://placehold.co/600x600/9f1239/fdfdfd?text=Wine+Salt" 
+                         alt="AruSalt Wine Finishing Sea Salt" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square">
+                    <h3 class="mt-6 text-2xl font-semibold">Wine Sea Salt</h3>
+                    <p class="mt-2 text-gray-600">
+                        Infused with rich red wine, ideal for grilled meats, chocolate, and cheeses.
+                    </p>
+                </div>
 
-        // Close menu when a link is clicked
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                navMenu.classList.remove('active');
-            });
-        });
+                <!-- Product 4: Pure --><div class="product-card animate-on-scroll delay-4 flex flex-col items-center text-center p-4 rounded-2xl">
+                    <img src="https://placehold.co/600x600/f5f5f5/1a1a1a?text=Pure+Salt" 
+                         alt="AruSalt Pure Finishing Sea Salt" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square">
+                    <h3 class="mt-6 text-2xl font-semibold">Pure Sea Salt</h3>
+                    <p class="mt-2 text-gray-600">
+                        Our classic, unadulterated flake salt, the perfect all-rounder for any dish.
+                    </p>
+                </div>
+                
+                <!-- Product 5: Bath Salt --><div class="product-card animate-on-scroll delay-5 flex flex-col items-center text-center p-4 rounded-2xl">
+                    <img src="https://storage.googleapis.com/gemini-api-prod.appspot.com/image_generation_content/1" 
+                         alt="AruSalt Relaxing Bath Salt" class="rounded-xl shadow-lg w-full h-auto object-cover aspect-square">
+                    <h3 class="mt-6 text-2xl font-semibold">Relaxing Bath Salt</h3>
+                    <p class="mt-2 text-gray-600">
+                        Unwind with our mineral-rich bath soak for a true island escape.
+                    </p>
+                </div>
 
-        // --- Contact Form (Simple Validation) ---
-        const form = document.getElementById('main-contact-form');
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            // This is where you would normally send data to a server
-            // For this demo, we'll just show an alert.
-            alert('Thank you for your message! We will be in touch soon.');
-            form.reset();
-        });
-        
-        // --- Dynamic Year for Footer ---
-        document.getElementById('year').textContent = new Date().getFullYear();
+            </div>
+        </section>
 
-    </script>
+        <!-- NEW Section: Stockists --><section id="stockists" class="content-section-alt py-28 px-6 flex flex-col items-center justify-center text-center">
+            <div class="container mx-auto max-w-3xl">
+                <h2 class="animate-on-scroll text-5xl md:text-6xl font-bold tracking-tight">
+                    Where to Find Us
+                </h2>
+                <p class="animate-on-scroll delay-1 mt-6 text-xl text-gray-600">
+                    AruSalt is available at fine grocers, boutique hotels, and specialty shops across Aruba. Look for our signature crystal on the shelf.
+                </p>
+                <div class="animate-on-scroll delay-2 mt-8 max-w-lg mx-auto">
+                    <h3 class="text-2xl font-semibold text-gray-800">Available At:</h3>
+                    <p class="mt-4 text-lg text-gray-600">
+                        Super Food Plaza • Ling & Sons • Certified Market • Select Hotel Gift Shops
+                    </p>
+                </div>
+            </div>
+        </section>
 
+
+        <!-- REBUILT Section: Features --><section id="features" class="content-section py-28 px-6">
+            <div class="container mx-auto max-w-5xl text-center mb-20">
+                <h2 class="animate-on-scroll text-5xl md:text-6xl font-bold tracking-tight">
+                    The AruSalt Difference
+                </h2>
+            </div>
+            <div class="container mx-auto max-w-6xl grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Feature 1 --><div class="animate-on-scroll delay-1 feature-card rounded-2xl shadow-xl overflow-hidden flex flex-col justify-end p-8" style="background-image: url('https://placehold.co/600x800/e0e0e0/333?text=Macro+Salt+Flakes')">
+                    <div class="feature-card-content text-white">
+                        <h3 class="text-3xl font-bold">Delicate Flake Texture</h3>
+                        <p class="mt-2 text-lg">
+                            A light, crunchy flake that dissolves for a clean burst of flavor.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Feature 2 --><div class="animate-on-scroll delay-2 feature-card rounded-2xl shadow-xl overflow-hidden flex flex-col justify-end p-8" style="background-image: url('https://placehold.co/600x800/f59e0b/333?text=Salt+Pans+at+Sunset')">
+                    <div class="feature-card-content text-white">
+                        <h3 class="text-3xl font-bold">Solar Evaporated</h3>
+                        <p class="mt-2 text-lg">
+                            Harnessed from the Aruban sun and pure Caribbean trade winds.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Feature 3 --><div class="animate-on-scroll delay-3 feature-card rounded-2xl shadow-xl overflow-hidden flex flex-col justify-end p-8" style="background-image: url('https://placehold.co/600x800/0ea5e9/fff?text=Clear+Aruban+Water')">
+                    <div class="feature-card-content text-white">
+                        <h3 class="text-3xl font-bold">Rich in Minerals</h3>
+                        <p class="mt-2 text-lg">
+                            Unrefined and additive-free, retaining beneficial trace minerals.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Section: Story --><section id="story" class="content-section-alt py-28 px-6">
+            <div class="container mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                
+                <!-- Story Image --><div class="animate-on-scroll delay-1">
+                    <!-- This is a placeholder for one of your beach photos -->
+                    <img src="https://placehold.co/800x600/6b7280/fdfdfd?text=Our+Story+Image" 
+                         alt="AruSalt products on an Aruban beach" 
+                         class="rounded-2xl shadow-2xl w-full h-auto object-cover aspect-[4/3]">
+                </div>
+                
+                <!-- Story Text --><div class="max-w-md mx-auto text-center md:text-left">
+                    <h2 class="animate-on-scroll text-4xl md:text-5xl font-bold tracking-tight">
+                        From Our Island to Your Table.
+                    </h2>
+                    <p class="animate-on-scroll delay-1 mt-6 text-lg text-gray-700">
+                        AruSalt isn't just an ingredient; it's a piece of Aruba. We're a small, family-run company dedicated to sharing the warmth and flavor of our "One Happy Island" with you.
+                    </p>
+                    <p class="animate-on-scroll delay-2 mt-4 text-gray-600">
+                        We believe in sustainable, traditional methods. Each crystal is hand-harvested with care, ensuring a product that's as good for the earth as it is for your palate.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Contact --><section id="contact" class="content-section py-28 px-6 flex flex-col items-center justify-center text-center">
+            <div class="container mx-auto max-w-2xl">
+                <h2 class="animate-on-scroll text-5xl md:text-6xl font-bold tracking-tight">
+                    We'd Love to Hear From You.
+                </h2>
+                <p class="animate-on-scroll delay-1 mt-6 text-xl text-gray-600">
+                    For wholesale, press, or to simply share your culinary creations, please get in touch.
+                </p>
+                <div class="animate-on-scroll delay-2 mt-16">
+                    <a href="mailto:info@arusalt.com" id="magnetic-link" class="text-3xl md:text-4xl font-semibold text-theme-blue hover:text-gray-900 transition-all duration-300">
+                        info@arusalt.com
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- UPGRADED Footer --><footer class="content-section-alt text-gray-500 border-t border-gray-200">
+        <div class="container mx-auto px-6 lg:px-8 py-16">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Column 1: Brand -->
+                <div>
+                    <a href="#home" class="font-bold text-2xl text-gray-800">AruSalt</a>
+                    <p class="mt-2 text-gray-600">Hand-harvested in Aruba.</p>
+                </div>
+                <!-- Column 2: Links -->
+                <div>
+                    <h4 class="font-semibold text-gray-800">Explore</h4>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#products" class="hover:text-theme-blue">Our Products</a></li>
+                        <li><a href="#stockists" class="hover:text-theme-blue">Stockists</a></li>
+                        <li><a href="#story" class="hover:text-theme-blue">Our Story</a></li>
+                    </ul>
+                </div>
+                <!-- Column 3: Social -->
+                <div>
+                    <h4 class="font-semibold text-gray-800">Follow Us</h4>
+                    <p class="mt-2 text-gray-600">See our salt in action.</p>
+                    <div class="flex space-x-4 mt-4">
+                        <a href="#" class="text-gray-500 hover:text-theme-blue" aria-label="Instagram">
+                            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 16c-3.314 0-6-2.686-6-6s2.686-6 6-6 6 2.686 6 6-2.686 6-6 6zm0-10a4 4 0 100 8 4 4 0 000-8zm6.5-4.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" clip-rule="evenodd" /></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 border-t border-gray-200 pt-8 text-center">
+                <p class="text-sm">
+                    &copy; 2026 AruSalt. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript --><script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- 1. Mobile Menu Toggle ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIconOpen = document.getElementById('menu-icon-open');
+            const menuIconClose = document.getElementById('menu-icon-close');
+            const menuLinks = mobileMenu.querySelectorAll('.menu-link');
+
+            const toggleMenu = () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIconOpen.classList.toggle('hidden');
+                menuIconClose.classList.toggle('hidden');
+                document.body.style.overflow = mobileMenu.classList.contains('hidden') ? '' : 'hidden';
+            };
+            menuBtn.addEventListener('click', toggleMenu);
+            menuLinks.forEach(link => link.addEventListener('click', toggleMenu));
+            
+            // --- 2. Smooth Scroll for All Nav Links ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // --- 3. Particle Cursor ---
+            const particleContainer = document.getElementById('particle-container');
+            let particles = [];
+            const createParticle = (x, y) => {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${x}px`;
+                particle.style.top = `${y}px`;
+                particleContainer.appendChild(particle);
+                particles.push(particle);
+                
+                setTimeout(() => {
+                    particle.style.opacity = '0';
+                    particle.style.transform = `translate(-50%, -50%) scale(0.5)`;
+                }, 10);
+
+                setTimeout(() => {
+                    particle.remove();
+                    particles.shift();
+                }, 800);
+            };
+
+            let mouseMoveTimer;
+            window.addEventListener('mousemove', (e) => {
+                clearTimeout(mouseMoveTimer);
+                mouseMoveTimer = setTimeout(() => {
+                    createParticle(e.clientX, e.clientY);
+                }, 50);
+            });
+
+            // --- 4. Magnetic Link ---
+            const magneticLink = document.getElementById('magnetic-link');
+            const magnetStrength = 0.4;
+            const magnetRadius = 100;
+
+            const moveMagnet = (e) => {
+                if (!magneticLink) return;
+                const rect = magneticLink.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                
+                const dx = e.clientX - centerX;
+                const dy = e.clientY - centerY;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < magnetRadius) {
+                    magneticLink.style.transform = `translate(${dx * magnetStrength}px, ${dy * magnetStrength}px)`;
+                } else {
+                    magneticLink.style.transform = 'translate(0, 0)';
+                }
+            };
+            
+            window.addEventListener('mousemove', moveMagnet);
+            if (magneticLink) {
+                magneticLink.addEventListener('mouseleave', () => {
+                    magneticLink.style.transform = 'translate(0, 0)';
+                });
+            }
+
+
+            // --- 5. Scroll Animations (IntersectionObserver) ---
+            const animatedElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // Trigger a bit earlier
+            });
+            animatedElements.forEach(el => observer.observe(el));
+
+
+            // --- 6. Scrollytelling SVG Fade-Out ---
+            const svgCrystal = document.getElementById('svg-crystal');
+            const fadeStartScroll = window.innerHeight * 2; // Start fading a bit earlier
+            const fadeEndScroll = window.innerHeight * 3.5;   // Fully faded 
+                
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                
+                if (scrollY > fadeStartScroll && svgCrystal) {
+                    const progress = (scrollY - fadeStartScroll) / (fadeEndScroll - fadeStartScroll);
+                    const opacity = Math.max(0, 1 - progress);
+                    svgCrystal.style.opacity = opacity;
+                } else if (svgCrystal) {
+                    svgCrystal.style.opacity = 1;
+                }
+            });
+
+        });
+    </script>
 </body>
 </html>
