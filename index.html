@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -24,24 +23,31 @@
         h1, h2, h3 { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: -0.02em; }
         p { font-size: 1.125rem; line-height: 1.7; color: #4a4a4a; }
 
-        /* Preloader - Restored exactly to the requested style */
+        /* Preloader - Restored exactly to screenshot IMG_2280 */
         #preloader { position: fixed; inset: 0; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         
         /* Glowing Crystal Animation */
         .crystal-loader { width: 120px; height: 120px; position: relative; animation: float 4s ease-in-out infinite; }
-        .crystal-loader svg { width: 100%; height: 100%; filter: drop-shadow(0 0 20px rgba(0, 174, 239, 0.4)); }
-        .crystal-loader path { stroke-dasharray: 400; stroke-dashoffset: 400; animation: draw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards, glow 2s ease-in-out infinite alternate; }
+        .crystal-loader svg { width: 100%; height: 100%; filter: drop-shadow(0 0 15px rgba(0, 174, 239, 0.5)); }
+        .crystal-loader path, .crystal-loader polygon, .crystal-loader line { 
+            stroke-dasharray: 400; 
+            stroke-dashoffset: 400; 
+            animation: draw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards, glow 2s ease-in-out infinite alternate; 
+        }
         
         @keyframes draw { to { stroke-dashoffset: 0; } }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes glow { from { filter: drop-shadow(0 0 10px rgba(0, 174, 239, 0.2)); } to { filter: drop-shadow(0 0 30px rgba(0, 174, 239, 0.6)); } }
+        @keyframes glow { 
+            from { filter: drop-shadow(0 0 8px rgba(0, 174, 239, 0.3)); } 
+            to { filter: drop-shadow(0 0 25px rgba(0, 174, 239, 0.8)); } 
+        }
 
         /* Parallax Background */
         .parallax-bg { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
 
         /* Particles */
-        .particle { position: absolute; background: rgba(0, 174, 239, 0.6); border-radius: 50%; pointer-events: none; animation: rise linear infinite; }
+        .particle { position: absolute; background: rgba(0, 174, 239, 0.5); border-radius: 50%; pointer-events: none; animation: rise linear infinite; }
         @keyframes rise { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
     </style>
 </head>
@@ -49,18 +55,25 @@
 
     <!-- PRELOADER -->
     <div id="preloader">
-        <div id="particles-container" class="absolute inset-0 overflow-hidden z-0"></div>
+        <div id="particles-container" class="absolute inset-0 overflow-hidden z-0 pointer-events-none"></div>
         <div class="crystal-loader relative z-10">
-            <svg viewBox="0 0 100 100" fill="none" stroke="#00aeef" stroke-width="4" stroke-linejoin="round">
-                <path d="M50 10 L90 50 L50 90 L10 50 Z" />
-                <path d="M30 30 L70 30 L70 70 L30 70 Z" />
-                <path d="M50 10 L50 30 M90 50 L70 50 M50 90 L50 70 M10 50 L30 50" />
+            <!-- Exact Geometry from Screenshot -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#00aeef" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+                <!-- Outer Diamond -->
+                <polygon points="50,5 95,50 50,95 5,50" />
+                <!-- Inner Square -->
+                <polygon points="35,35 65,35 65,65 35,65" />
+                <!-- Connecting Lines -->
+                <line x1="50" y1="5" x2="50" y2="35" />
+                <line x1="95" y1="50" x2="65" y2="50" />
+                <line x1="50" y1="95" x2="50" y2="65" />
+                <line x1="5" y1="50" x2="35" y2="50" />
             </svg>
         </div>
     </div>
 
     <!-- HEADER (z-index 10000 so it sits above the preloader exactly like your photo) -->
-    <header class="fixed top-0 w-full bg-white/90 backdrop-blur-xl z-[10000] border-b border-gray-100 transition-all duration-300">
+    <header class="fixed top-0 w-full bg-white z-[10000] border-b border-gray-100 transition-all duration-300">
         <nav class="container mx-auto px-6 lg:px-12 h-24 flex justify-between items-center">
             <a href="#home" class="flex items-center hover:scale-105 transition-transform duration-300">
                 <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" class="h-16" alt="AruSalt Logo">
@@ -73,7 +86,7 @@
                 <a href="#contact" class="hover:text-[#00aeef] transition-colors">Contact</a>
             </div>
             <!-- Mobile Menu Button -->
-            <button class="md:hidden p-2 text-gray-600 focus:outline-none hover:text-[#00aeef] transition-colors" id="mobile-menu-btn">
+            <button class="md:hidden p-2 text-gray-900 focus:outline-none hover:text-[#00aeef] transition-colors" id="mobile-menu-btn">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </nav>
@@ -90,18 +103,18 @@
     </header>
 
     <main>
-        <!-- HERO -->
+        <!-- HERO - Restored exactly to screenshot IMG_2281 -->
         <section id="home" class="relative h-screen flex items-center justify-center pt-24 overflow-hidden">
             <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-black/30 z-10"></div>
+                <div class="absolute inset-0 bg-black/50 z-10"></div>
                 <img src="IMG_2243.webp" class="w-full h-full object-cover" alt="Aruba Ocean">
             </div>
             
             <div class="relative z-20 text-center px-6 max-w-4xl mx-auto text-white hero-text-container opacity-0 translate-y-10 transition-all duration-1000 ease-out">
-                <h2 class="text-sm md:text-base font-bold tracking-[0.2em] uppercase mb-6 text-white/90 drop-shadow-md">100% natural 100% Aruba.</h2>
-                <h1 class="text-5xl md:text-7xl font-bold leading-tight mb-8 drop-shadow-lg">Bring a touch of the island to your home.</h1>
-                <p class="text-xl md:text-2xl text-white/95 mb-6 font-light leading-relaxed drop-shadow-md">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
-                <p class="text-lg italic text-white/90 drop-shadow-md">Soft and crunchy with a delicate pop.</p>
+                <h2 class="text-sm md:text-base font-bold tracking-[0.25em] uppercase mb-6 text-white drop-shadow-md">100% NATURAL 100% ARUBA.</h2>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-8 drop-shadow-lg">Bring a touch of<br class="hidden sm:block"> the island to<br class="hidden sm:block"> your home.</h1>
+                <p class="text-lg md:text-2xl text-white/95 mb-8 font-light leading-relaxed drop-shadow-md max-w-3xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
+                <p class="text-lg md:text-xl italic text-white/90 drop-shadow-md">Soft and crunchy with a delicate pop.</p>
             </div>
         </section>
 
@@ -161,7 +174,7 @@
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover-lift group animate-on-scroll">
                     <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[4/5] bg-gray-50">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-4 py-2 rounded-full z-10 shadow-sm text-gray-800 tracking-wide">Sold out</span>
-                        <img src="IMG_2163.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Pure Caribbean Sea Salt White Jar">
+                        <img src="IMG_2244.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Pure Caribbean Sea Salt White Jar">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$29.00</p>
@@ -172,7 +185,7 @@
                 <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-200">
                     <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[4/5] bg-gray-50">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-4 py-2 rounded-full z-10 shadow-sm text-gray-800 tracking-wide">Sold out</span>
-                        <img src="IMG_2162.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Caribbean Bath Salt Layered Jar">
+                        <img src="IMG_2245.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Caribbean Bath Salt Layered Jar">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$49.00</p>
@@ -225,7 +238,7 @@
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-200 relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50">
-                            <!-- Restored perfectly to the 1924 Boat Image -->
+                            <!-- Zoutwinning in Ranchoe 1924 -->
                             <img src="IMG_2279.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Locals near stone structure at Salina Ranchoe">
                         </div>
                     </div>
@@ -311,14 +324,14 @@
         // Particles Generation for Preloader
         const container = document.getElementById('particles-container');
         if(container) {
-            for(let i=0; i<30; i++) {
+            for(let i=0; i<40; i++) {
                 let p = document.createElement('div');
                 p.className = 'particle';
-                let size = Math.random() * 6 + 2;
+                let size = Math.random() * 5 + 2;
                 p.style.width = size + 'px';
                 p.style.height = size + 'px';
                 p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                p.style.animationDuration = (Math.random() * 3 + 2) + 's';
                 p.style.animationDelay = Math.random() * 2 + 's';
                 container.appendChild(p);
             }
@@ -345,7 +358,7 @@
                     const heroText = document.querySelector('.hero-text-container');
                     if(heroText) heroText.classList.remove('opacity-0', 'translate-y-10');
                 }, 300);
-            }, 2500); // Wait time for the crystal animation to show off
+            }, 2000); // 2 second delay to show off the crystal
         });
 
         // Intersection Observer for scroll fades
