@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
@@ -9,7 +10,7 @@
     <!-- Social Sharing (Open Graph) -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
     <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
-    <meta property="og:image" content="IMG_2163.webp">
+    <meta property="og:image" content="IMG_2163_2.webp">
     <meta property="og:url" content="https://arusalt.com">
     <meta property="og:type" content="website">
     
@@ -103,7 +104,7 @@
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
         
         /* Interactive Particles */
-        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none; }
+        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; }
 
         /* Scroll Text Scenes */
         #scrolly-text { position: relative; z-index: 10; }
@@ -127,12 +128,9 @@
 
         /* --- Image Blend Modes for Uploaded Icons --- */
         .blend-icon { mix-blend-mode: multiply; filter: contrast(1.1); }
-        
-        /* --- Parallax Background Class --- */
-        .parallax-bg { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased">
 
     <!-- PRELOADER -->
     <div id="preloader">
@@ -156,7 +154,7 @@
                 <div class="hidden md:flex space-x-10">
                     <a href="#home" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
                     <a href="#history" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                    <a href="#shop" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Shop</a>
+                    <a href="#products" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Shop</a>
                     <a href="#about" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
                     <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                 </div>
@@ -176,7 +174,7 @@
     <div id="mobile-menu" class="hidden fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8">
         <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
         <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
-        <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Shop</a>
+        <a href="#products" class="menu-link text-2xl font-semibold text-gray-900">Shop</a>
         <a href="#about" class="menu-link text-2xl font-semibold text-gray-900">About Us</a>
         <a href="#contact" class="menu-link text-2xl font-semibold text-theme-blue">Contact</a>
     </div>
@@ -203,7 +201,7 @@
                 <!-- Scene 1: Exact PDF Text -->
                 <section class="scroll-scene">
                     <div class="hero-text-block text-center px-4 max-w-4xl">
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">Bring a touch of the island to your home.</h1>
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6">Bring a touch of the island to your home.</h1>
                         <p class="text-xl md:text-2xl font-light leading-relaxed">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
                     </div>
                 </section>
@@ -218,7 +216,7 @@
                 <!-- Scene 3: Exact PDF Text -->
                 <section class="scroll-scene pointer-events-none">
                     <div class="text-center px-4 animate-on-scroll">
-                        <h2 class="text-3xl md:text-6xl font-medium text-white drop-shadow-lg italic">Soft and crunchy with a delicate pop.</h2>
+                        <h2 class="text-3xl md:text-6xl font-medium text-white drop-shadow-lg">Soft and crunchy with a delicate pop.</h2>
                     </div>
                 </section>
                 
@@ -226,112 +224,108 @@
             </div>
         </div>
 
-        <!-- ABOUT US -->
+        <!-- ABOUT US & PURE WATERS -->
         <section id="about" class="content-section px-6">
             <div class="container mx-auto max-w-6xl">
-                <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     <div class="animate-on-scroll">
-                        <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">AruSalt crystallization</h2>
-                        <h3 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
-                        <p class="mb-10 text-gray-600 text-lg leading-relaxed">Our commitment is to share the authentic taste of Aruba through a product that celebrates craftsmanship, nature, and quality. Whether enjoyed at home or in a professional kitchen, AruSalt is the perfect finishing touch to elevate every meal.</p>
-                        
-                        <h4 class="text-3xl font-bold mb-4 text-gray-900">The Pure Waters of Aruba</h4>
-                        <p class="mb-4 text-gray-600 text-lg leading-relaxed">AruSalt begins at the <strong>north coast of Aruba</strong>, where the island meets the open ocean. After extensive testing by a certified laboratory in the Netherlands, this location was identified as <strong>the cleanest water on Aruba</strong> and among <strong>the cleanest seawater sources in the world</strong>.</p>
-                        <p class="text-gray-600 text-lg leading-relaxed">This unique location, combined with Aruba's constant sun and trade winds, creates the perfect natural conditions for producing exceptional sea salt crystals.</p>
+                        <h2 class="text-4xl font-light text-gray-900 mb-6">About Us</h2>
+                        <p class="text-gray-600 leading-relaxed mb-6">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
+                        <p class="text-gray-600 leading-relaxed mb-6">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
+                        <p class="text-gray-600 leading-relaxed">Our commitment is to share the authentic taste of Aruba through a product that celebrates craftsmanship, nature, and quality. Whether enjoyed at home or in a professional kitchen, AruSalt is the perfect finishing touch to elevate every meal.</p>
                     </div>
-                    <div class="relative animate-on-scroll delay-1">
-                        <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <!-- Image 5 from Checklist -->
-                            <img src="IMG_2244.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="AruSalt crystallization">
-                        </div>
+                    <!-- Fixed Image -->
+                    <div class="animate-on-scroll delay-1 rounded-3xl overflow-hidden shadow-2xl">
+                        <img src="IMG_2242.jpeg" alt="AruSalt crystallization" class="w-full h-auto hover:scale-105 transition-transform duration-700">
                     </div>
+                </div>
+
+                <div class="mt-24 text-center max-w-4xl mx-auto animate-on-scroll">
+                    <h2 class="text-3xl md:text-4xl font-light text-gray-900 mb-6">The Pure Waters of Aruba</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6">AruSalt begins at the <strong>north coast of Aruba</strong>, where the island meets the open ocean. After extensive testing by a certified laboratory in the Netherlands, this location was identified as <strong>the cleanest water on Aruba</strong> and among <strong>the cleanest seawater sources in the world</strong>.</p>
+                    <p class="text-gray-600 leading-relaxed">This unique location, combined with Aruba's constant sun and trade winds, creates the perfect natural conditions for producing exceptional sea salt crystals.</p>
                 </div>
             </div>
         </section>
 
-        <!-- THE SALT & MESH -->
+        <!-- THE SALT (50/50 Layout) -->
         <section class="content-section-alt px-6">
-            <div class="container mx-auto max-w-6xl">
-                <div class="grid md:grid-cols-2 gap-20 items-center">
-                    <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
-                        <h3 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-6">Salt Crystallization Mesh</h3>
-                        <div class="aspect-square rounded-3xl overflow-hidden shadow-xl bg-white p-3 group border border-gray-100">
-                            <!-- Image 6 from Checklist -->
-                            <img src="IMG_2165.webp" class="w-full h-full object-cover rounded-2xl transition duration-1000 group-hover:scale-105" alt="Salt Mesh Close Up">
-                        </div>
-                    </div>
-                    <div class="order-1 md:order-2 animate-on-scroll">
-                        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">THE SALT</h2>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
-                        <p class="text-gray-600 text-lg leading-relaxed font-medium">Our hand-cultivated, Aruban-made salt is slightly moist and moderately coarse. It's valued for its briny sweet taste of the Caribbean Sea, for its pleasingly distinct texture (not too hard and not too soft), and for its beautiful square shape, size, and color.</p>
-                    </div>
+            <div class="container mx-auto max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div class="animate-on-scroll order-2 lg:order-1 rounded-3xl overflow-hidden shadow-xl">
+                    <!-- Fixed Image -->
+                    <img src="IMG_2165.webp" alt="Salt Crystallization Mesh" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700">
+                </div>
+                <div class="animate-on-scroll delay-1 order-1 lg:order-2">
+                    <h2 class="text-4xl font-light tracking-widest text-gray-900 mb-8 uppercase">The Salt</h2>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-6">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
+                    <p class="text-gray-900 text-sm font-medium leading-relaxed">Our hand-cultivated, Aruban-made salt is slightly moist and moderately coarse. It's valued for its briny sweet taste of the Caribbean Sea, for its pleasingly distinct texture (not too hard and not too soft), and for its beautiful square shape, size, and color.</p>
                 </div>
             </div>
         </section>
 
         <!-- PRODUCTS -->
-        <section id="shop" class="content-section px-6">
-            <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
-                <span class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">A tiny pinch of salt</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Our different flavors & products</h2>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl">
-                <!-- Product 1: Pure Sea Salt -->
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
-                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">Sold out</span>
-                        <!-- Image 7 from Checklist -->
-                        <img src="IMG_2163.webp" alt="Pure Caribbean Sea Salt White Jar" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
-                    </div>
-                    <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
-                    <p class="text-lg text-gray-500 mb-6">$29.00</p>
-                    <button class="w-full py-4 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-sm font-bold tracking-wider">Unavailable</button>
+        <section id="products" class="content-section px-6">
+            <div class="container mx-auto max-w-5xl">
+                <div class="text-center mb-16 animate-on-scroll">
+                    <span class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">A tiny pinch of salt</span>
+                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Our different flavors & products</h2>
                 </div>
                 
-                <!-- Product 2: Bath Salt -->
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
-                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">Sold out</span>
-                        <!-- Image 8 from Checklist -->
-                        <img src="IMG_2162.webp" alt="Caribbean Bath Salt Layered Jar" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <!-- Pure Sea Salt -->
+                    <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift animate-on-scroll">
+                        <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
+                            <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">Sold out</span>
+                            <!-- Fixed Image -->
+                            <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-4">$29.00</p>
+                        <button class="w-full py-3 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-xs font-bold tracking-wider">Unavailable</button>
                     </div>
-                    <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
-                    <p class="text-lg text-gray-500 mb-6">$49.00</p>
-                    <button class="w-full py-4 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-sm font-bold tracking-wider">Unavailable</button>
+                    
+                    <!-- Bath Salt -->
+                    <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift animate-on-scroll delay-1">
+                        <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
+                            <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10">Sold out</span>
+                            <!-- Fixed Image -->
+                            <img src="IMG_2245.webp" alt="Caribbean Bath Salt" class="w-full h-full object-cover">
+                        </div>
+                        <h3 class="text-xl font-medium text-gray-900">AruSalt – Caribbean Bath Salt</h3>
+                        <p class="text-sm text-gray-500 mt-1 mb-4">$49.00</p>
+                        <button class="w-full py-3 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-xs font-bold tracking-wider">Unavailable</button>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- RESPECT FOR LAND AND SEA (ICONS) -->
-        <section class="content-section-alt px-6 border-y border-gray-100">
+        <!-- ICONS: HARVESTED WITH RESPECT -->
+        <section class="content-section-alt px-6">
             <div class="container mx-auto max-w-6xl text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 animate-on-scroll">Harvested with respect for land and sea</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="animate-on-scroll flex flex-col items-center">
-                        <!-- Image 2 from Checklist -->
-                        <img src="IMG_2250.webp" alt="Hand-harvested" class="h-24 w-24 mb-6 object-contain blend-icon">
+                        <!-- Fixed Image -->
+                        <img src="IMG_2169_3.webp" alt="Hand-harvested" class="h-24 w-24 mb-6 object-contain blend-icon">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h3>
-                        <p class="text-gray-600 leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
+                        <p class="text-gray-600 text-sm leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
                     </div>
                     
                     <div class="animate-on-scroll delay-1 flex flex-col items-center">
-                        <!-- Image 3 from Checklist -->
-                        <img src="IMG_2249.webp" alt="Sun-dried" class="h-24 w-24 mb-6 object-contain blend-icon">
+                        <!-- Fixed Image -->
+                        <img src="IMG_2276_2.png" alt="Sun-dried" class="h-24 w-24 mb-6 object-contain blend-icon">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h3>
-                        <p class="text-gray-600 leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
+                        <p class="text-gray-600 text-sm leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
                     </div>
                     
                     <div class="animate-on-scroll delay-2 flex flex-col items-center">
-                        <!-- Image 4 from Checklist (.jpeg) -->
-                        <img src="IMG_2166.jpeg" alt="Pure and Natural" class="h-24 w-24 mb-6 object-contain blend-icon">
+                        <!-- Fixed Image -->
+                        <img src="IMG_2249_3.webp" alt="Pure and Natural" class="h-24 w-24 mb-6 object-contain blend-icon">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h3>
-                        <p class="text-gray-600 leading-relaxed px-4">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
+                        <p class="text-gray-600 text-sm leading-relaxed px-4">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
                     </div>
                 </div>
             </div>
@@ -342,104 +336,96 @@
             <div class="container mx-auto max-w-6xl">
                 <!-- Intro -->
                 <div class="text-center max-w-3xl mx-auto mb-20 animate-on-scroll">
-                    <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Aruba's Salt Heritage</h2>
-                    <p class="text-gray-600 text-lg leading-relaxed">Long before modern roads and resorts transformed the island, Aruba's natural salinas played an important role in everyday life. Scattered along the coastline and across the island's low-lying landscapes, these shallow salt ponds provided local communities with one of nature's most valuable resources.</p>
+                    <h2 class="text-4xl md:text-5xl font-light text-gray-900 mb-6">Aruba's Salt Heritage</h2>
+                    <p class="text-gray-600 leading-relaxed">Long before modern roads and resorts transformed the island, Aruba's natural salinas played an important role in everyday life. Scattered along the coastline and across the island's low-lying landscapes, these shallow salt ponds provided local communities with one of nature's most valuable resources.</p>
                 </div>
 
-                <!-- Salina Ranchoe -->
-                <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
-                    <div class="order-2 md:order-1 animate-on-scroll">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-900">Salina Ranchoe</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Rancho (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
-                        <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
+                <!-- Fixed Image: Salina Ranchoe 1924 -->
+                <div class="mb-20 animate-on-scroll">
+                    <div class="rounded-3xl overflow-hidden shadow-2xl mb-8">
+                        <img src="IMG_2279_2.jpeg" alt="Salina Ranchoe 1924" class="w-full h-auto hover:scale-105 transition-transform duration-700">
                     </div>
-                    <div class="order-1 md:order-2 animate-on-scroll delay-1 relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <!-- Image 9 from Checklist (.jpeg) -->
-                            <img src="Afbeelding 2.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salina Ranchoe 1924">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h3 class="text-2xl font-light text-gray-900 mb-4">Salina Ranchoe</h3>
+                            <p class="text-gray-600 text-sm leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Rancho (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-600 text-sm leading-relaxed">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- The Locals -->
-                <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
-                    <div class="animate-on-scroll relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <!-- Image 10 from Checklist -->
-                            <img src="IMG_2168.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="The locals gathering salt">
+                <!-- 10x Layout: The Locals & Decline (Staggered Grid) -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+                    <div class="animate-on-scroll">
+                        <div class="rounded-3xl overflow-hidden shadow-2xl mb-8">
+                            <!-- Fixed Image -->
+                            <img src="IMG_2168.webp" alt="The Locals" class="w-full h-auto hover:scale-105 transition-transform duration-700">
                         </div>
+                        <h3 class="text-3xl font-light text-gray-900 mb-6">The locals</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">Using simple hand tools like coconut shells and wooden buckets local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">Historical records show that Aruba once had several commercial salt pans that supplied salt to the local population. The salt was an essential part of island life, valued for preserving fish and meat long before refrigeration became available. Harvesting was done by local laborers assisted by donkeys to transport the heavy loads from the salinas.</p>
                     </div>
-                    <div class="animate-on-scroll delay-1">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-900">The locals</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Using simple hand tools like coconut shells and wooden buckets local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
-                        <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba once had several commercial salt pans that supplied salt to the local population. The salt was an essential part of island life, valued for preserving fish and meat long before refrigeration became available. Harvesting was done by local laborers assisted by donkeys to transport the heavy loads from the salinas.</p>
-                    </div>
-                </div>
-
-                <!-- Commercial Decline -->
-                <div class="grid md:grid-cols-2 gap-16 items-center">
-                    <div class="order-2 md:order-1 animate-on-scroll">
-                        <h3 class="text-3xl font-bold mb-6 text-gray-900">Commercial decline</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
-                        <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-theme-blue pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
-                    </div>
-                    <div class="order-1 md:order-2 animate-on-scroll delay-1 relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <!-- Image 11 from Checklist -->
-                            <img src="IMG_2167.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Commercial decline of salt pans">
+                    <div class="animate-on-scroll delay-1 lg:mt-32">
+                        <div class="rounded-3xl overflow-hidden shadow-2xl mb-8">
+                            <!-- Fixed Image -->
+                            <img src="IMG_2167.webp" alt="Commercial Decline" class="w-full h-auto hover:scale-105 transition-transform duration-700">
                         </div>
+                        <h3 class="text-3xl font-light text-gray-900 mb-6">Commercial decline</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-6">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
+                        <p class="text-gray-600 text-sm leading-relaxed">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- CTA PARALLAX BACKGROUND -->
-        <section class="h-[60vh] parallax-bg relative flex items-center justify-center" style="background-image: url('IMG_2243.webp');">
-            <div class="absolute inset-0 bg-black/40"></div>
-            <div class="relative z-10 text-center text-white px-6">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
-                <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
-                <a href="#shop" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl">Shop The Collection</a>
-            </div>
-        </section>
+        <!-- STUNNING PARALLAX DIVIDER -->
+        <div class="relative h-[60vh] bg-fixed bg-center bg-cover" style="background-image: url('IMG_2243.webp');">
+            <div class="absolute inset-0 bg-black/30"></div>
+        </div>
 
     </main>
 
     <!-- FOOTER -->
-    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
-            <div class="md:col-span-2">
-                <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
-                <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
-                <form class="flex gap-2 max-w-md">
-                    <input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
-                    <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20">Sign up</button>
+    <footer class="bg-gray-50 py-16 px-6">
+        <div class="container mx-auto max-w-7xl grid grid-cols-1 md:grid-cols-12 gap-12">
+            <div class="md:col-span-5 pr-8">
+                <h4 class="text-xl font-medium text-gray-900 mb-2">Join AruSalt</h4>
+                <p class="text-gray-600 mb-6 text-sm">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
+                <form class="flex w-full max-w-md shadow-sm rounded-lg overflow-hidden border border-gray-200">
+                    <input type="email" placeholder="Email address" class="bg-white border-none text-sm w-full p-4 text-gray-900 focus:outline-none" required>
+                    <button type="submit" class="bg-white text-gray-900 border-l border-gray-200 text-sm font-semibold px-6 hover:bg-gray-50 transition-colors">Sign up</button>
                 </form>
             </div>
-            <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
-                <ul class="space-y-4 text-gray-400">
+            
+            <div class="md:col-span-3 md:col-start-7">
+                <h4 class="text-lg font-medium text-gray-900 mb-4">Customer Help</h4>
+                <ul class="space-y-3 text-sm text-gray-600">
                     <li><a href="#" class="hover:text-theme-blue transition-colors">Search</a></li>
                     <li><a href="#about" class="hover:text-theme-blue transition-colors">About Us</a></li>
                 </ul>
             </div>
-            <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-theme-blue transition-colors">Contact Information</a></li>
+            
+            <div class="md:col-span-3">
+                <h4 class="text-lg font-medium text-gray-900 mb-4">Store Policies</h4>
+                <ul class="space-y-3 text-sm text-gray-600">
+                    <li><a href="#contact" class="hover:text-theme-blue transition-colors">Contact Information</a></li>
                     <li><a href="#" class="hover:text-theme-blue transition-colors">Privacy Policy</a></li>
                     <li><a href="#" class="hover:text-theme-blue transition-colors">Refund Policy</a></li>
                     <li><a href="#" class="hover:text-theme-blue transition-colors">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-800 text-center md:text-left text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center">
-            <p>&copy; 2026 AruSalt. All rights reserved.</p>
-            <p class="mt-4 md:mt-0 font-medium text-gray-600">Powered by Shopify</p>
+        
+        <div class="container mx-auto mt-16 flex justify-end">
+            <div class="text-gray-400 text-xs tracking-wider">
+                &copy; 2026 AruSalt, Powered by Shopify
+            </div>
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPTS FOR APPLE-SMOOTH ENGINE -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Mobile Menu ---
@@ -447,12 +433,7 @@
             const mobileMenu = document.getElementById('mobile-menu');
             if(menuBtn && mobileMenu) {
                 menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
-                // Close menu when a link is clicked
-                mobileMenu.querySelectorAll('.menu-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
-                    });
-                });
+                mobileMenu.onclick = () => mobileMenu.classList.add('hidden');
             }
 
             // --- Canvas Particles over Ocean Background ---
@@ -489,30 +470,26 @@
             // --- Scrollytelling Crystal Fade ---
             const crystal = document.getElementById('svg-crystal');
             if(crystal) {
-                window.addEventListener('scroll', () => {
+                window.onscroll = () => {
                     let op = 1 - (window.scrollY / 400);
                     crystal.style.opacity = Math.max(0, op);
-                });
+                };
             }
 
             // --- Scroll Observer (Smooth Fades) ---
             const obs = new IntersectionObserver((es) => {
-                es.forEach(e => { 
-                    if(e.isIntersecting) {
-                        e.target.classList.add('is-visible'); 
-                    }
-                });
-            }, { threshold: 0.15 });
+                es.forEach(e => { if(e.isIntersecting) e.target.classList.add('is-visible'); });
+            }, { threshold: 0.1 });
             document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
 
-            // --- Preloader Fade Out & Initial Hero Animation ---
+            // --- Preloader Fade Out ---
             window.onload = () => {
                 const preloader = document.getElementById('preloader');
                 if(preloader) {
                     setTimeout(() => {
                         preloader.classList.add('preloader-hidden');
                         document.body.classList.add('start-hero-anim');
-                    }, 800); // Small delay to let the pulsing loader show off
+                    }, 600); // 600ms delay for premium feel
                 } else {
                     document.body.classList.add('start-hero-anim');
                 }
