@@ -4,138 +4,247 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
+    <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
+    
+    <!-- Social Sharing (Open Graph) -->
+    <meta property="og:title" content="AruSalt - The Essence of Aruba">
+    <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
+    <meta property="og:image" content="IMG_2163.webp">
+    <meta property="og:url" content="https://arusalt.com">
+    <meta property="og:type" content="website">
+    
+    <!-- Favicon -->
+    <link rel="icon" href="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" type="image/png">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
     <style>
-        body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; background-color: #ffffff; color: #1a1a1a; }
-        
-        /* Smooth interactions */
-        .hover-lift { transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
-        .hover-lift:hover { transform: translateY(-8px) scale(1.01); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
-        
-        /* Scroll Animations */
-        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
-        .is-visible { opacity: 1; transform: translateY(0); }
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
+        /* --- Perfect Scroll Landing --- */
+        html { scroll-padding-top: 85px; }
 
-        /* Typography */
-        h1, h2, h3 { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; letter-spacing: -0.02em; }
-        p { font-size: 1.125rem; line-height: 1.7; color: #4a4a4a; }
+        /* --- Custom Selection Color --- */
+        ::selection { background-color: #0ea5e9; color: white; }
 
-        /* Preloader - Restored exactly to screenshot IMG_2280 */
-        #preloader { position: fixed; inset: 0; background: #ffffff; z-index: 9999; display: flex; align-items: center; justify-content: center; transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #fdfdfd; 
+            color: #1a1a1a; 
+            overflow-x: hidden;
+        }
+
+        /* --- Theme Colors --- */
+        .text-theme-blue { color: #0ea5e9; }
+        .bg-theme-blue { background-color: #0ea5e9; }
+        .hover\:bg-theme-blue-dark:hover { background-color: #0284c7; }
+
+        /* --- Premium UI Transitions --- */
+        .hover-lift {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
+        }
+
+        /* --- Preloader Styles --- */
+        #preloader {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #fdfdfd; z-index: 9999;
+            display: flex; justify-content: center; align-items: center;
+            transition: opacity 0.8s ease-out, visibility 0.8s;
+        }
+        .loader-crystal {
+            width: 80px; height: 80px; stroke: #0ea5e9; stroke-width: 3; fill: none;
+            animation: pulse 2s infinite ease-in-out;
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.9); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
+            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.6)); }
+            100% { transform: scale(0.9); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
+        }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        
-        /* Glowing Crystal Animation */
-        .crystal-loader { width: 120px; height: 120px; position: relative; animation: float 4s ease-in-out infinite; }
-        .crystal-loader svg { width: 100%; height: 100%; filter: drop-shadow(0 0 15px rgba(0, 174, 239, 0.5)); }
-        .crystal-loader path, .crystal-loader polygon, .crystal-loader line { 
-            stroke-dasharray: 400; 
-            stroke-dashoffset: 400; 
-            animation: draw 2s cubic-bezier(0.16, 1, 0.3, 1) forwards, glow 2s ease-in-out infinite alternate; 
+
+        /* --- Light Glassmorphism Header --- */
+        header {
+            background-color: rgba(253, 253, 253, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         
-        @keyframes draw { to { stroke-dashoffset: 0; } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes glow { 
-            from { filter: drop-shadow(0 0 8px rgba(0, 174, 239, 0.3)); } 
-            to { filter: drop-shadow(0 0 25px rgba(0, 174, 239, 0.8)); } 
+        #mobile-menu { transition: transform 0.3s ease-in-out; background-color: #fdfdfd; }
+        #mobile-menu.hidden { transform: translateX(100%); }
+
+        /* --- Scrollytelling Hero Engine --- */
+        #sticky-wrapper { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; z-index: 1; background-color: #000; }
+        
+        /* Background Image in Hero */
+        #hero-bg-image {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.5; z-index: 0;
+            transform: scale(1.05);
         }
 
-        /* Parallax Background */
+        /* Animated Crystal */
+        #svg-crystal {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 220px; height: 220px; stroke: #0ea5e9; stroke-width: 5;
+            stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
+            filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
+        }
+        #svg-crystal path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
+        .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
+        
+        /* Interactive Particles */
+        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none; }
+
+        /* Scroll Text Scenes */
+        #scrolly-text { position: relative; z-index: 10; }
+        .scroll-scene { height: 80vh; width: 100%; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; }
+        
+        .hero-text-block {
+            opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+            transform: translateY(20px); text-shadow: 0 4px 20px rgba(0,0,0,0.6); color: white;
+        }
+        .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
+
+        /* --- Content Sections --- */
+        .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
+        .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+
+        /* --- Scroll Animations --- */
+        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
+        .delay-1 { transition-delay: 150ms; }
+        .delay-2 { transition-delay: 300ms; }
+
+        /* --- Image Blend Modes for Uploaded Icons --- */
+        .blend-icon { mix-blend-mode: multiply; filter: contrast(1.1); }
+        
+        /* --- Parallax Background Class --- */
         .parallax-bg { background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover; }
-
-        /* Particles */
-        .particle { position: absolute; background: rgba(0, 174, 239, 0.5); border-radius: 50%; pointer-events: none; animation: rise linear infinite; }
-        @keyframes rise { 0% { transform: translateY(100vh) scale(0); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-100px) scale(1); opacity: 0; } }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden">
 
     <!-- PRELOADER -->
     <div id="preloader">
-        <div id="particles-container" class="absolute inset-0 overflow-hidden z-0 pointer-events-none"></div>
-        <div class="crystal-loader relative z-10">
-            <!-- Exact Geometry from Screenshot -->
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#00aeef" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
-                <!-- Outer Diamond -->
-                <polygon points="50,5 95,50 50,95 5,50" />
-                <!-- Inner Square -->
-                <polygon points="35,35 65,35 65,65 35,65" />
-                <!-- Connecting Lines -->
-                <line x1="50" y1="5" x2="50" y2="35" />
-                <line x1="95" y1="50" x2="65" y2="50" />
-                <line x1="50" y1="95" x2="50" y2="65" />
-                <line x1="5" y1="50" x2="35" y2="50" />
-            </svg>
-        </div>
+        <svg class="loader-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <g class="text-theme-blue" fill="currentColor">
+                <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
+                <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
+            </g>
+        </svg>
     </div>
 
-    <!-- HEADER (z-index 10000 so it sits above the preloader exactly like your photo) -->
-    <header class="fixed top-0 w-full bg-white z-[10000] border-b border-gray-100 transition-all duration-300">
-        <nav class="container mx-auto px-6 lg:px-12 h-24 flex justify-between items-center">
-            <a href="#home" class="flex items-center hover:scale-105 transition-transform duration-300">
-                <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" class="h-16" alt="AruSalt Logo">
-            </a>
-            <div class="hidden md:flex space-x-10 text-[15px] font-medium tracking-wide text-gray-800">
-                <a href="#home" class="hover:text-[#00aeef] transition-colors">Home</a>
-                <a href="#history" class="hover:text-[#00aeef] transition-colors">History</a>
-                <a href="#shop" class="hover:text-[#00aeef] transition-colors">Shop</a>
-                <a href="#about" class="hover:text-[#00aeef] transition-colors">About Us</a>
-                <a href="#contact" class="hover:text-[#00aeef] transition-colors">Contact</a>
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-6 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-opacity">
+                    <!-- Exact Logo Provided -->
+                    <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" alt="AruSalt Logo" class="h-16 w-auto">
+                </a>
+                
+                <div class="hidden md:flex space-x-10">
+                    <a href="#home" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
+                    <a href="#history" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
+                    <a href="#shop" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Shop</a>
+                    <a href="#about" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                    <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-6">
+                    <button class="text-gray-900 hover:text-theme-blue transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <button class="text-gray-900 hover:text-theme-blue transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg></button>
+                </div>
+                
+                <button id="menu-btn" class="md:hidden p-2 text-gray-900">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                </button>
             </div>
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden p-2 text-gray-900 focus:outline-none hover:text-[#00aeef] transition-colors" id="mobile-menu-btn">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
         </nav>
-        <!-- Mobile Menu Panel -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 absolute w-full shadow-lg z-[10000]">
-            <div class="flex flex-col px-6 py-4 space-y-4 text-center text-lg font-medium">
-                <a href="#home" class="hover:text-[#00aeef]">Home</a>
-                <a href="#history" class="hover:text-[#00aeef]">History</a>
-                <a href="#shop" class="hover:text-[#00aeef]">Shop</a>
-                <a href="#about" class="hover:text-[#00aeef]">About Us</a>
-                <a href="#contact" class="hover:text-[#00aeef]">Contact</a>
-            </div>
-        </div>
     </header>
 
+    <div id="mobile-menu" class="hidden fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8">
+        <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
+        <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
+        <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Shop</a>
+        <a href="#about" class="menu-link text-2xl font-semibold text-gray-900">About Us</a>
+        <a href="#contact" class="menu-link text-2xl font-semibold text-theme-blue">Contact</a>
+    </div>
+
     <main>
-        <!-- HERO - Restored exactly to screenshot IMG_2281 -->
-        <section id="home" class="relative h-screen flex items-center justify-center pt-24 overflow-hidden">
-            <div class="absolute inset-0 z-0">
-                <div class="absolute inset-0 bg-black/50 z-10"></div>
-                <img src="IMG_2243.webp" class="w-full h-full object-cover" alt="Aruba Ocean">
+        <!-- 10x HERO & SCROLLYTELLING -->
+        <div class="relative" id="home">
+            <div id="sticky-wrapper">
+                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean">
+                
+                <!-- Glowing Interactive Crystal -->
+                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                    <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                    <path d="M 50 10 L 50 30"></path>
+                    <path d="M 90 50 L 70 50"></path>
+                    <path d="M 50 90 L 50 70"></path>
+                    <path d="M 10 50 L 30 50"></path>
+                </svg>
+                <div id="particle-bg"><canvas id="particle-canvas"></canvas></div>
             </div>
-            
-            <div class="relative z-20 text-center px-6 max-w-4xl mx-auto text-white hero-text-container opacity-0 translate-y-10 transition-all duration-1000 ease-out">
-                <h2 class="text-sm md:text-base font-bold tracking-[0.25em] uppercase mb-6 text-white drop-shadow-md">100% NATURAL 100% ARUBA.</h2>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold leading-[1.1] mb-8 drop-shadow-lg">Bring a touch of<br class="hidden sm:block"> the island to<br class="hidden sm:block"> your home.</h1>
-                <p class="text-lg md:text-2xl text-white/95 mb-8 font-light leading-relaxed drop-shadow-md max-w-3xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
-                <p class="text-lg md:text-xl italic text-white/90 drop-shadow-md">Soft and crunchy with a delicate pop.</p>
+
+            <div id="scrolly-text">
+                <!-- Scene 1: Exact PDF Text -->
+                <section class="scroll-scene">
+                    <div class="hero-text-block text-center px-4 max-w-4xl">
+                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">Bring a touch of the island to your home.</h1>
+                        <p class="text-xl md:text-2xl font-light leading-relaxed">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
+                    </div>
+                </section>
+                
+                <!-- Scene 2: Exact PDF Text -->
+                <section class="scroll-scene pointer-events-none">
+                    <div class="text-center px-4 animate-on-scroll">
+                        <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-white drop-shadow-lg">100% natural<br><span class="text-theme-blue">100% Aruba.</span></h2>
+                    </div>
+                </section>
+                
+                <!-- Scene 3: Exact PDF Text -->
+                <section class="scroll-scene pointer-events-none">
+                    <div class="text-center px-4 animate-on-scroll">
+                        <h2 class="text-3xl md:text-6xl font-medium text-white drop-shadow-lg italic">Soft and crunchy with a delicate pop.</h2>
+                    </div>
+                </section>
+                
+                <div class="h-[15vh]"></div>
             </div>
-        </section>
+        </div>
 
         <!-- ABOUT US -->
-        <section id="about" class="py-32 px-6 bg-white overflow-hidden">
-            <div class="max-w-7xl mx-auto">
+        <section id="about" class="content-section px-6">
+            <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="animate-on-scroll">
                         <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">AruSalt crystallization</h2>
                         <h3 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h3>
-                        <p class="mb-6 text-gray-600">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
-                        <p class="mb-6 text-gray-600">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
-                        <p class="mb-10 text-gray-600">Our commitment is to share the authentic taste of Aruba through a product that celebrates craftsmanship, nature, and quality. Whether enjoyed at home or in a professional kitchen, AruSalt is the perfect finishing touch to elevate every meal.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
+                        <p class="mb-10 text-gray-600 text-lg leading-relaxed">Our commitment is to share the authentic taste of Aruba through a product that celebrates craftsmanship, nature, and quality. Whether enjoyed at home or in a professional kitchen, AruSalt is the perfect finishing touch to elevate every meal.</p>
                         
                         <h4 class="text-3xl font-bold mb-4 text-gray-900">The Pure Waters of Aruba</h4>
-                        <p class="mb-4 text-gray-600">AruSalt begins at the <strong>north coast of Aruba</strong>, where the island meets the open ocean. After extensive testing by a certified laboratory in the Netherlands, this location was identified as <strong>the cleanest water on Aruba</strong> and among <strong>the cleanest seawater sources in the world</strong>.</p>
-                        <p class="text-gray-600">This unique location, combined with Aruba's constant sun and trade winds, creates the perfect natural conditions for producing exceptional sea salt crystals.</p>
+                        <p class="mb-4 text-gray-600 text-lg leading-relaxed">AruSalt begins at the <strong>north coast of Aruba</strong>, where the island meets the open ocean. After extensive testing by a certified laboratory in the Netherlands, this location was identified as <strong>the cleanest water on Aruba</strong> and among <strong>the cleanest seawater sources in the world</strong>.</p>
+                        <p class="text-gray-600 text-lg leading-relaxed">This unique location, combined with Aruba's constant sun and trade winds, creates the perfect natural conditions for producing exceptional sea salt crystals.</p>
                     </div>
-                    <div class="relative animate-on-scroll delay-200">
+                    <div class="relative animate-on-scroll delay-1">
                         <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <img src="IMG_2242.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Hand holding AruSalt">
+                            <!-- Fixed About Us Image (Vertical Wave) -->
+                            <img src="IMG_2282.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="AruSalt crystallization">
                         </div>
                     </div>
                 </div>
@@ -143,103 +252,111 @@
         </section>
 
         <!-- THE SALT & MESH -->
-        <section class="py-32 px-6 bg-[#faf9f8] border-t border-gray-100">
-            <div class="max-w-7xl mx-auto">
+        <section class="content-section-alt px-6">
+            <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
-                    <div class="order-2 md:order-1 relative animate-on-scroll">
+                    <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <h3 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-6">Salt Crystallization Mesh</h3>
-                        <div class="aspect-square rounded-3xl overflow-hidden shadow-2xl bg-white p-3 group">
-                            <img src="IMG_2165.webp" class="w-full h-full object-cover rounded-2xl transition duration-1000 group-hover:scale-105" alt="Salt Mesh Close Up">
+                        <!-- Removed p-3 and border to make image flush and clean like screenshot -->
+                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
+                            <img src="IMG_2279_3.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salt Mesh Close Up">
                         </div>
                     </div>
-                    <div class="order-1 md:order-2 animate-on-scroll delay-200">
+                    <div class="order-1 md:order-2 animate-on-scroll">
                         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">THE SALT</h2>
-                        <p class="mb-6 text-gray-600">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
-                        <p class="mb-6 text-gray-600">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
-                        <p class="mb-6 text-gray-600">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
-                        <p class="text-gray-600">Our hand-cultivated, Aruban-made salt is slightly moist and moderately coarse. It's valued for its briny sweet taste of the Caribbean Sea, for its pleasingly distinct texture (not too hard and not too soft), and for its beautiful square shape, size, and color.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
+                        <p class="text-gray-600 text-lg leading-relaxed font-medium">Our hand-cultivated, Aruban-made salt is slightly moist and moderately coarse. It's valued for its briny sweet taste of the Caribbean Sea, for its pleasingly distinct texture (not too hard and not too soft), and for its beautiful square shape, size, and color.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- PRODUCTS -->
-        <section id="shop" class="py-32 bg-white">
-            <div class="text-center mb-20 animate-on-scroll">
-                <h3 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">A tiny pinch of salt</h3>
+        <section id="shop" class="content-section px-6">
+            <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
+                <span class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">A tiny pinch of salt</span>
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Our different flavors & products</h2>
             </div>
-            <div class="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto px-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl">
                 <!-- Product 1: Pure Sea Salt -->
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover-lift group animate-on-scroll">
-                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[4/5] bg-gray-50">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-4 py-2 rounded-full z-10 shadow-sm text-gray-800 tracking-wide">Sold out</span>
-                        <img src="IMG_2244.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Pure Caribbean Sea Salt White Jar">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
+                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">Sold out</span>
+                        <!-- Image 7 from Checklist -->
+                        <img src="IMG_2163.webp" alt="Pure Caribbean Sea Salt White Jar" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$29.00</p>
-                    <button class="w-full py-4 rounded-xl border border-gray-200 text-gray-400 font-medium uppercase tracking-wider text-sm cursor-not-allowed">Unavailable</button>
+                    <button class="w-full py-4 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-sm font-bold tracking-wider">Unavailable</button>
                 </div>
                 
                 <!-- Product 2: Bath Salt -->
-                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-200">
-                    <div class="relative overflow-hidden rounded-2xl mb-6 aspect-[4/5] bg-gray-50">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-xs font-bold px-4 py-2 rounded-full z-10 shadow-sm text-gray-800 tracking-wide">Sold out</span>
-                        <img src="IMG_2245.webp" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="Caribbean Bath Salt Layered Jar">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
+                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">Sold out</span>
+                        <!-- Image 8 from Checklist -->
+                        <img src="IMG_2162.webp" alt="Caribbean Bath Salt Layered Jar" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$49.00</p>
-                    <button class="w-full py-4 rounded-xl border border-gray-200 text-gray-400 font-medium uppercase tracking-wider text-sm cursor-not-allowed">Unavailable</button>
+                    <button class="w-full py-4 border border-gray-200 text-gray-400 rounded-xl cursor-not-allowed uppercase text-sm font-bold tracking-wider">Unavailable</button>
                 </div>
             </div>
         </section>
 
         <!-- RESPECT FOR LAND AND SEA (ICONS) -->
-        <section class="py-24 bg-[#faf9f8] border-y border-gray-100">
-            <div class="max-w-6xl mx-auto px-6 text-center">
+        <section class="content-section-alt px-6 border-y border-gray-100">
+            <div class="container mx-auto max-w-6xl text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 animate-on-scroll">Harvested with respect for land and sea</h2>
-                <div class="grid md:grid-cols-3 gap-12">
-                    <!-- Icon 1: Hand-harvested -->
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="animate-on-scroll flex flex-col items-center">
-                        <img src="IMG_2169.webp" class="h-20 object-contain mb-6 mix-blend-multiply" alt="Hand-harvested Icon">
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h4>
-                        <p class="text-gray-600 text-[15px] leading-relaxed max-w-xs mx-auto">Produced in small batches using traditional methods with care and craftsmanship.</p>
+                        <!-- Fixed Icon 1 -->
+                        <img src="IMG_2169_4.webp" alt="Hand-harvested" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h3>
+                        <p class="text-gray-600 leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
                     </div>
-                    <!-- Icon 2: Sun-dried -->
-                    <div class="animate-on-scroll delay-100 flex flex-col items-center">
-                        <img src="IMG_2276.png" class="h-20 object-contain mb-6 mix-blend-multiply" alt="Sun-dried Icon">
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h4>
-                        <p class="text-gray-600 text-[15px] leading-relaxed max-w-xs mx-auto">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
+                    
+                    <div class="animate-on-scroll delay-1 flex flex-col items-center">
+                        <!-- Fixed Icon 2 (Sun) -->
+                        <img src="IMG_2284.png" alt="Sun-dried" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h3>
+                        <p class="text-gray-600 leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
                     </div>
-                    <!-- Icon 3: Pure and Natural -->
-                    <div class="animate-on-scroll delay-200 flex flex-col items-center">
-                        <img src="IMG_2249.webp" class="h-20 object-contain mb-6 mix-blend-multiply" alt="Pure and Natural Icon">
-                        <h4 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h4>
-                        <p class="text-gray-600 text-[15px] leading-relaxed max-w-xs mx-auto">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
+                    
+                    <div class="animate-on-scroll delay-2 flex flex-col items-center">
+                        <!-- Fixed Icon 3 -->
+                        <img src="IMG_2249_4.webp" alt="Pure and Natural" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <h3 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h3>
+                        <p class="text-gray-600 leading-relaxed px-4">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- HISTORY -->
-        <section id="history" class="py-32 px-6 bg-white overflow-hidden">
-            <div class="max-w-6xl mx-auto">
-                <div class="text-center mb-20 animate-on-scroll">
+        <section id="history" class="content-section px-6">
+            <div class="container mx-auto max-w-6xl">
+                <!-- Intro -->
+                <div class="text-center max-w-3xl mx-auto mb-20 animate-on-scroll">
                     <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Aruba's Salt Heritage</h2>
-                    <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">Long before modern roads and resorts transformed the island, Aruba's natural salinas played an important role in everyday life. Scattered along the coastline and across the island's low-lying landscapes, these shallow salt ponds provided local communities with one of nature's most valuable resources.</p>
+                    <p class="text-gray-600 text-lg leading-relaxed">Long before modern roads and resorts transformed the island, Aruba's natural salinas played an important role in everyday life. Scattered along the coastline and across the island's low-lying landscapes, these shallow salt ponds provided local communities with one of nature's most valuable resources.</p>
                 </div>
 
                 <!-- Salina Ranchoe -->
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Salina Ranchoe</h3>
-                        <p class="mb-6 text-gray-600">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Rancho (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
-                        <p class="text-gray-600">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Rancho (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
+                        <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
                     </div>
-                    <div class="order-1 md:order-2 animate-on-scroll delay-200 relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50">
-                            <!-- Zoutwinning in Ranchoe 1924 -->
-                            <img src="IMG_2279.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Locals near stone structure at Salina Ranchoe">
+                    <div class="order-1 md:order-2 animate-on-scroll delay-1 relative group">
+                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
+                            <!-- Fixed History Image -->
+                            <img src="IMG_2283.jpg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salina Ranchoe 1924">
                         </div>
                     </div>
                 </div>
@@ -247,14 +364,15 @@
                 <!-- The Locals -->
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="animate-on-scroll relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50">
+                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
+                            <!-- Image 10 from Checklist -->
                             <img src="IMG_2168.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="The locals gathering salt">
                         </div>
                     </div>
-                    <div class="animate-on-scroll delay-200">
+                    <div class="animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">The locals</h3>
-                        <p class="mb-6 text-gray-600">Using simple hand tools like coconut shells and wooden buckets local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
-                        <p class="text-gray-600">Historical records show that Aruba once had several commercial salt pans that supplied salt to the local population. The salt was an essential part of island life, valued for preserving fish and meat long before refrigeration became available. Harvesting was done by local laborers assisted by donkeys to transport the heavy loads from the salinas.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Using simple hand tools like coconut shells and wooden buckets local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
+                        <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba once had several commercial salt pans that supplied salt to the local population. The salt was an essential part of island life, valued for preserving fish and meat long before refrigeration became available. Harvesting was done by local laborers assisted by donkeys to transport the heavy loads from the salinas.</p>
                     </div>
                 </div>
 
@@ -262,11 +380,12 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 animate-on-scroll">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Commercial decline</h3>
-                        <p class="mb-6 text-gray-600">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
-                        <p class="text-xl font-medium text-gray-800 italic">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
+                        <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-theme-blue pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
                     </div>
-                    <div class="order-1 md:order-2 animate-on-scroll delay-200 relative group">
-                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50">
+                    <div class="order-1 md:order-2 animate-on-scroll delay-1 relative group">
+                        <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
+                            <!-- Image 11 from Checklist -->
                             <img src="IMG_2167.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Commercial decline of salt pans">
                         </div>
                     </div>
@@ -274,104 +393,131 @@
             </div>
         </section>
 
-        <!-- CTA PARALLAX -->
+        <!-- CTA PARALLAX BACKGROUND -->
         <section class="h-[60vh] parallax-bg relative flex items-center justify-center" style="background-image: url('IMG_2243.webp');">
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="relative z-10 text-center text-white px-6">
-                <h2 class="text-4xl md:text-5xl font-bold mb-6">Bring the Island Home</h2>
-                <p class="text-xl mb-10 font-light opacity-90">Experience the unparalleled purity and crunch of AruSalt</p>
-                <a href="#shop" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300">Shop The Collection</a>
+                <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
+                <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
+                <a href="#shop" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl">Shop The Collection</a>
             </div>
         </section>
 
     </main>
 
     <!-- FOOTER -->
-    <footer id="contact" class="bg-[#1a1a1a] text-white pt-24 pb-12 px-6">
+    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800">
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
-                <h3 class="text-2xl font-bold mb-4">Join AruSalt</h3>
-                <p class="text-gray-400 mb-6 max-w-sm">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
+                <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
+                <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
                 <form class="flex gap-2 max-w-md">
-                    <input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-white transition-colors">
-                    <button type="submit" class="bg-white text-black font-bold px-6 py-3 rounded-xl hover:bg-gray-200 transition-colors">Sign up</button>
+                    <input type="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
+                    <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20">Sign up</button>
                 </form>
             </div>
             <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide">Customer Help</h4>
+                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
                 <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Search</a></li>
-                    <li><a href="#about" class="hover:text-white transition-colors">About Us</a></li>
+                    <li><a href="#" class="hover:text-theme-blue transition-colors">Search</a></li>
+                    <li><a href="#about" class="hover:text-theme-blue transition-colors">About Us</a></li>
                 </ul>
             </div>
             <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide">Store Policies</h4>
+                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
                 <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="hover:text-white transition-colors">Contact Information</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Refund Policy</a></li>
-                    <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    <li><a href="#" class="hover:text-theme-blue transition-colors">Contact Information</a></li>
+                    <li><a href="#" class="hover:text-theme-blue transition-colors">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-theme-blue transition-colors">Refund Policy</a></li>
+                    <li><a href="#" class="hover:text-theme-blue transition-colors">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-white/10 text-center md:text-left text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center">
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-800 text-center md:text-left text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center">
             <p>&copy; 2026 AruSalt. All rights reserved.</p>
-            <p class="mt-4 md:mt-0">Powered by Shopify</p>
+            <p class="mt-4 md:mt-0 font-medium text-gray-600">Powered by Shopify</p>
         </div>
     </footer>
 
+    <!-- SCRIPTS -->
     <script>
-        // Particles Generation for Preloader
-        const container = document.getElementById('particles-container');
-        if(container) {
-            for(let i=0; i<40; i++) {
-                let p = document.createElement('div');
-                p.className = 'particle';
-                let size = Math.random() * 5 + 2;
-                p.style.width = size + 'px';
-                p.style.height = size + 'px';
-                p.style.left = Math.random() * 100 + 'vw';
-                p.style.animationDuration = (Math.random() * 3 + 2) + 's';
-                p.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(p);
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Mobile Menu ---
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            if(menuBtn && mobileMenu) {
+                menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+                // Close menu when a link is clicked
+                mobileMenu.querySelectorAll('.menu-link').forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
             }
-        }
 
-        // Mobile Menu Toggle
-        const btn = document.getElementById('mobile-menu-btn');
-        const menu = document.getElementById('mobile-menu');
-        if(btn && menu) {
-            btn.addEventListener('click', () => {
-                menu.classList.toggle('hidden');
-            });
-            menu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => menu.classList.add('hidden'));
-            });
-        }
-
-        // Preloader & Scroll Animation Engine
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                const pl = document.getElementById('preloader');
-                if(pl) pl.classList.add('preloader-hidden');
-                setTimeout(() => {
-                    const heroText = document.querySelector('.hero-text-container');
-                    if(heroText) heroText.classList.remove('opacity-0', 'translate-y-10');
-                }, 300);
-            }, 2000); // 2 second delay to show off the crystal
-        });
-
-        // Intersection Observer for scroll fades
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('is-visible');
-                    observer.unobserve(entry.target);
+            // --- Canvas Particles over Ocean Background ---
+            const canvas = document.getElementById('particle-canvas');
+            if(canvas) {
+                const ctx = canvas.getContext('2d');
+                let ps = [];
+                function init() {
+                    ps = [];
+                    for(let i=0; i<60; i++) {
+                        ps.push({
+                            x: Math.random() * canvas.width,
+                            y: Math.random() * canvas.height,
+                            s: Math.random() * 2 + 0.5,
+                            v: Math.random() * 0.5 + 0.1,
+                            o: Math.random() * 0.5 + 0.2
+                        });
+                    }
                 }
-            });
-        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+                function draw() {
+                    ctx.clearRect(0,0,canvas.width,canvas.height);
+                    ps.forEach(p => {
+                        ctx.fillStyle = `rgba(14, 165, 233, ${p.o})`;
+                        ctx.beginPath(); ctx.arc(p.x, p.y, p.s, 0, Math.PI*2); ctx.fill();
+                        p.y -= p.v; 
+                        if(p.y < 0) { p.y = canvas.height; p.x = Math.random() * canvas.width; }
+                    });
+                    requestAnimationFrame(draw);
+                }
+                window.onresize = () => { canvas.width=window.innerWidth; canvas.height=window.innerHeight; init(); };
+                window.onresize(); draw();
+            }
 
-        document.querySelectorAll('.animate-on-scroll').forEach((el) => observer.observe(el));
+            // --- Scrollytelling Crystal Fade ---
+            const crystal = document.getElementById('svg-crystal');
+            if(crystal) {
+                window.addEventListener('scroll', () => {
+                    let op = 1 - (window.scrollY / 400);
+                    crystal.style.opacity = Math.max(0, op);
+                });
+            }
+
+            // --- Scroll Observer (Smooth Fades) ---
+            const obs = new IntersectionObserver((es) => {
+                es.forEach(e => { 
+                    if(e.isIntersecting) {
+                        e.target.classList.add('is-visible'); 
+                    }
+                });
+            }, { threshold: 0.15 });
+            document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
+
+            // --- Preloader Fade Out & Initial Hero Animation ---
+            window.onload = () => {
+                const preloader = document.getElementById('preloader');
+                if(preloader) {
+                    setTimeout(() => {
+                        preloader.classList.add('preloader-hidden');
+                        document.body.classList.add('start-hero-anim');
+                    }, 800); // Small delay to let the pulsing loader show off
+                } else {
+                    document.body.classList.add('start-hero-anim');
+                }
+            };
+        });
     </script>
 </body>
 </html>
