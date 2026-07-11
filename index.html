@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AruSalt | Artisanal Aruban Sea Salt</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/scrollreveal"></script>
+
+    <style>
+        :root {
+            --primary-blue: #34B7EB;
+            --deep-ocean: #012A4A;
+            --sand: #F9F7F2; /* Subtle off-white for premium feel */
+            --white: #FFFFFF;
+            --text: #2C3E50;
+            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            line-height: 1.8;
+            background-color: var(--white);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--deep-ocean);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        section { padding: 10rem 0; }
+
+        /* --- Refined Header --- */
+        .header {
+            position: fixed;
+            top: 0; width: 100%; z-index: 1000;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0);
+            padding: 20px 0;
+        }
+
+        .header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 10px 0;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 50px;
+            filter: brightness(1); /* Ensure logo pops */
+        }
+
+        .nav-menu ul { display: flex; list-style: none; }
+        .nav-menu li { margin-left: 40px; }
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--deep-ocean);
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .nav-menu a:hover { color: var(--primary-blue); }
+
+        /* --- Hero Section --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(rgba(1, 42, 74, 0.3), rgba(1, 42, 74, 0.3)), 
+                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+            color: var(--white);
+        }
+
+        .hero-content h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            color: var(--white);
+            margin-bottom: 1rem;
+            letter-spacing: -1px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            font-weight: 300;
+        }
+
+        /* --- Split Layouts --- */
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .content-text h2 { font-size: 2.8rem; margin-bottom: 1.5rem; line-height: 1.1; }
+        .accent-text { color: var(--primary-blue); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; display: block; margin-bottom: 10px;}
+
+        .image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 2px;
+        }
+
+        .image-wrapper img {
+            width: 100%;
+            display: block;
+            transition: transform 1.5s ease;
+        }
+
+        .image-wrapper:hover img { transform: scale(1.05); }
+
+        /* --- About Section Variation --- */
+        #about { background-color: var(--sand); }
+
+        /* --- Contact Form --- */
+        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
+        
+        .input-field {
+            width: 100%;
+            padding: 1.5rem 0;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 2rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus { border-bottom-color: var(--primary-blue); }
+
+        .btn-premium {
+            background: var(--deep-ocean);
+            color: white;
+            padding: 1.2rem 3rem;
+            border: none;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-premium:hover { background: var(--primary-blue); transform: translateY(-3px); }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            section { padding: 5rem 0; }
+            .content-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .header { background: white; }
+            .nav-menu { display: none; } /* Add a mobile drawer later if needed */
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header" id="header">
+        <nav class="navbar container">
+            <a href="#home" class="logo">
+                <h3 style="color: var(--primary-blue); letter-spacing: 2px;">ARUSALT</h3>
+            </a>
+            <div class="nav-menu">
+                <ul>
+                    <li><a href="#salt">The Salt</a></li>
+                    <li><a href="#about">Our Story</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-content">
+                <p>Aruba's Finest</p>
+                <h1>Purely Sun-Dried</h1>
+            </div>
+        </section>
+
+        <section id="salt">
+            <div class="container">
+                <div class="content-layout">
+                    <div class="content-text reveal-left">
+                        <span class="accent-text">Artisanal Process</span>
+                        <h2>The Alchemy of Sun and Sea</h2>
+                        <p>AruSalt isn’t manufactured—it’s nurtured. Harvested by hand from the turquoise shallows of the Caribbean, our salt crystals are left to crystallize under the relentless Aruban sun.</p>
+                        <p>This patient, ancient process preserves the <strong>natural trace minerals</strong> that industrial salts lose, resulting in a flake that doesn't just salt food—it illuminates it.</p>
+                    </div>
+                    <div class="image-wrapper reveal-right">
+                        <img src="https://images.unsplash.com/photo-1518110901926-7013bf48ef80?auto=format&fit=crop&w=800&q=80" alt="Sea Salt Harvest">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="container">
+                <div class="content-layout">
+                    <div class="image-wrapper reveal-left" style="grid-row: 1 / span 1;">
+                         <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=800&q=80" alt="Aruba Shoreline">
+                    </div>
+                    <div class="content-text reveal-right">
+                        <span class="accent-text">Our Heritage</span>
+                        <h2>Born from the Island</h2>
+                        <p>Our family founded AruSalt to capture the soul of the island. Every batch is a tribute to the pristine waters of Aruba and the sustainable traditions of our people.</p>
+                        <p>From the first harvest to the final seal on the jar, we ensure that the "Island Luxury" you taste is as authentic as the sand between your toes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact">
+            <div class="container">
+                <div class="contact-layout">
+                    <div class="reveal-left">
+                        <h2>Bring Aruba <br>to Your Kitchen</h2>
+                        <p style="margin-top: 2rem;">For wholesale inquiries, culinary partnerships, or island distribution.</p>
+                        <p><strong>hello@arusalt.com</strong></p>
+                    </div>
+                    <form class="contact-form reveal-right">
+                        <input type="text" placeholder="Your Name" class="input-field">
+                        <input type="email" placeholder="Email Address" class="input-field">
+                        <textarea placeholder="How can we help you?" class="input-field" rows="4"></textarea>
+                        <button type="submit" class="btn-premium">Inquire Now</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer style="padding: 4rem 0; border-top: 1px solid #eee; text-align: center; font-size: 0.8rem; letter-spacing: 1px;">
+        <p>&copy; <span id="year"></span> ARUSALT ARUBA. HAND-HARVESTED LUXURY.</p>
+    </footer>
+
+    <script>
+        // --- Sticky Header Logic ---
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            header.classList.toggle('scrolled', window.scrollY > 100);
+        });
+
+        // --- Smooth Scroll Animations ---
+        ScrollReveal().reveal('.reveal-left', {
+            origin: 'left',
+            distance: '50px',
+            duration: 1200,
+            delay: 200,
+            easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        });
+
+        ScrollReveal().reveal('.reveal-right', {
+            origin: 'right',
+            distance: '50px',
+            duration: 1200,
+            delay: 400,
+            easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        });
+
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
