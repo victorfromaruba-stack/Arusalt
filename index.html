@@ -1,181 +1,337 @@
+I am building a website for my company, AruSalt, which produces high-end finishing sea salt from Aruba.
+Here is the context for the project:
+1. Design Inspiration: The site is inspired by boraboraseasalt.net. It needs to be smooth, modern, and minimalist with an "island luxury" feel.
+2. Current State: I have a single-file HTML/CSS/JS prototype. The color theme is based on my logo: a specific vibrant blue (#34B7EB) and white.
+3. Functionality: This is an informational brand site, NOT an e-commerce store. It includes a Hero section, "Our Salt" info, "About Us," and a Contact form.
+4. Technical Setup: The code is currently contained in a single index.html file using vanilla CSS and JavaScript.
+What I need help with now:
+I want to refine this prototype. Please help me with the following:
+• Reviewing the current code and suggesting layout improvements to make it feel more "premium."
+• Writing better marketing copy that emphasizes the "hand-harvested" and "Aruban sun-dried" nature of the salt.
+• Improving the mobile responsiveness and adding smooth scroll animations.
+• [Insert any specific changes you want to make here, e.g., "Adding a gallery section" or "Changing the font."]
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AruSalt | Artisanal Aruban Sea Salt</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/scrollreveal"></script>
-
+    <title>AruSalt - Finishing Sea Salt from Aruba</title>
     <style>
+        /* --- Base & Typography --- */
         :root {
             --primary-blue: #34B7EB;
-            --deep-ocean: #012A4A;
-            --sand: #F9F7F2; /* Subtle off-white for premium feel */
             --white: #FFFFFF;
-            --text: #2C3E50;
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --dark-text: #012A4A;
+            --light-grey: #f8f9fa;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-        html { scroll-behavior: smooth; }
+        html {
+            scroll-behavior: smooth;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
         body {
-            font-family: 'Inter', sans-serif;
-            color: var(--text);
-            line-height: 1.8;
-            background-color: var(--white);
-            overflow-x: hidden;
+            font-size: 16px;
+            color: var(--dark-text);
+            line-height: 1.6;
         }
 
         h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--deep-ocean);
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 3rem; }
+        h2 { font-size: 2.25rem; color: var(--primary-blue); }
+        h3 { font-size: 1.5rem; }
+
+        p {
+            margin-bottom: 1rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem;
         }
 
-        section { padding: 10rem 0; }
-
-        /* --- Refined Header --- */
-        .header {
-            position: fixed;
-            top: 0; width: 100%; z-index: 1000;
-            transition: var(--transition);
-            background: rgba(255, 255, 255, 0);
-            padding: 20px 0;
+        section {
+            padding: 6rem 0;
         }
 
-        .header.scrolled {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            padding: 10px 0;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+        /* --- Header & Navigation --- */
+        .header {
+            background: var(--white);
+            border-bottom: 1px solid #eee;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
         }
 
         .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            height: 80px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .header.scrolled .navbar {
+            height: 60px;
         }
 
         .logo img {
-            height: 50px;
-            filter: brightness(1); /* Ensure logo pops */
+            height: 60px;
+            /* Using the blue from your logo's background as a fallback */
+            background: var(--primary-blue);
+            padding: 5px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .header.scrolled .logo img {
+             height: 45px;
         }
 
-        .nav-menu ul { display: flex; list-style: none; }
-        .nav-menu li { margin-left: 40px; }
+        .nav-menu ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 30px;
+        }
+
         .nav-menu a {
             text-decoration: none;
-            color: var(--deep-ocean);
+            color: var(--dark-text);
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: var(--transition);
+            letter-spacing: 1px;
+            position: relative;
+            padding-bottom: 5px;
         }
 
-        .nav-menu a:hover { color: var(--primary-blue); }
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-blue);
+            transition: width 0.3s ease;
+        }
 
-        /* --- Hero Section --- */
+        .nav-menu a:hover::after,
+        .nav-menu a.active::after {
+            width: 100%;
+        }
+        
+        /* Mobile Menu Hamburger */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+
+        /* --- Hero Section (#home) --- */
         .hero {
             height: 100vh;
+            background: linear-gradient(rgba(1, 42, 74, 0.5), rgba(1, 42, 74, 0.5)), 
+                        url('https://loremflickr.com/1600/1200/aruba,beach?lock=1') no-repeat center center/cover;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             text-align: center;
-            background: linear-gradient(rgba(1, 42, 74, 0.3), rgba(1, 42, 74, 0.3)), 
-                        url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
             color: var(--white);
+            padding: 0 2rem;
         }
 
         .hero-content h1 {
-            font-size: clamp(3rem, 8vw, 6rem);
-            color: var(--white);
+            font-size: 4.5rem;
+            font-weight: 700;
             margin-bottom: 1rem;
-            letter-spacing: -1px;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
+            font-size: 1.5rem;
             font-weight: 300;
+            letter-spacing: 1px;
         }
 
-        /* --- Split Layouts --- */
+        /* --- Content Sections (Our Salt, About) --- */
+        #salt, #about {
+            background-color: var(--white);
+        }
+        
+        #about {
+            background-color: var(--light-grey);
+        }
+
         .content-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 6rem;
+            gap: 4rem;
             align-items: center;
         }
 
-        .content-text h2 { font-size: 2.8rem; margin-bottom: 1.5rem; line-height: 1.1; }
-        .accent-text { color: var(--primary-blue); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; display: block; margin-bottom: 10px;}
-
-        .image-wrapper {
-            position: relative;
-            overflow: hidden;
-            border-radius: 2px;
+        .content-layout img {
+            width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .image-wrapper img {
-            width: 100%;
+        /* --- Contact Section --- */
+        .contact-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
             display: block;
-            transition: transform 1.5s ease;
-        }
-
-        .image-wrapper:hover img { transform: scale(1.05); }
-
-        /* --- About Section Variation --- */
-        #about { background-color: var(--sand); }
-
-        /* --- Contact Form --- */
-        .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; }
-        
-        .input-field {
-            width: 100%;
-            padding: 1.5rem 0;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid #ddd;
-            margin-bottom: 2rem;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.3s;
-        }
-
-        .input-field:focus { border-bottom-color: var(--primary-blue); }
-
-        .btn-premium {
-            background: var(--deep-ocean);
-            color: white;
-            padding: 1.2rem 3rem;
-            border: none;
-            font-family: 'Inter', sans-serif;
+            margin-bottom: 5px;
             font-weight: 600;
-            letter-spacing: 2px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            background: var(--primary-blue);
+            color: var(--white);
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
             text-transform: uppercase;
             cursor: pointer;
-            transition: var(--transition);
+            transition: background 0.3s ease;
         }
 
-        .btn-premium:hover { background: var(--primary-blue); transform: translateY(-3px); }
+        .btn:hover {
+            background: #2a9ecf;
+        }
 
-        /* --- Responsive --- */
+        .contact-info p {
+            font-size: 1.1rem;
+        }
+
+        /* --- Footer --- */
+        .footer {
+            background: var(--dark-text);
+            color: var(--white);
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .footer p {
+            margin: 0;
+            opacity: 0.8;
+        }
+        
+        /* --- Responsive Design --- */
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 3.5rem;
+            }
+            .hero-content p {
+                font-size: 1.25rem;
+            }
+            
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+        }
+
         @media (max-width: 768px) {
-            section { padding: 5rem 0; }
-            .content-layout, .contact-layout { grid-template-columns: 1fr; gap: 3rem; }
-            .header { background: white; }
-            .nav-menu { display: none; } /* Add a mobile drawer later if needed */
+            .navbar {
+                padding: 0 2rem;
+            }
+        
+            .nav-menu {
+                position: fixed;
+                top: 80px; /* Adjust to header height */
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: var(--white);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: left 0.3s ease-in-out;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-menu ul {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .nav-menu li {
+                margin: 1.5rem 0;
+            }
+            
+            .nav-menu a {
+                font-size: 1.2rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+            
+            .content-layout,
+            .contact-layout {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Reverse order for 'About' section image on mobile */
+            #about .content-layout img {
+                grid-row: 1;
+            }
+            
+            .hero {
+                height: 80vh;
+            }
+            
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
         }
     </style>
 </head>
@@ -184,13 +340,16 @@
     <header class="header" id="header">
         <nav class="navbar container">
             <a href="#home" class="logo">
-                <h3 style="color: var(--primary-blue); letter-spacing: 2px;">ARUSALT</h3>
+                <img src="image.png" alt="AruSalt Logo">
             </a>
-            <div class="nav-menu">
+            <div class="hamburger" id="hamburger">
+                &#9776; </div>
+            <div class="nav-menu" id="nav-menu">
                 <ul>
-                    <li><a href="#salt">The Salt</a></li>
-                    <li><a href="#about">Our Story</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#home" class="nav-link">Home</a></li>
+                    <li><a href="#salt" class="nav-link">Our Salt</a></li>
+                    <li><a href="#about" class="nav-link">About Us</a></li>
+                    <li><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </div>
         </nav>
@@ -199,22 +358,23 @@
     <main>
         <section class="hero" id="home">
             <div class="hero-content">
-                <p>Aruba's Finest</p>
-                <h1>Purely Sun-Dried</h1>
+                <h1>AruSalt</h1>
+                <p>Finishing Sea Salt from Aruba</p>
             </div>
         </section>
 
         <section id="salt">
             <div class="container">
                 <div class="content-layout">
-                    <div class="content-text reveal-left">
-                        <span class="accent-text">Artisanal Process</span>
-                        <h2>The Alchemy of Sun and Sea</h2>
-                        <p>AruSalt isn’t manufactured—it’s nurtured. Harvested by hand from the turquoise shallows of the Caribbean, our salt crystals are left to crystallize under the relentless Aruban sun.</p>
-                        <p>This patient, ancient process preserves the <strong>natural trace minerals</strong> that industrial salts lose, resulting in a flake that doesn't just salt food—it illuminates it.</p>
+                    <div class="content-text">
+                        <h2>The Soul of the Caribbean</h2>
+                        <h3>AruSalt Finishing Salt</h3>
+                        <p>Our salt is not just an ingredient; it's an experience. Harvested by hand from the crystal-clear waters of Aruba, AruSalt is a pure, artisanal finishing salt that brings a clean, bright flavor and a delicate crunch to every dish.</p>
+                        <p>Untouched by artificial processes, our salt flakes are dried by the same sun and wind that make Aruba famous. This natural evaporation preserves vital minerals and trace elements, offering a taste that is as healthy as it is delicious.</p>
+                        <p>Perfect for sprinkling over grilled seafood, fresh salads, or even chocolate desserts. Discover the final touch your meals have been missing.</p>
                     </div>
-                    <div class="image-wrapper reveal-right">
-                        <img src="https://images.unsplash.com/photo-1518110901926-7013bf48ef80?auto=format&fit=crop&w=800&q=80" alt="Sea Salt Harvest">
+                    <div class="content-image">
+                        <img src="https://loremflickr.com/800/600/sea,salt,crystals?lock=2" alt="AruSalt crystals">
                     </div>
                 </div>
             </div>
@@ -223,14 +383,14 @@
         <section id="about">
             <div class="container">
                 <div class="content-layout">
-                    <div class="image-wrapper reveal-left" style="grid-row: 1 / span 1;">
-                         <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?auto=format&fit=crop&w=800&q=80" alt="Aruba Shoreline">
+                    <div class="content-image">
+                        <img src="https://loremflickr.com/800/600/aruba,coastline?lock=3" alt="Coastline of Aruba">
                     </div>
-                    <div class="content-text reveal-right">
-                        <span class="accent-text">Our Heritage</span>
-                        <h2>Born from the Island</h2>
-                        <p>Our family founded AruSalt to capture the soul of the island. Every batch is a tribute to the pristine waters of Aruba and the sustainable traditions of our people.</p>
-                        <p>From the first harvest to the final seal on the jar, we ensure that the "Island Luxury" you taste is as authentic as the sand between your toes.</p>
+                    <div class="content-text">
+                        <h2>From Our Island, To Your Table</h2>
+                        <p>AruSalt was born from a love for this island and a passion for pure, authentic flavor. We are a local Aruban family dedicated to sustainable practices and traditional methods.</p>
+                        <p>Our mission is simple: to capture the pristine essence of the Aruban sea and deliver it to food lovers around the world. We work in harmony with nature, ensuring that every crystal of AruSalt is a true gift from the ocean.</p>
+                        <p>We believe in quality, community, and the power of food to bring people together. Thank you for letting us be a part of your culinary journey.</p>
                     </div>
                 </div>
             </div>
@@ -238,52 +398,85 @@
 
         <section id="contact">
             <div class="container">
+                <h2>Get In Touch</h2>
                 <div class="contact-layout">
-                    <div class="reveal-left">
-                        <h2>Bring Aruba <br>to Your Kitchen</h2>
-                        <p style="margin-top: 2rem;">For wholesale inquiries, culinary partnerships, or island distribution.</p>
-                        <p><strong>hello@arusalt.com</strong></p>
+                    <div class="contact-info">
+                        <h3>Contact Us</h3>
+                        <p>We'd love to hear from you. For inquiries, press, or just to say hello, please use the form or contact us directly.</p>
+                        <br>
+                        <p><strong>Email:</strong><br> info@arusalt.com (replace with your email)</p>
+                        <br>
+                        <p><strong>Phone:</strong><br> +297 123 4567 (replace with your phone)</p>
+                        <br>
+                        <p><strong>Where to Find Us:</strong><br>AruSalt is available at fine grocers and specialty gift shops across Aruba. Contact us for a full list of partners.</p>
                     </div>
-                    <form class="contact-form reveal-right">
-                        <input type="text" placeholder="Your Name" class="input-field">
-                        <input type="email" placeholder="Email Address" class="input-field">
-                        <textarea placeholder="How can we help you?" class="input-field" rows="4"></textarea>
-                        <button type="submit" class="btn-premium">Inquire Now</button>
+                    <form class="contact-form" id="main-contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Message</button>
                     </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer style="padding: 4rem 0; border-top: 1px solid #eee; text-align: center; font-size: 0.8rem; letter-spacing: 1px;">
-        <p>&copy; <span id="year"></span> ARUSALT ARUBA. HAND-HARVESTED LUXURY.</p>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; <span id="year"></span> AruSalt. All Rights Reserved. Crafted in Aruba.</p>
+        </div>
     </footer>
 
     <script>
-        // --- Sticky Header Logic ---
+        // --- Sticky Header & Scrolled State ---
+        const header = document.getElementById('header');
         window.addEventListener('scroll', () => {
-            const header = document.getElementById('header');
-            header.classList.toggle('scrolled', window.scrollY > 100);
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
         });
 
-        // --- Smooth Scroll Animations ---
-        ScrollReveal().reveal('.reveal-left', {
-            origin: 'left',
-            distance: '50px',
-            duration: 1200,
-            delay: 200,
-            easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        // --- Mobile Menu ---
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
 
-        ScrollReveal().reveal('.reveal-right', {
-            origin: 'right',
-            distance: '50px',
-            duration: 1200,
-            delay: 400,
-            easing: 'cubic-bezier(0.5, 0, 0, 1)'
+        // Close menu when a link is clicked
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
         });
 
+        // --- Contact Form (Simple Validation) ---
+        const form = document.getElementById('main-contact-form');
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            // This is where you would normally send data to a server
+            // For this demo, we'll just show an alert.
+            alert('Thank you for your message! We will be in touch soon.');
+            form.reset();
+        });
+        
+        // --- Dynamic Year for Footer ---
         document.getElementById('year').textContent = new Date().getFullYear();
+
     </script>
+
 </body>
 </html>
