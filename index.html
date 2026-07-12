@@ -2,7 +2,8 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CRITICAL FIX: viewport-fit=cover enables the iPhone Notch Safe Area -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
     <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
     
@@ -33,21 +34,21 @@
     }
     </script>
     
-    <!-- Favicon updated to new transparent PNG -->
+    <!-- Favicon -->
     <link rel="icon" href="IMG_2333.png" type="image/png">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts with display: swap for instant text rendering -->
+    <!-- Google Fonts with display: swap -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom Styles -->
     <style>
-        /* --- Perfect Scroll Landing & Mobile Tap Fix --- */
-        html { scroll-padding-top: 100px; }
+        /* Increased padding to account for the new combined header height */
+        html { scroll-padding-top: 140px; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #fdfdfd; 
@@ -92,7 +93,18 @@
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
-        /* --- Legal Slide-Over Animation --- */
+        /* --- Seamless Marquee Animation --- */
+        .marquee-content {
+            display: flex;
+            width: max-content;
+            animation: marquee 25s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Legal Slide-Over Animation */
         #legal-modal {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -100,7 +112,7 @@
             transform: translateX(0) !important;
         }
 
-        /* --- Scrollytelling Hero Engine --- */
+        /* Scrollytelling Hero Engine */
         #sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; z-index: 1; background-color: #000; }
         #hero-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -138,6 +150,7 @@
         
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll { transition: none !important; opacity: 1; transform: none; }
+            .marquee-content { animation: none !important; }
             html { scroll-behavior: auto; }
         }
     </style>
@@ -154,9 +167,9 @@
         </svg>
     </div>
 
-    <!-- NATIVE LEGAL POLICIES OVERLAY (Apple-style Slide-In) -->
+    <!-- NATIVE LEGAL POLICIES OVERLAY -->
     <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto">
-        <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 px-4 md:px-8 py-4 flex items-center justify-between">
+        <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 px-4 md:px-8 py-4 flex items-center justify-between" style="padding-top: max(env(safe-area-inset-top), 1rem);">
             <button id="close-legal" class="p-2 -ml-2 text-gray-900 hover:text-theme-blue transition-colors rounded-full active:scale-95 flex items-center gap-2 group">
                 <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 <span class="font-semibold text-sm">Back</span>
@@ -166,7 +179,6 @@
         </div>
 
         <div class="container mx-auto max-w-3xl px-6 py-12 text-gray-600 leading-relaxed text-base md:text-lg">
-            
             <!-- Contact Information -->
             <div id="content-contact" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h1>
@@ -183,20 +195,15 @@
                 <p class="mb-4">To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
                 <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
                 <p class="mb-4">If your return is accepted, we'll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.</p>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Damages and issues</h3>
                 <p class="mb-4">Please inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item, so that we can evaluate the issue and make it right.</p>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h3>
                 <p class="mb-4">Certain types of items cannot be returned, like perishable goods (such as food, flowers, or plants), custom products (such as special orders or personalized items), and personal care goods (such as beauty products). We also do not accept returns for hazardous materials, flammable liquids, or gases. Please get in touch if you have questions or concerns about your specific item.</p>
                 <p class="mb-4">Unfortunately, we cannot accept returns on sale items or gift cards.</p>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exchanges</h3>
                 <p class="mb-4">The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">European Union 14 day cooling off period</h3>
                 <p class="mb-4">Notwithstanding the above, if the merchandise is being shipped into the European Union, you have the right to cancel or return your order within 14 days, for any reason and without a justification. As above, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Refunds</h3>
                 <p class="mb-4">We will notify you once we've received and inspected your return, and let you know if the refund was approved or not. If approved, you'll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too.</p>
                 <p class="mb-4">If more than 15 business days have passed since we've approved your return, please contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
@@ -206,10 +213,8 @@
             <div id="content-privacy" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h1>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
-                
                 <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services or otherwise communicate with us. If there is a conflict between our Terms of Service and this Privacy Policy, this Privacy Policy controls with respect to the collection, processing, and disclosure of your personal information.</p>
                 <p class="mb-8">Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described in this Privacy Policy.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information We Collect or Process</h3>
                 <p class="mb-4">When we use the term "personal information", we are referring to information that identifies or can reasonably be linked to you or another person. We may collect or process the following categories of personal information:</p>
                 <ul class="list-disc pl-5 mb-6 space-y-2">
@@ -221,7 +226,6 @@
                     <li><strong>Device information</strong> including information about your device, browser, network connection, IP address, and other unique identifiers.</li>
                     <li><strong>Usage information</strong> including information regarding your interaction with the Services.</li>
                 </ul>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information Sources</h3>
                 <p class="mb-4">We may collect personal information from the following sources:</p>
                 <ul class="list-disc pl-5 mb-6 space-y-2">
@@ -230,7 +234,6 @@
                     <li><strong>From our service providers</strong> including when we engage them to enable certain technology.</li>
                     <li><strong>From our partners</strong> or other third parties.</li>
                 </ul>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Use Your Personal Information</h3>
                 <ul class="list-disc pl-5 mb-6 space-y-2">
                     <li><strong>Provide, Tailor, and Improve the Services.</strong> To process payments, fulfill orders, arrange shipping, and create a customized shopping experience.</li>
@@ -239,16 +242,12 @@
                     <li><strong>Communicating with You.</strong> To provide customer support and maintain our business relationship.</li>
                     <li><strong>Legal Reasons.</strong> To comply with applicable law or respond to valid legal process.</li>
                 </ul>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Disclose Personal Information</h3>
                 <p class="mb-4">In certain circumstances, we may disclose your personal information to third parties for legitimate purposes. Such circumstances may include: With Shopify, vendors and other third parties who perform services on our behalf. With business and marketing partners. With our affiliates or otherwise within our corporate group. In connection with a business transaction such as a merger or bankruptcy, to comply with applicable legal obligations.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Relationship with Shopify</h3>
                 <p class="mb-4">The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services in order to provide and improve the Services for you. Information you submit to the Services will be transmitted to and shared with Shopify as well as third parties.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Security and Retention of Your Information</h3>
                 <p class="mb-4">Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee "perfect security." How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Contact</h3>
                 <p class="mb-4">Should you have any questions about our privacy practices or this Privacy Policy, please call <a href="tel:+2975922506" class="text-theme-blue">+297 5922506</a> or email us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a> or contact us at AruSalt Aruba, L.G. Smith Boulevard 95, 00000 Noord, Aruba.</p>
             </div>
@@ -256,74 +255,74 @@
             <!-- Terms of Service -->
             <div id="content-terms" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h1>
-                
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
                 <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
                 <p class="mb-4">By visiting, interacting with or using our Services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these Terms of Service or Privacy Policy, you should not use or access our Services.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 1 - ACCESS AND ACCOUNT</h3>
                 <p class="mb-4">By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence. You represent and warrant that all the information you provide in our stores is correct, current and complete. You are solely responsible for maintaining the security of your account credentials.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 2 - OUR PRODUCTS</h3>
                 <p class="mb-4">We have made every effort to provide an accurate representation of our products and services. However, colors or product appearance may differ from how they may appear on your screen. We reserve the right to discontinue any product at any time and may limit the quantities of any products that we offer.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 3 - ORDERS</h3>
                 <p class="mb-4">When you place an order, you are making an offer to purchase. AruSalt reserves the right to accept or decline your order for any reason at its discretion. We must receive and process your payment before your order is accepted. You represent and warrant that your purchases are for your own personal or household use and not for commercial resale or export.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 4 - PRICES AND BILLING</h3>
                 <p class="mb-4">Prices, discounts and promotions are subject to change without notice. The price charged for a product or service will be the price in effect at the time the order is placed. You agree to provide current, complete and accurate purchase, payment and account information for all purchases made at our stores.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 5 - SHIPPING AND DELIVERY</h3>
                 <p class="mb-4">We are not liable for shipping and delivery delays. All delivery times are estimates only and are not guaranteed. Once we transfer products to the carrier, title and risk of loss passes to you.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 6 - INTELLECTUAL PROPERTY</h3>
                 <p class="mb-4">Our Services, including but not limited to all trademarks, brands, text, displays, images, graphics, product reviews, video, and audio, are owned by AruSalt, its affiliates or licensors and are protected by U.S. and foreign patent, copyright and other intellectual property laws. These Terms permit you to use the Services for your personal, non-commercial use only.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 15 - DISCLAIMER OF WARRANTIES</h3>
                 <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">Except as expressly stated by AruSalt, the Services and all products offered through the Services are provided 'as is' and 'as available' for your use, without any representation, warranties or conditions of any kind.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 16 - LIMITATION OF LIABILITY</h3>
                 <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">To the fullest extent provided by law, in no case shall AruSalt, our partners, directors, officers, employees, or affiliates be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special or consequential damages of any kind.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 21 - GOVERNING LAW</h3>
                 <p class="mb-4">These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the federal and state or territorial courts in the jurisdiction where AruSalt is headquartered.</p>
-
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 24 - CONTACT INFORMATION</h3>
                 <p class="mb-4">Questions about the Terms of Service should be sent to us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
             </div>
-
         </div>
     </div>
 
-    <!-- GEO ANNOUNCEMENT BAR (Updated for In-Store focus) -->
-    <div class="fixed top-0 left-0 right-0 z-[60] bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] flex items-center justify-center h-8 shadow-sm px-2">
-        <span class="truncate">HAND-HARVESTED IN ARUBA <span class="mx-1.5 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+    <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
+    <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
+        
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (With iOS Safe Area Support) -->
+        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+            <div class="marquee-content">
+                <!-- First Set -->
+                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <!-- Second Set (Required for seamless loop) -->
+                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+            </div>
+        </div>
+
+        <!-- HEADER -->
+        <header class="relative w-full transition-all duration-300">
+            <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
+            <nav class="container mx-auto px-5 lg:px-8 relative z-10">
+                <div class="flex justify-between items-center h-20 md:h-24">
+                    <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95">
+                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-20 md:h-24 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+                    </a>
+                    
+                    <div class="hidden md:flex space-x-10">
+                        <a href="#home" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
+                        <a href="#history" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
+                        <a href="#shop" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
+                        <a href="#about" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                        <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
+                    </div>
+                    
+                    <button id="menu-btn" class="md:hidden p-3 text-gray-900 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
+                        <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
+                    </button>
+                </div>
+            </nav>
+        </header>
     </div>
 
-    <!-- HEADER (Removed Cart Icon) -->
-    <header class="fixed top-8 left-0 right-0 z-50 transition-all duration-300">
-        <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
-        <nav class="container mx-auto px-5 lg:px-8 relative z-10">
-            <div class="flex justify-between items-center h-20 md:h-24">
-                <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95">
-                    <img src="IMG_2333.png" alt="AruSalt Logo" class="h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
-                </a>
-                
-                <div class="hidden md:flex space-x-10">
-                    <a href="#home" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                    <a href="#history" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                    <a href="#shop" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
-                    <a href="#about" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
-                    <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
-                </div>
-                
-                <button id="menu-btn" class="md:hidden p-3 text-gray-900 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
-                    <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                </button>
-            </div>
-        </nav>
-    </header>
-
+    <!-- MOBILE MENU -->
     <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9">
         <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
         <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
@@ -397,7 +396,6 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1">
                         <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <!-- Aerial Ocean View - Lazy Loaded -->
                             <img src="IMG_2243.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" alt="AruSalt crystallization">
                         </div>
                     </div>
@@ -412,7 +410,6 @@
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <h3 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">Salt Crystallization Mesh</h3>
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
-                            <!-- The Mesh - Lazy Loaded -->
                             <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" alt="Salt Mesh Close Up">
                         </div>
                     </div>
@@ -427,7 +424,7 @@
             </div>
         </section>
 
-        <!-- PRODUCTS (Updated for In-Store Focus) -->
+        <!-- PRODUCTS -->
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
@@ -435,20 +432,18 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
-                <!-- Product 1: Pure Sea Salt -->
+                <!-- Product 1 -->
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
-                        <!-- Changed from Sold Out to Retail Exclusive -->
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">In Stores</span>
                         <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$29.00</p>
-                    <!-- Button now auto-scrolls to the retail section -->
                     <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors">Find a Retailer</a>
                 </div>
                 
-                <!-- Product 2: Bath Salt -->
+                <!-- Product 2 -->
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">In Stores</span>
@@ -456,12 +451,10 @@
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$49.00</p>
-                    <!-- Button now auto-scrolls to the retail section -->
                     <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors">Find a Retailer</a>
                 </div>
             </div>
 
-            <!-- Trust Badges (Updated to reflect natural products instead of online shipping) -->
             <div class="container mx-auto max-w-4xl flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12 opacity-60">
                 <p class="text-sm font-semibold tracking-wider text-gray-600 uppercase flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg> 
@@ -474,7 +467,7 @@
             </div>
         </section>
 
-        <!-- RESPECT FOR LAND AND SEA (ICONS) -->
+        <!-- RESPECT FOR LAND AND SEA -->
         <section class="content-section-alt px-6 border-y border-gray-100">
             <div class="container mx-auto max-w-6xl text-center">
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 animate-on-scroll">Harvested with respect for land and sea</h2>
@@ -485,13 +478,11 @@
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
                     </div>
-                    
                     <div class="animate-on-scroll delay-1 flex flex-col items-center">
                         <img src="IMG_2255.png" alt="Sun-dried" loading="lazy" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
                     </div>
-                    
                     <div class="animate-on-scroll delay-2 flex flex-col items-center">
                         <img src="IMG_2249.webp" alt="Pure and Natural" loading="lazy" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h3>
@@ -501,7 +492,7 @@
             </div>
         </section>
 
-        <!-- FIND US LOCALLY (STOCKISTS) -->
+        <!-- FIND US LOCALLY -->
         <section id="retailers" class="content-section px-6 pb-24">
             <div class="container mx-auto max-w-6xl text-center">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Retail Partners</span>
@@ -579,7 +570,6 @@
             <div class="relative z-10 text-center text-white px-6">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
-                <!-- CTA button links to Retailers section now -->
                 <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl">Find a Retailer</a>
             </div>
         </section>
@@ -600,18 +590,17 @@
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
                 <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">Search</a></li>
-                    <li><a href="#about" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
+                    <li><a href="#" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Search</a></li>
+                    <li><a href="#about" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
                 <ul class="space-y-4 text-gray-400 flex flex-col items-start">
-                    <!-- FOOLPROOF BUTTONS: Physically impossible to navigate to a new site -->
-                    <li><button data-policy="contact" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
-                    <li><button data-policy="privacy" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
-                    <li><button data-policy="refund" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
-                    <li><button data-policy="terms" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Terms of Service</button></li>
+                    <li><button data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
+                    <li><button data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
+                    <li><button data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
+                    <li><button data-policy="terms" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Terms of Service</button></li>
                 </ul>
             </div>
         </div>
@@ -655,30 +644,24 @@
                     e.preventDefault();
                     const policyType = link.getAttribute('data-policy');
                     
-                    // Hide all content blocks
                     policyContents.forEach(c => c.classList.add('hidden'));
                     
-                    // Show targeted content
                     const targetContent = document.getElementById(`content-${policyType}`);
                     if(targetContent) targetContent.classList.remove('hidden');
                     
-                    // Update Header Title
                     legalTitle.textContent = policyTitles[policyType];
                     
-                    // Scroll modal to top so they don't start reading from the bottom
                     legalModal.scrollTo(0, 0);
                     
-                    // Slide in the modal smoothly
                     legalModal.classList.add('modal-open');
-                    document.body.style.overflow = 'hidden'; // Lock background scrolling
+                    document.body.style.overflow = 'hidden'; 
                 });
             });
 
             if(closeLegalBtn) {
                 closeLegalBtn.addEventListener('click', () => {
-                    // Slide out the modal
                     legalModal.classList.remove('modal-open');
-                    document.body.style.overflow = ''; // Restore background scrolling
+                    document.body.style.overflow = ''; 
                 });
             }
 
@@ -774,4 +757,5 @@
     </script>
 </body>
 </html>
+
 
