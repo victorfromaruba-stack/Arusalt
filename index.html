@@ -93,9 +93,11 @@
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
-        /* --- Seamless Marquee Animation --- */
+        /* --- Seamless Marquee Animation (Updated to strictly prevent text wrapping) --- */
         .marquee-content {
             display: flex;
+            flex-wrap: nowrap;
+            white-space: nowrap; /* Forces text to stay on one thin line */
             width: max-content;
             animation: marquee 25s linear infinite;
         }
@@ -285,15 +287,15 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (With iOS Safe Area Support) -->
-        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
-            <div class="marquee-content">
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (With iOS Safe Area Support & Force No-Wrap) -->
+        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full whitespace-nowrap" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+            <div class="marquee-content whitespace-nowrap flex">
                 <!-- First Set -->
-                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <!-- Second Set (Required for seamless loop) -->
-                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
             </div>
         </div>
 
