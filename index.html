@@ -60,31 +60,23 @@
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease-out, visibility 0.8s;
         }
-        /* Increased loader size from 80px to 140px */
+        /* Massively increased loader size for better impact */
         .loader-crystal {
-            width: 140px; height: 140px; stroke: #0ea5e9; stroke-width: 3; fill: none;
+            width: 180px; height: 180px; stroke: #0ea5e9; stroke-width: 3; fill: none;
             animation: pulse 2s infinite ease-in-out;
         }
         @keyframes pulse {
-            0% { transform: scale(0.9); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
-            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.6)); }
-            100% { transform: scale(0.9); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
+            0% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
+            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); }
+            100% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
         }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* --- Light Glassmorphism Header --- */
-        header {
-            background-color: rgba(253, 253, 253, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(0,0,0,0.03);
-        }
-        
+        /* --- Mobile Menu Styles --- */
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
         }
-        /* Use a custom class instead of .hidden to allow smooth sliding transforms */
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
         /* --- Scrollytelling Hero Engine --- */
@@ -97,10 +89,10 @@
             transform: scale(1.05);
         }
 
-        /* Animated Crystal */
+        /* Animated Hero Crystal (Increased Size) */
         #svg-crystal {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 220px; height: 220px; stroke: #0ea5e9; stroke-width: 5;
+            width: 300px; height: 300px; max-width: 70vw; stroke: #0ea5e9; stroke-width: 5;
             stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
             filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
         }
@@ -149,13 +141,16 @@
         </svg>
     </div>
 
-    <!-- HEADER -->
+    <!-- HEADER (Restructured to fix Safari Apple-Bug) -->
     <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
-        <nav class="container mx-auto px-6 lg:px-8">
+        <!-- Isolated Background Layer (Prevents blend-mode bug) -->
+        <div class="absolute inset-0 bg-white/95 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
+        
+        <nav class="container mx-auto px-6 lg:px-8 relative z-10">
             <div class="flex justify-between items-center h-24">
                 <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-opacity">
-                    <!-- Added mix-blend-multiply to remove the white background -->
-                    <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" alt="AruSalt Logo" class="h-16 w-auto mix-blend-multiply">
+                    <!-- TranslateZ forces hardware acceleration to ensure multiply works perfectly -->
+                    <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" alt="AruSalt Logo" class="h-16 w-auto mix-blend-multiply" style="transform: translateZ(0);">
                 </a>
                 
                 <div class="hidden md:flex space-x-10">
@@ -532,5 +527,3 @@
     </script>
 </body>
 </html>
-
-
