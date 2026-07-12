@@ -97,7 +97,7 @@
         .marquee-content {
             display: flex;
             flex-wrap: nowrap;
-            white-space: nowrap; /* Forces text to stay on one thin line */
+            white-space: nowrap;
             width: max-content;
             animation: marquee 25s linear infinite;
         }
@@ -287,28 +287,26 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
-        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full whitespace-nowrap" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
-            <div class="marquee-content whitespace-nowrap flex">
-                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 inline-block">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (Forced Single Line + Transparent Blur) -->
+        <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+            <div class="marquee-content">
+                <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
             </div>
         </div>
 
-        <!-- HEADER -->
+        <!-- HEADER (Fixed Proportions) -->
         <header class="relative w-full transition-all duration-300">
             <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
-            <!-- Expanded px and py classes to give the logo room to breathe -->
-            <nav class="container mx-auto px-5 lg:px-8 relative z-10">
-                <!-- Using py-4 ensures mathematical padding above and below the logo no matter the device -->
-                <div class="flex justify-between items-center py-4 md:py-6">
+            <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <!-- Using fixed height blocks ensures perfect padding around the logo -->
+                <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
                     
-                    <!-- PERFECTLY PADDED LOGO -->
                     <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
-                        <!-- Precisely scaled down to h-11 on mobile for that premium, minimalist Apple feel -->
-                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-11 sm:h-12 md:h-16 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+                        <!-- Much larger logo (h-14 on mobile = 56px), fits perfectly inside the h-20 (80px) nav bar -->
+                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
                     </a>
                     
                     <div class="hidden md:flex space-x-10">
