@@ -79,8 +79,12 @@
             border-bottom: 1px solid rgba(0,0,0,0.03);
         }
         
-        #mobile-menu { transition: transform 0.3s ease-in-out; background-color: #fdfdfd; }
-        #mobile-menu.hidden { transform: translateX(100%); }
+        #mobile-menu { 
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
+            background-color: rgba(253, 253, 253, 0.98); 
+        }
+        /* Use a custom class instead of .hidden to allow smooth sliding transforms */
+        .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
         /* --- Scrollytelling Hero Engine --- */
         #sticky-wrapper { position: sticky; top: 0; height: 100vh; width: 100%; overflow: hidden; z-index: 1; background-color: #000; }
@@ -160,19 +164,19 @@
                     <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                 </div>
                 
-                <div class="hidden md:flex items-center space-x-6">
-                    <button class="text-gray-900 hover:text-theme-blue transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
-                    <button class="text-gray-900 hover:text-theme-blue transition-colors"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg></button>
+                <div class="hidden md:flex items-center space-x-2">
+                    <button class="p-3 text-gray-900 hover:text-theme-blue active:scale-95 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg></button>
+                    <button class="p-3 text-gray-900 hover:text-theme-blue active:scale-95 transition-all"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg></button>
                 </div>
                 
-                <button id="menu-btn" class="md:hidden p-2 text-gray-900">
+                <button id="menu-btn" class="md:hidden p-4 text-gray-900 focus:outline-none z-50 relative" aria-label="Toggle Menu">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                 </button>
             </div>
         </nav>
     </header>
 
-    <div id="mobile-menu" class="hidden fixed inset-0 z-40 md:hidden bg-white/95 backdrop-blur-lg flex flex-col items-center justify-center space-y-8">
+    <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9">
         <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
         <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
         <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Shop</a>
@@ -227,7 +231,7 @@
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="animate-on-scroll">
-                        <h2 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-4">AruSalt crystallization</h2>
+                        <h2 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">AruSalt crystallization</h2>
                         <h3 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h3>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
@@ -252,7 +256,7 @@
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
-                        <h3 class="text-sm font-bold tracking-[0.2em] uppercase text-gray-400 mb-6">Salt Crystallization Mesh</h3>
+                        <h3 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">Salt Crystallization Mesh</h3>
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
                             <!-- The Mesh -->
                             <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salt Mesh Close Up">
@@ -272,7 +276,7 @@
         <!-- PRODUCTS -->
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
-                <span class="block text-sm font-bold text-gray-400 uppercase tracking-widest mb-3">A tiny pinch of salt</span>
+                <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
                 <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Our different flavors & products</h2>
             </div>
             
@@ -451,11 +455,11 @@
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             if(menuBtn && mobileMenu) {
-                menuBtn.onclick = () => mobileMenu.classList.toggle('hidden');
+                menuBtn.onclick = () => mobileMenu.classList.toggle('mobile-menu-closed');
                 // Close menu when a link is clicked
                 mobileMenu.querySelectorAll('.menu-link').forEach(link => {
                     link.addEventListener('click', () => {
-                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.add('mobile-menu-closed');
                     });
                 });
             }
@@ -526,3 +530,4 @@
     </script>
 </body>
 </html>
+
