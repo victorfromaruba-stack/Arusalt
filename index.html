@@ -60,8 +60,9 @@
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease-out, visibility 0.8s;
         }
+        /* Increased loader size from 80px to 140px */
         .loader-crystal {
-            width: 80px; height: 80px; stroke: #0ea5e9; stroke-width: 3; fill: none;
+            width: 140px; height: 140px; stroke: #0ea5e9; stroke-width: 3; fill: none;
             animation: pulse 2s infinite ease-in-out;
         }
         @keyframes pulse {
@@ -153,7 +154,8 @@
         <nav class="container mx-auto px-6 lg:px-8">
             <div class="flex justify-between items-center h-24">
                 <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-opacity">
-                    <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" alt="AruSalt Logo" class="h-16 w-auto">
+                    <!-- Added mix-blend-multiply to remove the white background -->
+                    <img src="AruSalt-logo_a7b96fbd-8d48-4a0f-a029-c53d15dd005d.png" alt="AruSalt Logo" class="h-16 w-auto mix-blend-multiply">
                 </a>
                 
                 <div class="hidden md:flex space-x-10">
@@ -530,4 +532,5 @@
     </script>
 </body>
 </html>
+
 
