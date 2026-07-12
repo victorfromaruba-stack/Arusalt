@@ -13,7 +13,7 @@
     <meta property="og:url" content="https://arusalt.com">
     <meta property="og:type" content="website">
     
-    <!-- Google SEO Schema Data (Updated with Official Contact Info) -->
+    <!-- Google SEO Schema Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -53,18 +53,14 @@
             background-color: #fdfdfd; 
             color: #1a1a1a; 
             overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent; /* Removes gray box on iOS tap */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- Custom Selection Color --- */
         ::selection { background-color: #0ea5e9; color: white; }
-
-        /* --- Theme Colors --- */
         .text-theme-blue { color: #0ea5e9; }
         .bg-theme-blue { background-color: #0ea5e9; }
         .hover\:bg-theme-blue-dark:hover { background-color: #0284c7; }
 
-        /* --- Premium UI Transitions --- */
         .hover-lift {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -73,7 +69,6 @@
             box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
         }
 
-        /* --- Preloader Styles --- */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #fdfdfd; z-index: 9999;
@@ -91,22 +86,27 @@
         }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* --- Mobile Menu Styles --- */
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
+        /* --- Legal Slide-Over Animation --- */
+        #legal-modal {
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .modal-open {
+            transform: translateX(0) !important;
+        }
+
         /* --- Scrollytelling Hero Engine --- */
         #sticky-wrapper { position: sticky; top: 0; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; z-index: 1; background-color: #000; }
-        
         #hero-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0.5; z-index: 0;
             transform: scale(1.05);
         }
-
         #svg-crystal {
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
             width: 250px; height: 250px; max-width: 65vw; stroke: #0ea5e9; stroke-width: 4;
@@ -126,11 +126,9 @@
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
 
-        /* --- Content Sections --- */
         .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
         .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
 
-        /* --- Scroll Animations --- */
         .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 150ms; }
@@ -138,7 +136,6 @@
 
         .blend-icon { mix-blend-mode: multiply; filter: contrast(1.1); }
         
-        /* Respect Reduced Motion Accessibility */
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll { transition: none !important; opacity: 1; transform: none; }
             html { scroll-behavior: auto; }
@@ -157,20 +154,161 @@
         </svg>
     </div>
 
-    <!-- GEO ANNOUNCEMENT BAR (Streamlined height and text sizing) -->
+    <!-- NATIVE LEGAL POLICIES OVERLAY (Apple-style Slide-In) -->
+    <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto">
+        <!-- Sticky Header with Frosted Glass -->
+        <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 px-4 md:px-8 py-4 flex items-center justify-between">
+            <button id="close-legal" class="p-2 -ml-2 text-gray-900 hover:text-theme-blue transition-colors rounded-full active:scale-95 flex items-center gap-2 group">
+                <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                <span class="font-semibold text-sm">Back</span>
+            </button>
+            <h2 id="legal-title" class="absolute left-1/2 transform -translate-x-1/2 font-bold text-lg md:text-xl text-gray-900 tracking-tight">Policy</h2>
+            <div class="w-10"></div> <!-- Balances the flex layout -->
+        </div>
+
+        <!-- Dynamic Content Container -->
+        <div class="container mx-auto max-w-3xl px-6 py-12 text-gray-600 leading-relaxed text-base md:text-lg">
+            
+            <!-- Contact Information -->
+            <div id="content-contact" class="policy-content hidden">
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h1>
+                <p class="mb-4"><strong>Trade name:</strong> AruSalt</p>
+                <p class="mb-4"><strong>Phone number:</strong> <a href="tel:+2975922506" class="text-theme-blue hover:underline">+297 5922506</a></p>
+                <p class="mb-4"><strong>Email:</strong> <a href="mailto:support@psaruba.com" class="text-theme-blue hover:underline">support@psaruba.com</a></p>
+                <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
+                <p class="mb-4"><strong>VAT number:</strong> </p>
+                <p class="mb-4"><strong>Trade number:</strong> </p>
+            </div>
+
+            <!-- Refund Policy -->
+            <div id="content-refund" class="policy-content hidden">
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h1>
+                <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
+                <p class="mb-4">To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
+                <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+                <p class="mb-4">If your return is accepted, we'll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.</p>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Damages and issues</h3>
+                <p class="mb-4">Please inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item, so that we can evaluate the issue and make it right.</p>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h3>
+                <p class="mb-4">Certain types of items cannot be returned, like perishable goods (such as food, flowers, or plants), custom products (such as special orders or personalized items), and personal care goods (such as beauty products). We also do not accept returns for hazardous materials, flammable liquids, or gases. Please get in touch if you have questions or concerns about your specific item.</p>
+                <p class="mb-4">Unfortunately, we cannot accept returns on sale items or gift cards.</p>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exchanges</h3>
+                <p class="mb-4">The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">European Union 14 day cooling off period</h3>
+                <p class="mb-4">Notwithstanding the above, if the merchandise is being shipped into the European Union, you have the right to cancel or return your order within 14 days, for any reason and without a justification. As above, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Refunds</h3>
+                <p class="mb-4">We will notify you once we've received and inspected your return, and let you know if the refund was approved or not. If approved, you'll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too.</p>
+                <p class="mb-4">If more than 15 business days have passed since we've approved your return, please contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+            </div>
+
+            <!-- Privacy Policy -->
+            <div id="content-privacy" class="policy-content hidden">
+                <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h1>
+                <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
+                
+                <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services or otherwise communicate with us. If there is a conflict between our Terms of Service and this Privacy Policy, this Privacy Policy controls with respect to the collection, processing, and disclosure of your personal information.</p>
+                <p class="mb-8">Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described in this Privacy Policy.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information We Collect or Process</h3>
+                <p class="mb-4">When we use the term "personal information", we are referring to information that identifies or can reasonably be linked to you or another person. We may collect or process the following categories of personal information:</p>
+                <ul class="list-disc pl-5 mb-6 space-y-2">
+                    <li><strong>Contact details</strong> including your name, address, billing address, shipping address, phone number, and email address.</li>
+                    <li><strong>Financial information</strong> including credit card, debit card, and financial account numbers, payment card information, and other payment details.</li>
+                    <li><strong>Account information</strong> including your username, password, security questions, preferences and settings.</li>
+                    <li><strong>Transaction information</strong> including the items you view, put in your cart, add to your wishlist, or purchase.</li>
+                    <li><strong>Communications</strong> with us including the information you include in communications with us.</li>
+                    <li><strong>Device information</strong> including information about your device, browser, network connection, IP address, and other unique identifiers.</li>
+                    <li><strong>Usage information</strong> including information regarding your interaction with the Services.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information Sources</h3>
+                <p class="mb-4">We may collect personal information from the following sources:</p>
+                <ul class="list-disc pl-5 mb-6 space-y-2">
+                    <li><strong>Directly from you</strong> including when you create an account, visit or use the Services, or communicate with us.</li>
+                    <li><strong>Automatically through the Services</strong> including from your device when you use our products or services, and through cookies.</li>
+                    <li><strong>From our service providers</strong> including when we engage them to enable certain technology.</li>
+                    <li><strong>From our partners</strong> or other third parties.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Use Your Personal Information</h3>
+                <ul class="list-disc pl-5 mb-6 space-y-2">
+                    <li><strong>Provide, Tailor, and Improve the Services.</strong> To process payments, fulfill orders, arrange shipping, and create a customized shopping experience.</li>
+                    <li><strong>Marketing and Advertising.</strong> To send marketing and promotional communications by email.</li>
+                    <li><strong>Security and Fraud Prevention.</strong> To authenticate your account, provide secure payments, and detect malicious activity.</li>
+                    <li><strong>Communicating with You.</strong> To provide customer support and maintain our business relationship.</li>
+                    <li><strong>Legal Reasons.</strong> To comply with applicable law or respond to valid legal process.</li>
+                </ul>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Disclose Personal Information</h3>
+                <p class="mb-4">In certain circumstances, we may disclose your personal information to third parties for legitimate purposes. Such circumstances may include: With Shopify, vendors and other third parties who perform services on our behalf. With business and marketing partners. With our affiliates or otherwise within our corporate group. In connection with a business transaction such as a merger or bankruptcy, to comply with applicable legal obligations.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Relationship with Shopify</h3>
+                <p class="mb-4">The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services in order to provide and improve the Services for you. Information you submit to the Services will be transmitted to and shared with Shopify as well as third parties.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Security and Retention of Your Information</h3>
+                <p class="mb-4">Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee "perfect security." How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Contact</h3>
+                <p class="mb-4">Should you have any questions about our privacy practices or this Privacy Policy, please call <a href="tel:+2975922506" class="text-theme-blue">+297 5922506</a> or email us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a> or contact us at AruSalt Aruba, L.G. Smith Boulevard 95, 00000 Noord, Aruba.</p>
+            </div>
+
+            <!-- Terms of Service -->
+            <div id="content-terms" class="policy-content hidden">
+                <h1 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h1>
+                
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
+                <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
+                <p class="mb-4">By visiting, interacting with or using our Services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these Terms of Service or Privacy Policy, you should not use or access our Services.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 1 - ACCESS AND ACCOUNT</h3>
+                <p class="mb-4">By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence. You represent and warrant that all the information you provide in our stores is correct, current and complete. You are solely responsible for maintaining the security of your account credentials.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 2 - OUR PRODUCTS</h3>
+                <p class="mb-4">We have made every effort to provide an accurate representation of our products and services. However, colors or product appearance may differ from how they may appear on your screen. We reserve the right to discontinue any product at any time and may limit the quantities of any products that we offer.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 3 - ORDERS</h3>
+                <p class="mb-4">When you place an order, you are making an offer to purchase. AruSalt reserves the right to accept or decline your order for any reason at its discretion. We must receive and process your payment before your order is accepted. You represent and warrant that your purchases are for your own personal or household use and not for commercial resale or export.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 4 - PRICES AND BILLING</h3>
+                <p class="mb-4">Prices, discounts and promotions are subject to change without notice. The price charged for a product or service will be the price in effect at the time the order is placed. You agree to provide current, complete and accurate purchase, payment and account information for all purchases made at our stores.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 5 - SHIPPING AND DELIVERY</h3>
+                <p class="mb-4">We are not liable for shipping and delivery delays. All delivery times are estimates only and are not guaranteed. Once we transfer products to the carrier, title and risk of loss passes to you.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 6 - INTELLECTUAL PROPERTY</h3>
+                <p class="mb-4">Our Services, including but not limited to all trademarks, brands, text, displays, images, graphics, product reviews, video, and audio, are owned by AruSalt, its affiliates or licensors and are protected by U.S. and foreign patent, copyright and other intellectual property laws. These Terms permit you to use the Services for your personal, non-commercial use only.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 15 - DISCLAIMER OF WARRANTIES</h3>
+                <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">Except as expressly stated by AruSalt, the Services and all products offered through the Services are provided 'as is' and 'as available' for your use, without any representation, warranties or conditions of any kind.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 16 - LIMITATION OF LIABILITY</h3>
+                <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">To the fullest extent provided by law, in no case shall AruSalt, our partners, directors, officers, employees, or affiliates be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special or consequential damages of any kind.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 21 - GOVERNING LAW</h3>
+                <p class="mb-4">These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the federal and state or territorial courts in the jurisdiction where AruSalt is headquartered.</p>
+
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 24 - CONTACT INFORMATION</h3>
+                <p class="mb-4">Questions about the Terms of Service should be sent to us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- GEO ANNOUNCEMENT BAR -->
     <div class="fixed top-0 left-0 right-0 z-[60] bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] flex items-center justify-center h-8 shadow-sm px-2">
         <span class="truncate">HAND-HARVESTED IN ARUBA <span class="mx-1.5 opacity-60">•</span> FREE LOCAL DELIVERY</span>
     </div>
 
-    <!-- HEADER (Restored to Sleek Glassmorphism) -->
+    <!-- HEADER -->
     <header class="fixed top-8 left-0 right-0 z-50 transition-all duration-300">
-        <!-- Isolated Background Layer -->
         <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
-        
         <nav class="container mx-auto px-5 lg:px-8 relative z-10">
             <div class="flex justify-between items-center h-20 md:h-24">
-                
-                <!-- SHARPER LOGO TREATMENT: No white box, bigger, with a subtle glow -->
                 <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95">
                     <img src="IMG_2333.png" alt="AruSalt Logo" class="h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
                 </a>
@@ -203,7 +341,7 @@
         <a href="#contact" class="menu-link text-2xl font-semibold text-theme-blue">Contact</a>
     </div>
 
-    <!-- WHATSAPP FLOATING BUTTON (Updated with official number) -->
+    <!-- WHATSAPP FLOATING BUTTON -->
     <a href="https://wa.me/2975922506" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-[70] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 hover-lift" aria-label="Chat with us on WhatsApp">
         <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.031 21.171l-1.353-.414-3.528.94 1.111-3.23-.497-1.196c-1.127-2.71-1.127-5.918 0-8.628 2.053-4.94 7.795-7.234 12.825-5.116 5.03 2.119 7.397 7.9 5.344 12.84-2.052 4.941-7.794 7.235-12.825 5.116-.363-.153-.71-.328-1.042-.521v-.002l.004.004-.039-.004z" fill="#25D366"/>
@@ -216,8 +354,6 @@
         <div class="relative" id="home">
             <div id="sticky-wrapper">
                 <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high">
-                
-                <!-- Glowing Interactive Crystal -->
                 <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
                     <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
@@ -373,7 +509,6 @@
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Retail Partners</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 animate-on-scroll">Find us locally in Aruba</h2>
                 
-                <!-- Stockist Grid (Replace text with logos later if desired) -->
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-70">
                     <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Luxury Hotel</span></div>
                     <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Local Boutique</span></div>
@@ -387,7 +522,6 @@
         <section id="history" class="content-section-alt px-6">
             <div class="container mx-auto max-w-6xl">
                 
-                <!-- Intro (Aruba's Salt Heritage) -->
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="animate-on-scroll">
                         <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Aruba's Salt Heritage</h2>
@@ -400,7 +534,6 @@
                     </div>
                 </div>
 
-                <!-- Salina Ranchoe -->
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
@@ -414,7 +547,6 @@
                     </div>
                 </div>
 
-                <!-- The Locals -->
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="animate-on-scroll">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">The locals</h3>
@@ -428,7 +560,6 @@
                     </div>
                 </div>
 
-                <!-- Commercial Decline -->
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
@@ -444,7 +575,7 @@
             </div>
         </section>
 
-        <!-- CTA BACKGROUND (Fixed iOS Parallax Bug) -->
+        <!-- CTA BACKGROUND -->
         <section class="h-[60vh] bg-scroll md:bg-fixed bg-center bg-no-repeat bg-cover relative flex items-center justify-center" style="background-image: url('IMG_2243.webp');">
             <div class="absolute inset-0 bg-black/40"></div>
             <div class="relative z-10 text-center text-white px-6">
@@ -456,14 +587,13 @@
 
     </main>
 
-    <!-- FOOTER (Updated with direct Policy links & Real Contact Info) -->
+    <!-- FOOTER -->
     <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800">
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
                 <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
                 <form class="flex gap-2 max-w-md">
-                    <!-- Formspree Integration placeholder -->
                     <input type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
                     <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20">Sign up</button>
                 </form>
@@ -477,12 +607,12 @@
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <!-- Links open securely in a new tab to exact Shopify pages -->
-                    <li><a href="https://arusaltaruba.com/policies/contact-information" target="_blank" rel="noopener noreferrer" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">Contact Information</a></li>
-                    <li><a href="https://arusaltaruba.com/policies/privacy-policy" target="_blank" rel="noopener noreferrer" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">Privacy Policy</a></li>
-                    <li><a href="https://arusaltaruba.com/policies/refund-policy" target="_blank" rel="noopener noreferrer" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">Refund Policy</a></li>
-                    <li><a href="https://arusaltaruba.com/policies/terms-of-service" target="_blank" rel="noopener noreferrer" class="block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors">Terms of Service</a></li>
+                <ul class="space-y-4 text-gray-400 flex flex-col items-start">
+                    <!-- FOOLPROOF BUTTONS: Physically impossible to act as normal website links -->
+                    <li><button data-policy="contact" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
+                    <li><button data-policy="privacy" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
+                    <li><button data-policy="refund" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
+                    <li><button data-policy="terms" class="policy-link block py-1 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Terms of Service</button></li>
                 </ul>
             </div>
         </div>
@@ -504,6 +634,52 @@
                     link.addEventListener('click', () => {
                         mobileMenu.classList.add('mobile-menu-closed');
                     });
+                });
+            }
+
+            // --- Native Legal Slide-Over Engine ---
+            const legalModal = document.getElementById('legal-modal');
+            const closeLegalBtn = document.getElementById('close-legal');
+            const legalTitle = document.getElementById('legal-title');
+            const policyContents = document.querySelectorAll('.policy-content');
+            const policyLinks = document.querySelectorAll('.policy-link');
+
+            const policyTitles = {
+                'contact': 'Contact Information',
+                'privacy': 'Privacy Policy',
+                'refund': 'Refund Policy',
+                'terms': 'Terms of Service'
+            };
+
+            policyLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const policyType = link.getAttribute('data-policy');
+                    
+                    // Hide all content blocks
+                    policyContents.forEach(c => c.classList.add('hidden'));
+                    
+                    // Show targeted content
+                    const targetContent = document.getElementById(`content-${policyType}`);
+                    if(targetContent) targetContent.classList.remove('hidden');
+                    
+                    // Update Header Title
+                    legalTitle.textContent = policyTitles[policyType];
+                    
+                    // Scroll modal to top so they don't start reading from the bottom
+                    legalModal.scrollTo(0, 0);
+                    
+                    // Slide in the modal smoothly
+                    legalModal.classList.add('modal-open');
+                    document.body.style.overflow = 'hidden'; // Lock background scrolling
+                });
+            });
+
+            if(closeLegalBtn) {
+                closeLegalBtn.addEventListener('click', () => {
+                    // Slide out the modal
+                    legalModal.classList.remove('modal-open');
+                    document.body.style.overflow = ''; // Restore background scrolling
                 });
             }
 
@@ -529,7 +705,7 @@
                 }
                 
                 function draw() {
-                    if (!isVisible) return; // Stop drawing to save battery
+                    if (!isVisible) return; 
                     
                     ctx.clearRect(0,0,canvas.width,canvas.height);
                     ps.forEach(p => {
@@ -551,7 +727,6 @@
                 canvas.height = window.innerHeight; 
                 init();
 
-                // Smart Observer: Watches the Hero section
                 const heroSection = document.getElementById('home');
                 if (heroSection) {
                     const observer = new IntersectionObserver((entries) => {
@@ -600,5 +775,3 @@
     </script>
 </body>
 </html>
-
-
