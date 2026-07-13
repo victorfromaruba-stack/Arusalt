@@ -125,26 +125,13 @@
             transform: translateX(0) !important;
         }
 
-        /* Scrollytelling Hero Engine - NOW FULLY HARDWARE ACCELERATED */
-        #sticky-wrapper { 
-            position: sticky; top: 0; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; z-index: 1; background-color: #000;
-            transform: translateZ(0); /* Forces a dedicated hardware layer to stop repaint lag! */
-        }
-        #hero-bg-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.5; z-index: 0;
-            transform: scale(1.1); 
-        }
-        
+        /* --- Refactored Zero-Lag Hero Engine --- */
         #crystal-wrapper {
-            position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 250px; max-width: 65vw; z-index: 2;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
+            width: 220px; height: 220px; max-width: 65vw; z-index: 2;
         }
         
-        /* THE FIX: Replaced expensive 'filter: blur()' with a free radial-gradient */
         .glow-orb {
-            position: absolute; inset: -40px; 
+            position: absolute; inset: -30px; 
             background: radial-gradient(circle, rgba(14, 165, 233, 0.4) 0%, rgba(14, 165, 233, 0) 70%); 
             border-radius: 50%; z-index: -1;
         }
@@ -155,23 +142,13 @@
         }
         #svg-crystal path { 
             stroke-dasharray: 1000; stroke-dashoffset: 1000; 
-            transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: stroke-dashoffset 2s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
         
-        #particle-bg { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
-            overflow: hidden; pointer-events: none; 
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-        
-        #scrolly-text { position: relative; z-index: 10; }
-        .scroll-scene { height: 80vh; width: 100%; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; }
-        
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-            transform: translateY(20px); text-shadow: 0 2px 10px rgba(0,0,0,0.5); /* Tighter, faster shadow */
-            color: white;
+            transform: translateY(20px); text-shadow: 0 2px 10px rgba(0,0,0,0.5); color: white;
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1s; }
 
@@ -211,10 +188,7 @@
     <!-- NATIVE LEGAL POLICIES OVERLAY -->
     <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto">
         <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 flex flex-col items-center" style="padding-top: max(env(safe-area-inset-top), 0.5rem);">
-            
-            <!-- NEW: Apple UI Swipe Pill -->
             <div class="w-10 h-1 bg-gray-300 rounded-full mt-2 mb-2"></div>
-            
             <div class="w-full px-4 md:px-8 py-2 flex items-center justify-between">
                 <button id="close-legal" class="p-2 -ml-2 text-gray-900 hover:text-theme-blue transition-colors rounded-full active:scale-95 flex items-center gap-2 group select-none">
                     <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
@@ -328,8 +302,8 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
-        <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (Solid Color, No Double Blur) -->
+        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
             <div class="marquee-content whitespace-nowrap flex">
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
@@ -350,9 +324,9 @@
                     
                     <div class="hidden md:flex space-x-10">
                         <a href="#home" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
                         <a href="#about" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
+                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
                         <a href="#contact" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                     </div>
                     
@@ -391,43 +365,46 @@
     </div>
 
     <main>
-        <!-- HERO -->
-        <div class="relative" id="home">
-            <div id="sticky-wrapper">
-                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async">
-                
-                <div id="crystal-wrapper">
-                    <!-- Pure CSS radial gradient glow (Zero Math Lag) -->
-                    <div class="glow-orb"></div>
-                    <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
-                        <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
-                        <path d="M 50 10 L 50 30"></path>
-                        <path d="M 90 50 L 70 50"></path>
-                        <path d="M 50 90 L 50 70"></path>
-                        <path d="M 10 50 L 30 50"></path>
-                    </svg>
-                </div>
-                
-                <div id="particle-bg"><canvas id="particle-canvas"></canvas></div>
+        <!-- RE-ENGINEERED LAG-FREE HERO -->
+        <div class="relative bg-black" id="home">
+            
+            <!-- Layer 1: Dedicated Hardware Ocean Layer -->
+            <div class="sticky top-0 h-[100vh] w-full overflow-hidden z-0 transform-gpu">
+                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-50 scale-105">
             </div>
 
-            <div id="scrolly-text">
-                <section class="scroll-scene">
-                    <div class="hero-text-block text-center px-4 max-w-4xl">
+            <!-- Layer 2: Natural Scrolling Content (Zero Math Lag) -->
+            <div class="relative z-10 -mt-[100vh]">
+                
+                <section class="relative h-[100vh] w-full flex flex-col items-center justify-center px-4 pt-20">
+                    <div class="absolute inset-0 z-0"><canvas id="particle-canvas"></canvas></div>
+                    
+                    <div id="crystal-wrapper" class="relative z-10 mb-8 mt-4">
+                        <div class="glow-orb"></div>
+                        <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                            <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                            <path d="M 50 10 L 50 30"></path>
+                            <path d="M 90 50 L 70 50"></path>
+                            <path d="M 50 90 L 50 70"></path>
+                            <path d="M 10 50 L 30 50"></path>
+                        </svg>
+                    </div>
+                    
+                    <div class="hero-text-block text-center max-w-4xl z-10">
                         <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">Bring a touch of the island to your home.</h1>
                         <p class="text-xl md:text-2xl font-light leading-relaxed">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
                     </div>
                 </section>
                 
-                <section class="scroll-scene pointer-events-none">
-                    <div class="text-center px-4 animate-on-scroll">
+                <section class="h-[80vh] w-full flex items-center justify-center px-4 pointer-events-none">
+                    <div class="text-center animate-on-scroll">
                         <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-white drop-shadow-lg">100% natural<br><span class="text-theme-blue">100% Aruba.</span></h2>
                     </div>
                 </section>
                 
-                <section class="scroll-scene pointer-events-none">
-                    <div class="text-center px-4 animate-on-scroll">
+                <section class="h-[80vh] w-full flex items-center justify-center px-4 pointer-events-none">
+                    <div class="text-center animate-on-scroll">
                         <h2 class="text-3xl md:text-6xl font-medium text-white drop-shadow-lg italic">Soft and crunchy with a delicate pop.</h2>
                     </div>
                 </section>
@@ -744,7 +721,7 @@
                 });
             }
 
-            // --- Native Legal Slide-Over Engine (With Swipe-to-Close) ---
+            // --- Native Legal Slide-Over Engine ---
             const legalModal = document.getElementById('legal-modal');
             const closeLegalBtn = document.getElementById('close-legal');
             const legalTitle = document.getElementById('legal-title');
@@ -799,14 +776,15 @@
                 if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
             });
 
-            // --- Optimized Canvas Particles ---
+            // --- Battery Optimized Canvas Particles ---
             const canvas = document.getElementById('particle-canvas');
             if(canvas) {
                 const ctx = canvas.getContext('2d');
                 let ps = [];
                 let animationId;
+                let isVisible = false;
                 
-                const particleCount = window.innerWidth < 768 ? 20 : 50;
+                const particleCount = window.innerWidth < 768 ? 25 : 50;
 
                 function init() {
                     ps = [];
@@ -822,12 +800,7 @@
                 }
                 
                 function draw() {
-                    // Instantly pause canvas when scrolling down past 100px to save battery/processor
-                    if (window.scrollY > 100) {
-                        animationId = requestAnimationFrame(draw);
-                        return;
-                    }
-                    
+                    if (!isVisible) return; 
                     ctx.clearRect(0,0,canvas.width,canvas.height);
                     ps.forEach(p => {
                         ctx.fillStyle = `rgba(14, 165, 233, ${p.o})`;
@@ -847,26 +820,38 @@
                 canvas.width = window.innerWidth; 
                 canvas.height = window.innerHeight; 
                 init();
-                draw(); // Start loop immediately
+
+                const heroSection = document.getElementById('home');
+                if (heroSection) {
+                    const observer = new IntersectionObserver((entries) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                isVisible = true; draw();
+                            } else {
+                                isVisible = false; cancelAnimationFrame(animationId);
+                            }
+                        });
+                    }, { threshold: 0 }); 
+                    observer.observe(heroSection);
+                }
             }
 
-            // --- Ultra-Lightweight Scroll Engine (ZERO MATH LAG FIX) ---
-            const crystalWrapper = document.getElementById('crystal-wrapper');
-            const particleBg = document.getElementById('particle-bg');
-            let isFaded = false;
+            // --- GPU Accelerated Desktop Parallax (Lag Fix) ---
+            const heroBg = document.getElementById('hero-bg-image');
+            let ticking = false;
 
             window.addEventListener('scroll', () => {
-                let scrollY = window.scrollY;
-                
-                // CSS-Triggered Fade (Zero Math Lag) - Replaces the heavy 60fps calculation
-                if (scrollY > 50 && !isFaded) {
-                    if(crystalWrapper) crystalWrapper.style.opacity = '0';
-                    if(particleBg) particleBg.style.opacity = '0';
-                    isFaded = true;
-                } else if (scrollY <= 50 && isFaded) {
-                    if(crystalWrapper) crystalWrapper.style.opacity = '1';
-                    if(particleBg) particleBg.style.opacity = '1';
-                    isFaded = false;
+                if (window.innerWidth > 768) {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            let scrollY = window.scrollY;
+                            if(heroBg && scrollY < window.innerHeight) {
+                                heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.1)`;
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 }
             }, { passive: true });
 
