@@ -125,24 +125,19 @@
             transform: translateX(0) !important;
         }
 
-        /* --- RESTORED CINEMATIC HERO ENGINE --- */
-        #sticky-wrapper { 
-            position: sticky; top: 0; height: 100vh; height: 100dvh; width: 100%; overflow: hidden; z-index: 1; background-color: #000;
+        /* --- ZERO-LAG FIXED BACKGROUND ENGINE --- */
+        #fixed-bg-layer {
+            position: fixed; inset: 0; z-index: -1; background-color: #000;
         }
         #hero-bg-image {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.6; z-index: 0;
-            transform: scale(1.05); 
+            width: 100%; height: 100%; object-fit: cover; opacity: 0.65;
+        }
+        .cinematic-gradient {
+            position: absolute; inset: 0; pointer-events: none;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%);
         }
         
-        #crystal-wrapper {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 250px; max-width: 65vw; z-index: 2;
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-            margin-top: 1.5rem; /* Nudges it down slightly from the header */
-        }
-        
-        /* Pure CSS glow - No laggy blurs */
+        /* Pure CSS Glow - Zero Lag */
         .glow-orb {
             position: absolute; inset: -40px; 
             background: radial-gradient(circle, rgba(14, 165, 233, 0.5) 0%, rgba(14, 165, 233, 0) 70%); 
@@ -150,8 +145,7 @@
         }
         
         #svg-crystal {
-            width: 100%; height: 100%; stroke: #0ea5e9; 
-            stroke-width: 4; /* Restored bold, impactful thickness */
+            width: 100%; height: 100%; stroke: #0ea5e9; stroke-width: 4;
             stroke-linecap: round; stroke-linejoin: round; fill: none;
         }
         #svg-crystal path { 
@@ -160,31 +154,9 @@
         }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
         
-        #particle-bg { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
-            overflow: hidden; pointer-events: none; 
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-
-        #scroll-arrow {
-            position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%);
-            z-index: 10; transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            animation: bounce 2s infinite;
-        }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
-            40% { transform: translate(-50%, -10px); }
-            60% { transform: translate(-50%, -5px); }
-        }
-        
-        #scrolly-text { position: relative; z-index: 10; }
-        .scroll-scene { min-height: 80vh; width: 100%; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; }
-        
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
-            transform: translateY(30px); 
-            text-shadow: 0 4px 30px rgba(0,0,0,0.8); 
-            color: white;
+            transform: translateY(30px); text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white;
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); }
 
@@ -335,11 +307,11 @@
         </div>
     </div>
 
-    <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
+    <!-- GLOBAL STICKY HEADER -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col pointer-events-none">
         
         <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
-        <div class="bg-[#0ea5e9]/95 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none pointer-events-auto" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+        <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none pointer-events-auto" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
             <div class="marquee-content whitespace-nowrap flex">
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
@@ -400,73 +372,51 @@
         </a>
     </div>
 
-    <main>
-        <!-- RE-ENGINEERED SCROLLYTELLING HERO -->
-        <div class="relative bg-black" id="home">
-            
-            <!-- Layer 1: Dedicated Hardware Ocean Layer (Sticky) -->
-            <div id="sticky-wrapper" class="sticky top-0 h-[100vh] w-full overflow-hidden z-0 transform-gpu">
-                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="absolute inset-0 w-full h-full object-cover opacity-60">
-                
-                <!-- Subtle background darkening -->
-                <div class="absolute inset-0 bg-black/20 z-0 pointer-events-none"></div>
-
-                <!-- Particles Canvas -->
-                <div id="particle-bg" class="absolute inset-0 z-10 transition-opacity duration-700 pointer-events-none">
-                    <canvas id="particle-canvas"></canvas>
-                </div>
-                
-                <!-- Centered Bold Crystal Logo -->
-                <div id="crystal-wrapper" class="absolute top-[50%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 transition-opacity duration-700 mt-6">
-                    <div class="glow-orb"></div>
-                    <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
-                        <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
-                        <path d="M 50 10 L 50 30"></path>
-                        <path d="M 90 50 L 70 50"></path>
-                        <path d="M 50 90 L 50 70"></path>
-                        <path d="M 10 50 L 30 50"></path>
-                    </svg>
-                </div>
-
-                <!-- Bouncing Scroll Indicator -->
-                <div id="scroll-arrow" class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center gap-2 z-20 transition-opacity duration-700">
-                    <span class="text-[10px] uppercase tracking-[0.3em] text-white/80 font-bold drop-shadow-md">Scroll</span>
-                    <svg class="w-6 h-6 text-white/80 drop-shadow-md animate-[bounce_2s_infinite]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </div>
-            </div>
-
-            <!-- Layer 2: Natural Scrolling Content (Zero Math Lag) -->
-            <div id="scrolly-text" class="relative z-10">
-                
-                <!-- Spacer: Forces the user to scroll down before seeing the text -->
-                <div class="h-[75vh] w-full pointer-events-none"></div>
-
-                <section class="scroll-scene min-h-[80vh] w-full flex items-center justify-center px-4">
-                    <div class="hero-text-block text-center max-w-4xl">
-                        <h1 class="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
-                        <p class="text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
-                    </div>
-                </section>
-                
-                <section class="scroll-scene min-h-[80vh] w-full flex items-center justify-center px-4 pointer-events-none">
-                    <div class="text-center animate-on-scroll">
-                        <h2 class="text-4xl md:text-7xl font-bold tracking-tight text-white drop-shadow-2xl">100% natural<br><span class="text-theme-blue">100% Aruba.</span></h2>
-                    </div>
-                </section>
-                
-                <section class="scroll-scene min-h-[80vh] w-full flex items-center justify-center px-4 pointer-events-none">
-                    <div class="text-center animate-on-scroll">
-                        <h2 class="text-3xl md:text-6xl font-medium text-white drop-shadow-2xl italic">Soft and crunchy with a delicate pop.</h2>
-                    </div>
-                </section>
-                
-                <div class="h-[15vh]"></div>
-            </div>
+    <!-- MAIN SCROLLING CONTENT -->
+    <main class="relative z-10 w-full" id="home">
+        
+        <!-- ZERO-LAG FIXED BACKGROUND ENGINE -->
+        <div class="fixed inset-0 z-[-1] bg-black">
+            <img src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65">
+            <div id="particle-bg" class="absolute inset-0 z-10 pointer-events-none"><canvas id="particle-canvas"></canvas></div>
+            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90 pointer-events-none z-20"></div>
         </div>
 
+        <!-- Section 1: 100svh Hero (Crystal) -->
+        <section class="relative w-full h-[100svh] flex flex-col items-center justify-center">
+            
+            <div class="relative z-10 w-[220px] h-[220px] max-w-[60vw]">
+                <div class="glow-orb"></div>
+                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                    <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                    <path d="M 50 10 L 50 30"></path>
+                    <path d="M 90 50 L 70 50"></path>
+                    <path d="M 50 90 L 50 70"></path>
+                    <path d="M 10 50 L 30 50"></path>
+                </svg>
+            </div>
+
+            <!-- Foolproof Centered Scroll Arrow -->
+            <div class="absolute bottom-8 left-0 w-full flex justify-center z-20 pointer-events-none">
+                <div class="flex flex-col items-center gap-2 animate-[bounce_2s_infinite]">
+                    <span class="text-[10px] uppercase tracking-[0.3em] text-white/80 font-bold drop-shadow-md">Scroll</span>
+                    <svg class="w-6 h-6 text-white/80 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+                </div>
+            </div>
+            
+        </section>
+
+        <!-- Section 2: Flowing Text -->
+        <section class="relative w-full min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 pb-32">
+            <div class="hero-text-block text-center max-w-4xl z-10">
+                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
+                <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-3xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
+            </div>
+        </section>
+
         <!-- ABOUT US -->
-        <section id="about" class="content-section px-6">
+        <section id="about" class="content-section px-6 border-t border-gray-100 shadow-2xl">
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="animate-on-scroll">
@@ -676,8 +626,8 @@
         </section>
 
         <!-- CTA BACKGROUND -->
-        <section class="h-[60vh] bg-scroll md:bg-fixed bg-center bg-no-repeat bg-cover relative flex items-center justify-center" style="background-image: url('IMG_2243.webp');">
-            <div class="absolute inset-0 bg-black/40"></div>
+        <!-- Because the background is now purely fixed globally, we just make this area transparent so the fixed ocean shows through! -->
+        <section class="h-[60vh] relative flex items-center justify-center bg-transparent">
             <div class="relative z-10 text-center text-white px-6">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
@@ -688,7 +638,7 @@
     </main>
 
     <!-- FOOTER -->
-    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800">
+    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800 relative z-20">
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
@@ -773,7 +723,7 @@
                 });
             }
 
-            // --- Native Legal Slide-Over Engine (With Swipe-to-Close) ---
+            // --- Native Legal Slide-Over Engine ---
             const legalModal = document.getElementById('legal-modal');
             const closeLegalBtn = document.getElementById('close-legal');
             const legalTitle = document.getElementById('legal-title');
@@ -821,14 +771,14 @@
                 if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
             });
 
-            // --- Optimized Canvas Particles ---
+            // --- Smart Canvas Pausing (Battery/CPU Saver) ---
             const canvas = document.getElementById('particle-canvas');
             if(canvas) {
                 const ctx = canvas.getContext('2d');
                 let ps = [];
                 let animationId;
                 
-                const particleCount = window.innerWidth < 768 ? 25 : 50;
+                const particleCount = window.innerWidth < 768 ? 20 : 40;
 
                 function init() {
                     ps = [];
@@ -844,7 +794,8 @@
                 }
                 
                 function draw() {
-                    if (window.scrollY > 150) {
+                    // Instantly pause canvas when scrolling out of hero section
+                    if (window.scrollY > window.innerHeight) {
                         animationId = requestAnimationFrame(draw);
                         return;
                     }
@@ -870,28 +821,6 @@
                 init();
                 draw();
             }
-
-            // --- Ultra-Lightweight Scroll Engine (ZERO MATH LAG FIX) ---
-            const crystalWrapper = document.getElementById('crystal-wrapper');
-            const particleBg = document.getElementById('particle-bg');
-            const scrollArrow = document.getElementById('scroll-arrow');
-            let isFaded = false;
-
-            window.addEventListener('scroll', () => {
-                let scrollY = window.scrollY;
-                
-                if (scrollY > 100 && !isFaded) {
-                    if(crystalWrapper) crystalWrapper.style.opacity = '0';
-                    if(particleBg) particleBg.style.opacity = '0';
-                    if(scrollArrow) scrollArrow.style.opacity = '0';
-                    isFaded = true;
-                } else if (scrollY <= 100 && isFaded) {
-                    if(crystalWrapper) crystalWrapper.style.opacity = '1';
-                    if(particleBg) particleBg.style.opacity = '1';
-                    if(scrollArrow) scrollArrow.style.opacity = '0.8';
-                    isFaded = false;
-                }
-            }, { passive: true });
 
             // --- Optimized Scroll Observer ---
             const obs = new IntersectionObserver((es, observer) => {
