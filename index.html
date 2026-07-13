@@ -7,7 +7,7 @@
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="site.webmanifest">
     
-    <!-- Native App Mode (Save to Home Screen) -->
+    <!-- Native App Mode -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="AruSalt">
@@ -17,7 +17,7 @@
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
     <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
     
-    <!-- Social Sharing (Open Graph) -->
+    <!-- Social Sharing -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
     <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
     <meta property="og:image" content="IMG_2244.webp">
@@ -64,7 +64,7 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* Custom Premium Scrollbar */
+        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
@@ -77,6 +77,7 @@
 
         .hover-lift {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, box-shadow; 
         }
         .hover-lift:hover {
             transform: translateY(-8px) scale(1.02);
@@ -92,17 +93,19 @@
         .loader-crystal {
             width: 180px; height: 180px; stroke: #0ea5e9; stroke-width: 3; fill: none;
             animation: pulse 2s infinite ease-in-out;
+            will-change: transform;
         }
         @keyframes pulse {
-            0% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
-            50% { transform: scale(1.05); opacity: 1; filter: drop-shadow(0 0 25px rgba(14, 165, 233, 0.6)); }
-            100% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
+            0% { transform: scale(0.95); opacity: 0.6; }
+            50% { transform: scale(1.05); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.6; }
         }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
+            will-change: transform;
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
@@ -112,6 +115,7 @@
             white-space: nowrap; 
             width: max-content;
             animation: marquee 25s linear infinite;
+            will-change: transform; 
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -120,6 +124,7 @@
 
         #legal-modal {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
         .modal-open {
             transform: translateX(0) !important;
@@ -131,28 +136,39 @@
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0.5; z-index: 0;
             transform: scale(1.1); 
-            will-change: transform; /* Hardware acceleration limited to only the background image */
+            will-change: transform; 
         }
         
-        #svg-crystal {
+        /* HARDWARE ACCELERATED CRYSTAL GLOW (LAG FIX) */
+        #crystal-wrapper {
             position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 250px; max-width: 65vw; stroke: #0ea5e9; stroke-width: 4;
-            stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
-            filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
-            will-change: opacity; /* Limited hardware acceleration to only the crystal opacity */
+            width: 250px; height: 250px; max-width: 65vw; z-index: 2;
+            will-change: opacity; 
         }
-        #svg-crystal path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
+        .glow-orb {
+            position: absolute; inset: 0; background: rgba(14, 165, 233, 0.35); 
+            filter: blur(35px); border-radius: 50%; z-index: -1;
+        }
+        #svg-crystal {
+            width: 100%; height: 100%; stroke: #0ea5e9; stroke-width: 4;
+            stroke-linecap: round; stroke-linejoin: round; fill: none;
+        }
+        #svg-crystal path { 
+            stroke-dasharray: 1000; stroke-dashoffset: 1000; 
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1); /* Faster draw speed */
+        }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
         
-        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none; }
+        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none; will-change: opacity; }
         #scrolly-text { position: relative; z-index: 10; }
         .scroll-scene { height: 80vh; width: 100%; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; }
         
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             transform: translateY(20px); text-shadow: 0 4px 20px rgba(0,0,0,0.6); color: white;
+            will-change: opacity, transform;
         }
-        .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
+        .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1s; }
 
         .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
         .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
@@ -292,6 +308,8 @@
                 <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">To the fullest extent provided by law, in no case shall AruSalt, our partners, directors, officers, employees, or affiliates be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special or consequential damages of any kind.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 21 - GOVERNING LAW</h3>
                 <p class="mb-4">These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the federal and state or territorial courts in the jurisdiction where AruSalt is headquartered.</p>
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 24 - CONTACT INFORMATION</h3>
+                <p class="mb-4">Questions about the Terms of Service should be sent to us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
             </div>
         </div>
     </div>
@@ -365,15 +383,21 @@
         <!-- HERO -->
         <div class="relative" id="home">
             <div id="sticky-wrapper">
-                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async">
-                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
-                    <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
-                    <path d="M 50 10 L 50 30"></path>
-                    <path d="M 90 50 L 70 50"></path>
-                    <path d="M 50 90 L 50 70"></path>
-                    <path d="M 10 50 L 30 50"></path>
-                </svg>
+                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="sync">
+                
+                <!-- NEW: Fake Glow Trick (Zero-Lag on Mobile) -->
+                <div id="crystal-wrapper">
+                    <div class="glow-orb"></div>
+                    <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                        <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                        <path d="M 50 10 L 50 30"></path>
+                        <path d="M 90 50 L 70 50"></path>
+                        <path d="M 50 90 L 50 70"></path>
+                        <path d="M 10 50 L 30 50"></path>
+                    </svg>
+                </div>
+                
                 <div id="particle-bg"><canvas id="particle-canvas"></canvas></div>
             </div>
 
@@ -446,7 +470,7 @@
             </div>
         </section>
 
-        <!-- PRODUCTS (Added ontouchstart for perfect Mobile Hover states) -->
+        <!-- PRODUCTS -->
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
@@ -757,14 +781,14 @@
 
             legalModal.addEventListener('touchend', e => {
                 touchEndX = e.changedTouches[0].screenX;
-                if (touchEndX - touchStartX > 100) closeModal(); // Swiped right by 100px
+                if (touchEndX - touchStartX > 100) closeModal(); 
             }, {passive: true});
 
             document.addEventListener('keydown', (e) => {
                 if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
             });
 
-            // --- Battery Optimized Canvas Particles (Lag Fix) ---
+            // --- Optimized Canvas Particles ---
             const canvas = document.getElementById('particle-canvas');
             if(canvas) {
                 const ctx = canvas.getContext('2d');
@@ -772,7 +796,7 @@
                 let animationId;
                 let isVisible = false;
                 
-                // Reduce particles on mobile to save CPU/Battery
+                // Throttle particle count on mobile
                 const particleCount = window.innerWidth < 768 ? 20 : 50;
 
                 function init() {
@@ -790,7 +814,6 @@
                 
                 function draw() {
                     if (!isVisible) return; 
-                    
                     ctx.clearRect(0,0,canvas.width,canvas.height);
                     ps.forEach(p => {
                         ctx.fillStyle = `rgba(14, 165, 233, ${p.o})`;
@@ -826,8 +849,9 @@
                 }
             }
 
-            // --- GPU Accelerated 3D Hero Parallax (Lag Fix 2.0) ---
-            const crystal = document.getElementById('svg-crystal');
+            // --- GPU Accelerated Scrollytelling (LAG FIX 3.0) ---
+            const crystalWrapper = document.getElementById('crystal-wrapper');
+            const particleBg = document.getElementById('particle-bg');
             const heroBg = document.getElementById('hero-bg-image');
             let ticking = false;
 
@@ -836,14 +860,17 @@
                     window.requestAnimationFrame(() => {
                         let scrollY = window.scrollY;
                         
-                        // Hardware Accelerated translate3d
+                        // Strict GPU hardware layer translation
                         if(heroBg && scrollY < window.innerHeight && window.innerWidth > 768) {
-                            heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.05)`;
+                            heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.1)`;
                         }
                         
-                        if(crystal) {
+                        // Apply fade to wrapper, NOT directly to SVG (eliminates drop-shadow repainting lag)
+                        if(crystalWrapper && scrollY < window.innerHeight) {
                             let op = 1 - (scrollY / 300);
-                            crystal.style.opacity = Math.max(0, op);
+                            let finalOp = Math.max(0, op);
+                            crystalWrapper.style.opacity = finalOp;
+                            if(particleBg) particleBg.style.opacity = finalOp; // Fades out particles too!
                         }
                         
                         ticking = false;
