@@ -23,6 +23,15 @@
     <meta property="og:image" content="IMG_2244.webp">
     <meta property="og:url" content="https://arusalt.com">
     <meta property="og:type" content="website">
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AruSalt - The Essence of Aruba">
+    <meta name="twitter:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
+    <meta name="twitter:image" content="IMG_2244.webp">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://arusalt.com">
     
     <!-- Google SEO Schema Data -->
     <script type="application/ld+json">
@@ -43,6 +52,39 @@
       }
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "Product",
+          "name": "AruSalt – Pure Caribbean Sea Salt",
+          "image": "https://arusalt.com/IMG_2244.webp",
+          "description": "Unrefined, hand-harvested, solar-evaporated finishing salt from Aruba.",
+          "brand": { "@type": "Brand", "name": "AruSalt" },
+          "offers": {
+            "@type": "Offer",
+            "price": "29.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStoreOnly"
+          }
+        },
+        {
+          "@type": "Product",
+          "name": "AruSalt – Caribbean Bath Salt",
+          "image": "https://arusalt.com/IMG_2245.webp",
+          "description": "Hand-harvested Caribbean sea salt blended for the bath.",
+          "brand": { "@type": "Brand", "name": "AruSalt" },
+          "offers": {
+            "@type": "Offer",
+            "price": "49.00",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStoreOnly"
+          }
+        }
+      ]
+    }
+    </script>
     
     <link rel="icon" href="IMG_2333.png" type="image/png">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -50,12 +92,16 @@
     <!-- Google Fonts Preloading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom Styles -->
     <style>
         html { scroll-padding-top: 140px; }
+        :root {
+            --coral: #ef6a72;
+            --coral-dark: #d94f57;
+        }
         body {
             font-family: 'Inter', sans-serif;
             background-color: #fdfdfd; 
@@ -63,6 +109,14 @@
             overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
         }
+        /* Display face: angular, faceted letterforms that echo the crystal-lattice mark */
+        h1, h2, h3, h4, .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+        .text-coral { color: var(--coral); }
+        .bg-coral { background-color: var(--coral); }
+        .border-coral { border-color: var(--coral); }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -132,6 +186,14 @@
 
         /* --- BULLETPROOF FIXED LAYER ENGINE --- */
         .fixed-layer { position: fixed; inset: 0; pointer-events: none; }
+
+        /* Cinematic vignette over the hero photo — referenced in markup but previously undefined */
+        .cinematic-gradient {
+            position: absolute; inset: 0;
+            background:
+                linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.05) 28%, rgba(0,0,0,0.15) 60%, rgba(0,0,0,0.75) 100%),
+                radial-gradient(ellipse at center, rgba(14,165,233,0.08) 0%, rgba(0,0,0,0.35) 75%);
+        }
         
         /* Crystal Effects */
         .glow-orb {
@@ -162,7 +224,13 @@
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); }
 
         .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
-        .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+        .content-section-alt { position: relative; z-index: 11; background-color: #f4f9fc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #e6f2f8; border-bottom: 1px solid #e6f2f8; }
+
+        /* Diamond divider: a small faceted mark, reusing the crystal-lattice motif from the logo/loader as a recurring signature rather than a generic hairline rule */
+        .diamond-divider { display: flex; align-items: center; justify-content: center; gap: 0.75rem; }
+        .diamond-divider::before, .diamond-divider::after { content: ''; height: 1px; width: 48px; background: linear-gradient(to right, transparent, #cbd5e1); }
+        .diamond-divider::after { background: linear-gradient(to left, transparent, #cbd5e1); }
+        .diamond-mark { width: 9px; height: 9px; background: #0ea5e9; transform: rotate(45deg); border-radius: 2px; flex-shrink: 0; }
 
         .animate-on-scroll { 
             opacity: 0; transform: translateY(40px); 
@@ -179,10 +247,29 @@
             .animate-on-scroll, .lazy-blur { transition: none !important; opacity: 1; transform: none; filter: blur(0); }
             .marquee-content, #svg-crystal path { animation: none !important; stroke-dashoffset: 0; }
             html { scroll-behavior: auto; }
+            #particle-canvas { display: none !important; }
         }
+
+        /* Visible keyboard focus (previously relied on browser default only) */
+        a:focus-visible, button:focus-visible {
+            outline: 2px solid #0ea5e9;
+            outline-offset: 3px;
+            border-radius: 4px;
+        }
+
+        /* Skip link: hidden until keyboard-focused */
+        .skip-link {
+            position: absolute; left: 1rem; top: -60px;
+            background: #0ea5e9; color: #fff; padding: 0.75rem 1.25rem;
+            border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
+            z-index: 200; transition: top 0.2s ease-out;
+        }
+        .skip-link:focus { top: 1rem; }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden bg-black">
+
+    <a href="#main-content" class="skip-link">Skip to content</a>
 
     <!-- PRELOADER -->
     <div id="preloader">
@@ -213,26 +300,26 @@
 
         <div class="container mx-auto max-w-3xl px-6 py-12 text-gray-600 leading-relaxed text-base md:text-lg">
             <div id="content-contact" class="policy-content hidden">
-                <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h2>
                 <p class="mb-4"><strong>Trade name:</strong> AruSalt</p>
                 <p class="mb-4"><strong>Phone number:</strong> <a href="tel:+2975922506" class="text-theme-blue hover:underline">+297 5922506</a></p>
                 <p class="mb-4"><strong>Email:</strong> <a href="mailto:support@psaruba.com" class="text-theme-blue hover:underline">support@psaruba.com</a></p>
                 <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
             </div>
             <div id="content-refund" class="policy-content hidden">
-                <h1 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h2>
                 <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
                 <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h3>
                 <p class="mb-4">Certain types of items cannot be returned, like perishable goods. Please get in touch if you have questions or concerns about your specific item.</p>
             </div>
             <div id="content-privacy" class="policy-content hidden">
-                <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h2>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
                 <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
             </div>
             <div id="content-terms" class="policy-content hidden">
-                <h1 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h1>
+                <h2 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h2>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
                 <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services").</p>
             </div>
@@ -337,6 +424,7 @@
 
     <!-- LAYER 3: SCROLLING CONTENT -->
     <main class="relative z-10 w-full bg-transparent" id="home">
+        <span id="main-content"></span>
         
         <!-- Invisible spacer so the fixed crystal shows when page loads -->
         <div class="h-[80vh] w-full pointer-events-none"></div>
@@ -354,13 +442,13 @@
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="animate-on-scroll">
-                        <h2 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">AruSalt crystallization</h2>
-                        <h3 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h3>
+                        <span class="block text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">AruSalt crystallization</span>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h2>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">AruSalt was born from a passion for farming and a simple hobby that gradually grew into something extraordinary.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Today, we proudly produce premium finishing salt at our own salt farm in Aruba, where the island's abundant sunshine, steady trade winds, and pristine seawater create the perfect conditions for natural salt production. Every batch is carefully harvested to ensure exceptional quality, purity, flavor and texture.</p>
                         <p class="mb-10 text-gray-600 text-lg leading-relaxed">Our commitment is to share the authentic taste of Aruba through a product that celebrates craftsmanship, nature, and quality. Whether enjoyed at home or in a professional kitchen, AruSalt is the perfect finishing touch to elevate every meal.</p>
                         
-                        <h4 class="text-3xl font-bold mb-4 text-gray-900">The Pure Waters of Aruba</h4>
+                        <h3 class="text-3xl font-bold mb-4 text-gray-900">The Pure Waters of Aruba</h3>
                         <p class="mb-4 text-gray-600 text-lg leading-relaxed">AruSalt begins at the <strong>north coast of Aruba</strong>, where the island meets the open ocean. After extensive testing by a certified laboratory in the Netherlands, this location was identified as <strong>the cleanest water on Aruba</strong> and among <strong>the cleanest seawater sources in the world</strong>.</p>
                         <p class="text-gray-600 text-lg leading-relaxed">This unique location, combined with Aruba's constant sun and trade winds, creates the perfect natural conditions for producing exceptional sea salt crystals.</p>
                     </div>
@@ -397,13 +485,14 @@
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our different flavors & products</h2>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our different flavors & products</h2>
+                <div class="diamond-divider"><span class="diamond-mark"></span></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left cursor-pointer" ontouchstart="">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
                         
                         <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
@@ -415,7 +504,7 @@
                 
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left cursor-pointer" ontouchstart="">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
                         
                         <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="IMG_2167.webp" alt="Aruban History" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
@@ -441,7 +530,8 @@
         <!-- RESPECT FOR LAND AND SEA -->
         <section class="content-section-alt px-6 border-y border-gray-100">
             <div class="container mx-auto max-w-6xl text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-16 animate-on-scroll">Harvested with respect for land and sea</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate-on-scroll">Harvested with respect for land and sea</h2>
+                <div class="diamond-divider mb-16"><span class="diamond-mark"></span></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="animate-on-scroll flex flex-col items-center">
@@ -467,7 +557,8 @@
         <section id="retailers" class="content-section px-6 pb-24">
             <div class="container mx-auto max-w-6xl text-center">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Retail Partners</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 animate-on-scroll">Find us locally in Aruba</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate-on-scroll">Find us locally in Aruba</h2>
+                <div class="diamond-divider mb-12"><span class="diamond-mark"></span></div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
                     <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default" ontouchstart="">
@@ -552,7 +643,7 @@
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Commercial decline</h3>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
-                        <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-theme-blue pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
+                        <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-coral pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
                     </div>
                 </div>
             </div>
@@ -575,9 +666,14 @@
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
                 <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
-                <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="flex gap-2 max-w-md">
-                    <input type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
-                    <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
+                <!-- NOTE: action still points at a placeholder ID — swap in your real Formspree endpoint (or any POST endpoint) before launch, or signups will silently fail. -->
+                <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-md">
+                    <div class="flex gap-2">
+                        <label for="newsletter-email" class="sr-only">Email address</label>
+                        <input id="newsletter-email" type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
+                        <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
+                    </div>
+                    <p id="newsletter-message" class="text-sm mt-3 hidden" role="status"></p>
                 </form>
             </div>
             <div>
@@ -647,7 +743,7 @@
                 let current = "";
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (scrollY >= sectionTop - 300) { 
+                    if (window.scrollY >= sectionTop - 300) { 
                         current = section.getAttribute("id");
                     }
                 });
@@ -662,13 +758,39 @@
                 });
             }, { passive: true });
 
-            // --- Form Feedback ---
+            // --- Newsletter Form: submit via fetch, show inline confirmation instead of redirecting away ---
             const form = document.getElementById('newsletter-form');
             const submitBtn = document.getElementById('newsletter-submit');
-            if(form && submitBtn) {
-                form.addEventListener('submit', () => {
+            const message = document.getElementById('newsletter-message');
+            if (form && submitBtn && message) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
                     submitBtn.innerHTML = 'Sending...';
                     submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+                    submitBtn.disabled = true;
+                    message.classList.remove('hidden', 'text-red-400', 'text-emerald-400');
+
+                    try {
+                        const response = await fetch(form.action, {
+                            method: 'POST',
+                            body: new FormData(form),
+                            headers: { 'Accept': 'application/json' }
+                        });
+                        if (response.ok) {
+                            message.textContent = "You're on the list — thank you!";
+                            message.classList.add('text-emerald-400');
+                            form.reset();
+                        } else {
+                            throw new Error('Signup failed');
+                        }
+                    } catch (err) {
+                        message.textContent = "Something went wrong. Please try again.";
+                        message.classList.add('text-red-400');
+                    } finally {
+                        submitBtn.innerHTML = 'Sign up';
+                        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+                        submitBtn.disabled = false;
+                    }
                 });
             }
 
@@ -757,7 +879,8 @@
 
             // --- Optimized Canvas Particles ---
             const canvas = document.getElementById('particle-canvas');
-            if(canvas) {
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if(canvas && !prefersReducedMotion) {
                 const ctx = canvas.getContext('2d');
                 let ps = [];
                 let animationId;
@@ -845,5 +968,3 @@
     </script>
 </body>
 </html>
-
-
