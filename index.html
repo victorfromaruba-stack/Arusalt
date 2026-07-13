@@ -83,6 +83,7 @@
             box-shadow: 0 25px 50px -12px rgba(14, 165, 233, 0.15);
         }
 
+        /* Preloader */
         #preloader {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-color: #fdfdfd; z-index: 9999;
@@ -100,6 +101,7 @@
         }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
+        /* Navigation & Menus */
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
@@ -118,42 +120,41 @@
             100% { transform: translateX(-50%); }
         }
 
-        #legal-modal {
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .modal-open {
-            transform: translateX(0) !important;
-        }
+        #legal-modal { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
+        .modal-open { transform: translateX(0) !important; }
 
-        /* --- ZERO-LAG FIXED BACKGROUND ENGINE --- */
-        #fixed-bg-layer {
-            position: fixed; inset: 0; z-index: -1; background-color: #000;
+        /* Graceful Image Reveal Engine */
+        .lazy-blur {
+            opacity: 0; filter: blur(10px); transform: scale(1.05);
+            transition: opacity 1s ease-out, filter 1s ease-out, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #hero-bg-image {
-            width: 100%; height: 100%; object-fit: cover; opacity: 0.65;
-        }
-        .cinematic-gradient {
-            position: absolute; inset: 0; pointer-events: none;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.9) 100%);
-        }
+        .lazy-blur.is-loaded { opacity: 1; filter: blur(0); transform: scale(1); }
+
+        /* --- BULLETPROOF FIXED LAYER ENGINE --- */
+        .fixed-layer { position: fixed; inset: 0; pointer-events: none; }
         
-        /* Pure CSS Glow - Zero Lag */
+        /* Crystal Effects */
         .glow-orb {
             position: absolute; inset: -40px; 
             background: radial-gradient(circle, rgba(14, 165, 233, 0.5) 0%, rgba(14, 165, 233, 0) 70%); 
             border-radius: 50%; z-index: -1;
         }
         
+        /* Pure CSS SVG Drawing (Eliminates JS Loading Bugs) */
         #svg-crystal {
             width: 100%; height: 100%; stroke: #0ea5e9; stroke-width: 4;
             stroke-linecap: round; stroke-linejoin: round; fill: none;
         }
         #svg-crystal path { 
             stroke-dasharray: 1000; stroke-dashoffset: 1000; 
-            transition: stroke-dashoffset 1.8s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: drawPath 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.3s;
         }
-        .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
+        @keyframes drawPath {
+            to { stroke-dashoffset: 0; }
+        }
         
+        /* Hero Text & Scrolling Layers */
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             transform: translateY(30px); text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white;
@@ -175,13 +176,13 @@
         .nav-link.active { color: #0ea5e9; }
         
         @media (prefers-reduced-motion: reduce) {
-            .animate-on-scroll { transition: none !important; opacity: 1; transform: none; }
-            .marquee-content { animation: none !important; }
+            .animate-on-scroll, .lazy-blur { transition: none !important; opacity: 1; transform: none; filter: blur(0); }
+            .marquee-content, #svg-crystal path { animation: none !important; stroke-dashoffset: 0; }
             html { scroll-behavior: auto; }
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body class="antialiased overflow-x-hidden bg-black">
 
     <!-- PRELOADER -->
     <div id="preloader">
@@ -193,8 +194,11 @@
         </svg>
     </div>
 
+    <!-- THE "JOURNEY" SCROLL PROGRESS BAR -->
+    <div id="scroll-progress-bar" class="fixed top-0 left-0 h-[3px] bg-theme-blue z-[100] transition-all duration-150 ease-out w-0 drop-shadow-[0_0_8px_rgba(14,165,233,0.8)] pointer-events-none"></div>
+
     <!-- NATIVE LEGAL POLICIES OVERLAY -->
-    <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto">
+    <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto shadow-2xl">
         <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 flex flex-col items-center" style="padding-top: max(env(safe-area-inset-top), 0.5rem);">
             <div class="w-10 h-1 bg-gray-300 rounded-full mt-2 mb-2"></div>
             <div class="w-full px-4 md:px-8 py-2 flex items-center justify-between">
@@ -215,100 +219,28 @@
                 <p class="mb-4"><strong>Email:</strong> <a href="mailto:support@psaruba.com" class="text-theme-blue hover:underline">support@psaruba.com</a></p>
                 <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
             </div>
-
             <div id="content-refund" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h1>
                 <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
-                <p class="mb-4">To be eligible for a return, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
                 <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
-                <p class="mb-4">If your return is accepted, we'll send you a return shipping label, as well as instructions on how and where to send your package. Items sent back to us without first requesting a return will not be accepted.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Damages and issues</h3>
-                <p class="mb-4">Please inspect your order upon reception and contact us immediately if the item is defective, damaged or if you receive the wrong item, so that we can evaluate the issue and make it right.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h3>
-                <p class="mb-4">Certain types of items cannot be returned, like perishable goods (such as food, flowers, or plants), custom products (such as special orders or personalized items), and personal care goods (such as beauty products). We also do not accept returns for hazardous materials, flammable liquids, or gases. Please get in touch if you have questions or concerns about your specific item.</p>
-                <p class="mb-4">Unfortunately, we cannot accept returns on sale items or gift cards.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exchanges</h3>
-                <p class="mb-4">The fastest way to ensure you get what you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">European Union 14 day cooling off period</h3>
-                <p class="mb-4">Notwithstanding the above, if the merchandise is being shipped into the European Union, you have the right to cancel or return your order within 14 days, for any reason and without a justification. As above, your item must be in the same condition that you received it, unworn or unused, with tags, and in its original packaging. You'll also need the receipt or proof of purchase.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Refunds</h3>
-                <p class="mb-4">We will notify you once we've received and inspected your return, and let you know if the refund was approved or not. If approved, you'll be automatically refunded on your original payment method within 10 business days. Please remember it can take some time for your bank or credit card company to process and post the refund too.</p>
-                <p class="mb-4">If more than 15 business days have passed since we've approved your return, please contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+                <p class="mb-4">Certain types of items cannot be returned, like perishable goods. Please get in touch if you have questions or concerns about your specific item.</p>
             </div>
-
             <div id="content-privacy" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h1>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
-                <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you. This Privacy Policy describes how we collect, use, and disclose your personal information when you visit, use, or make a purchase or other transaction using the Services or otherwise communicate with us. If there is a conflict between our Terms of Service and this Privacy Policy, this Privacy Policy controls with respect to the collection, processing, and disclosure of your personal information.</p>
-                <p class="mb-8">Please read this Privacy Policy carefully. By using and accessing any of the Services, you acknowledge that you have read this Privacy Policy and understand the collection, use, and disclosure of your information as described in this Privacy Policy.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information We Collect or Process</h3>
-                <p class="mb-4">When we use the term "personal information", we are referring to information that identifies or can reasonably be linked to you or another person. We may collect or process the following categories of personal information:</p>
-                <ul class="list-disc pl-5 mb-6 space-y-2">
-                    <li><strong>Contact details</strong> including your name, address, billing address, shipping address, phone number, and email address.</li>
-                    <li><strong>Financial information</strong> including credit card, debit card, and financial account numbers, payment card information, and other payment details.</li>
-                    <li><strong>Account information</strong> including your username, password, security questions, preferences and settings.</li>
-                    <li><strong>Transaction information</strong> including the items you view, put in your cart, add to your wishlist, or purchase.</li>
-                    <li><strong>Communications</strong> with us including the information you include in communications with us.</li>
-                    <li><strong>Device information</strong> including information about your device, browser, network connection, IP address, and other unique identifiers.</li>
-                    <li><strong>Usage information</strong> including information regarding your interaction with the Services.</li>
-                </ul>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal Information Sources</h3>
-                <p class="mb-4">We may collect personal information from the following sources:</p>
-                <ul class="list-disc pl-5 mb-6 space-y-2">
-                    <li><strong>Directly from you</strong> including when you create an account, visit or use the Services, or communicate with us.</li>
-                    <li><strong>Automatically through the Services</strong> including from your device when you use our products or services, and through cookies.</li>
-                    <li><strong>From our service providers</strong> including when we engage them to enable certain technology.</li>
-                    <li><strong>From our partners</strong> or other third parties.</li>
-                </ul>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Use Your Personal Information</h3>
-                <ul class="list-disc pl-5 mb-6 space-y-2">
-                    <li><strong>Provide, Tailor, and Improve the Services.</strong> To process payments, fulfill orders, arrange shipping, and create a customized shopping experience.</li>
-                    <li><strong>Marketing and Advertising.</strong> To send marketing and promotional communications by email.</li>
-                    <li><strong>Security and Fraud Prevention.</strong> To authenticate your account, provide secure payments, and detect malicious activity.</li>
-                    <li><strong>Communicating with You.</strong> To provide customer support and maintain our business relationship.</li>
-                    <li><strong>Legal Reasons.</strong> To comply with applicable law or respond to valid legal process.</li>
-                </ul>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">How We Disclose Personal Information</h3>
-                <p class="mb-4">In certain circumstances, we may disclose your personal information to third parties for legitimate purposes. Such circumstances may include: With Shopify, vendors and other third parties who perform services on our behalf. With business and marketing partners. With our affiliates or otherwise within our corporate group. In connection with a business transaction such as a merger or bankruptcy, to comply with applicable legal obligations.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Relationship with Shopify</h3>
-                <p class="mb-4">The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services in order to provide and improve the Services for you. Information you submit to the Services will be transmitted to and shared with Shopify as well as third parties.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Security and Retention of Your Information</h3>
-                <p class="mb-4">Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee "perfect security." How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Contact</h3>
-                <p class="mb-4">Should you have any questions about our privacy practices or this Privacy Policy, please call <a href="tel:+2975922506" class="text-theme-blue">+297 5922506</a> or email us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a> or contact us at AruSalt Aruba, L.G. Smith Boulevard 95, 00000 Noord, Aruba.</p>
+                <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
             </div>
-
             <div id="content-terms" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h1>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
-                <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
-                <p class="mb-4">By visiting, interacting with or using our Services, you agree to be bound by these Terms of Service and our Privacy Policy. If you do not agree to these Terms of Service or Privacy Policy, you should not use or access our Services.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 1 - ACCESS AND ACCOUNT</h3>
-                <p class="mb-4">By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence. You represent and warrant that all the information you provide in our stores is correct, current and complete. You are solely responsible for maintaining the security of your account credentials.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 2 - OUR PRODUCTS</h3>
-                <p class="mb-4">We have made every effort to provide an accurate representation of our products and services. However, colors or product appearance may differ from how they may appear on your screen. We reserve the right to discontinue any product at any time and may limit the quantities of any products that we offer.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 3 - ORDERS</h3>
-                <p class="mb-4">When you place an order, you are making an offer to purchase. AruSalt reserves the right to accept or decline your order for any reason at its discretion. We must receive and process your payment before your order is accepted. You represent and warrant that your purchases are for your own personal or household use and not for commercial resale or export.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 4 - PRICES AND BILLING</h3>
-                <p class="mb-4">Prices, discounts and promotions are subject to change without notice. The price charged for a product or service will be the price in effect at the time the order is placed. You agree to provide current, complete and accurate purchase, payment and account information for all purchases made at our stores.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 5 - SHIPPING AND DELIVERY</h3>
-                <p class="mb-4">We are not liable for shipping and delivery delays. All delivery times are estimates only and are not guaranteed. Once we transfer products to the carrier, title and risk of loss passes to you.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 6 - INTELLECTUAL PROPERTY</h3>
-                <p class="mb-4">Our Services, including but not limited to all trademarks, brands, text, displays, images, graphics, product reviews, video, and audio, are owned by AruSalt, its affiliates or licensors and are protected by U.S. and foreign patent, copyright and other intellectual property laws. These Terms permit you to use the Services for your personal, non-commercial use only.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 15 - DISCLAIMER OF WARRANTIES</h3>
-                <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">Except as expressly stated by AruSalt, the Services and all products offered through the Services are provided 'as is' and 'as available' for your use, without any representation, warranties or conditions of any kind.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 16 - LIMITATION OF LIABILITY</h3>
-                <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">To the fullest extent provided by law, in no case shall AruSalt, our partners, directors, officers, employees, or affiliates be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special or consequential damages of any kind.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 21 - GOVERNING LAW</h3>
-                <p class="mb-4">These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the federal and state or territorial courts in the jurisdiction where AruSalt is headquartered.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 24 - CONTACT INFORMATION</h3>
-                <p class="mb-4">Questions about the Terms of Service should be sent to us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+                <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services").</p>
             </div>
         </div>
     </div>
 
-    <!-- GLOBAL STICKY HEADER -->
-    <div class="fixed top-0 left-0 right-0 z-50 flex flex-col pointer-events-none">
+    <!-- SMART AUTO-HIDING HEADER WRAPPER -->
+    <div id="global-nav-wrapper" class="fixed top-0 left-0 right-0 z-50 flex flex-col pointer-events-none transition-transform duration-300 ease-in-out">
         
         <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
         <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none pointer-events-auto" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
@@ -321,8 +253,8 @@
         </div>
 
         <!-- HEADER -->
-        <header class="relative w-full transition-all duration-300 select-none pointer-events-auto">
-            <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
+        <header class="relative w-full select-none pointer-events-auto shadow-sm">
+            <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10"></div>
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
                     
@@ -332,9 +264,9 @@
                     
                     <div class="hidden md:flex space-x-10">
                         <a href="#home" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
                         <a href="#about" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
+                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
                         <a href="#contact" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                     </div>
                     
@@ -364,7 +296,7 @@
               <span class="relative inline-flex rounded-full h-3 w-3 bg-[#25D366]"></span>
             </span>
         </div>
-        <a href="https://wa.me/2975922506" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 hover-lift pointer-events-auto" aria-label="Chat with us on WhatsApp">
+        <a href="https://wa.me/2975922506?text=Hi%20AruSalt!%20I'm%20reaching%20out%20from%20your%20website.%20Could%20you%20let%20me%20know%20which%20stores%20currently%20have%20your%20salt%20in%20stock?" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 hover-lift pointer-events-auto" aria-label="Chat with us on WhatsApp">
             <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12.031 21.171l-1.353-.414-3.528.94 1.111-3.23-.497-1.196c-1.127-2.71-1.127-5.918 0-8.628 2.053-4.94 7.795-7.234 12.825-5.116 5.03 2.119 7.397 7.9 5.344 12.84-2.052 4.941-7.794 7.235-12.825 5.116-.363-.153-.71-.328-1.042-.521v-.002l.004.004-.039-.004z" fill="#25D366"/>
                 <path d="M19.467 4.542C17.481 2.562 14.836 1.47 12.032 1.47 6.22 1.47 1.492 6.195 1.492 12c0 1.86.486 3.676 1.411 5.275L1.47 22.531l5.417-1.42c1.545.856 3.284 1.31 5.059 1.31h.005c5.812 0 10.54-4.726 10.54-10.536 0-2.817-1.096-5.462-3.024-7.343zm-7.435 16.14h-.004c-1.572 0-3.115-.422-4.464-1.222l-.32-.19-3.32.87.886-3.235-.208-.331a8.777 8.777 0 0 1-1.341-4.708c0-4.862 3.957-8.818 8.824-8.818 2.355 0 4.57.917 6.236 2.583 1.666 1.666 2.583 3.882 2.583 6.237 0 4.861-3.957 8.817-8.824 8.817h-.048zm4.846-6.62c-.266-.134-1.574-.778-1.819-.867-.245-.09-.423-.134-.6.134-.178.267-.687.868-.843 1.045-.156.178-.312.201-.578.067-.266-.134-1.123-.414-2.14-1.32-.789-.705-1.321-1.576-1.477-1.843-.156-.267-.017-.411.116-.545.12-.12.266-.312.4-.467.133-.156.178-.267.266-.445.089-.178.044-.334-.022-.467-.067-.134-.6-1.446-.822-1.98-.216-.52-.435-.45-.6-.458-.156-.008-.334-.01-.511-.01-.178 0-.467.067-.712.334-.244.267-.933.912-.933 2.224 0 1.312.956 2.58 1.089 2.758.133.178 1.88 2.868 4.555 4.022.637.275 1.134.439 1.52.562.64.204 1.222.175 1.682.106.518-.077 1.574-.643 1.796-1.265.222-.622.222-1.156.156-1.266-.067-.11-.245-.177-.511-.31h.001z" fill="#fff"/>
@@ -372,51 +304,53 @@
         </a>
     </div>
 
-    <!-- MAIN SCROLLING CONTENT -->
-    <main class="relative z-10 w-full" id="home">
+    <!-- LAYER 1: BULLETPROOF FIXED BACKGROUND -->
+    <div class="fixed-layer z-[-2] bg-black">
+        <img src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65">
+        <div class="cinematic-gradient"></div>
+    </div>
+
+    <!-- LAYER 2: BULLETPROOF FIXED CRYSTAL & PARTICLES -->
+    <div id="hero-graphics" class="fixed-layer z-[-1] flex flex-col items-center justify-center transition-opacity duration-500">
+        <!-- Particles -->
+        <div class="absolute inset-0 z-10"><canvas id="particle-canvas"></canvas></div>
         
-        <!-- ZERO-LAG FIXED BACKGROUND ENGINE -->
-        <div class="fixed inset-0 z-[-1] bg-black">
-            <img src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65">
-            <div id="particle-bg" class="absolute inset-0 z-10 pointer-events-none"><canvas id="particle-canvas"></canvas></div>
-            <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/90 pointer-events-none z-20"></div>
+        <!-- Crystal -->
+        <div class="relative z-20 w-[220px] h-[220px] max-w-[60vw]">
+            <div class="glow-orb"></div>
+            <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
+                <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
+                <path d="M 50 10 L 50 30"></path>
+                <path d="M 90 50 L 70 50"></path>
+                <path d="M 50 90 L 50 70"></path>
+                <path d="M 10 50 L 30 50"></path>
+            </svg>
         </div>
 
-        <!-- Section 1: 100svh Hero (Crystal) -->
-        <section class="relative w-full h-[100svh] flex flex-col items-center justify-center">
-            
-            <div class="relative z-10 w-[220px] h-[220px] max-w-[60vw]">
-                <div class="glow-orb"></div>
-                <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
-                    <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
-                    <path d="M 50 10 L 50 30"></path>
-                    <path d="M 90 50 L 70 50"></path>
-                    <path d="M 50 90 L 50 70"></path>
-                    <path d="M 10 50 L 30 50"></path>
-                </svg>
-            </div>
+        <!-- Bouncing Arrow -->
+        <div class="absolute bottom-10 flex flex-col items-center gap-2 animate-[bounce_2s_infinite]">
+            <span class="text-[10px] uppercase tracking-[0.3em] text-white/80 font-bold drop-shadow-md">Scroll</span>
+            <svg class="w-6 h-6 text-white/80 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </div>
+    </div>
 
-            <!-- Foolproof Centered Scroll Arrow -->
-            <div class="absolute bottom-8 left-0 w-full flex justify-center z-20 pointer-events-none">
-                <div class="flex flex-col items-center gap-2 animate-[bounce_2s_infinite]">
-                    <span class="text-[10px] uppercase tracking-[0.3em] text-white/80 font-bold drop-shadow-md">Scroll</span>
-                    <svg class="w-6 h-6 text-white/80 drop-shadow-md" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-                </div>
-            </div>
-            
-        </section>
-
-        <!-- Section 2: Flowing Text -->
-        <section class="relative w-full min-h-[60vh] flex flex-col items-center justify-center px-4 py-20 pb-32">
+    <!-- LAYER 3: SCROLLING CONTENT -->
+    <main class="relative z-10 w-full bg-transparent" id="home">
+        
+        <!-- Invisible spacer so the fixed crystal shows when page loads -->
+        <div class="h-[80vh] w-full pointer-events-none"></div>
+        
+        <!-- Hero Text -->
+        <div class="min-h-[80vh] flex flex-col items-center justify-center px-4 py-20 pb-32">
             <div class="hero-text-block text-center max-w-4xl z-10">
                 <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
                 <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-3xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
             </div>
-        </section>
+        </div>
 
         <!-- ABOUT US -->
-        <section id="about" class="content-section px-6 border-t border-gray-100 shadow-2xl">
+        <section id="about" class="content-section px-6 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-t-[3rem]">
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="animate-on-scroll">
@@ -432,7 +366,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1">
                         <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <img src="IMG_2243.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" decoding="async" alt="AruSalt crystallization">
+                            <img src="IMG_2243.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="AruSalt crystallization">
                         </div>
                     </div>
                 </div>
@@ -444,9 +378,8 @@
             <div class="container mx-auto max-w-6xl">
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
-                        <h3 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">Salt Crystallization Mesh</h3>
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
-                            <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
+                            <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
@@ -472,8 +405,8 @@
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
                         
-                        <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
-                        <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
+                        <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$29.00</p>
@@ -484,8 +417,8 @@
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
                         
-                        <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
-                        <img src="IMG_2167.webp" alt="Aruban History" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
+                        <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="IMG_2167.webp" alt="Aruban History" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$49.00</p>
@@ -579,7 +512,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1 group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2242.jpeg" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Hand holding natural sea salt over ocean">
+                            <img src="IMG_2242.jpeg" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Hand holding natural sea salt over ocean">
                         </div>
                     </div>
                 </div>
@@ -587,7 +520,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2165.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salina Ranchoe 1924 people dumping salt">
+                            <img src="IMG_2165.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Salina Ranchoe 1924 people dumping salt">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
@@ -605,7 +538,7 @@
                     </div>
                     <div class="animate-on-scroll delay-1 relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2167.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="The locals posing on a pile of salt">
+                            <img src="IMG_2167.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="The locals posing on a pile of salt">
                         </div>
                     </div>
                 </div>
@@ -613,7 +546,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2168.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="People picking salt from the water in flat ponds">
+                            <img src="IMG_2168.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="People picking salt from the water in flat ponds">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
@@ -626,9 +559,8 @@
         </section>
 
         <!-- CTA BACKGROUND -->
-        <!-- Because the background is now purely fixed globally, we just make this area transparent so the fixed ocean shows through! -->
-        <section class="h-[60vh] relative flex items-center justify-center bg-transparent">
-            <div class="relative z-10 text-center text-white px-6">
+        <section class="h-[50vh] relative flex items-center justify-center bg-transparent pointer-events-none">
+            <div class="relative z-10 text-center text-white px-6 pointer-events-auto">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
                 <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl select-none">Find a Retailer</a>
@@ -638,14 +570,14 @@
     </main>
 
     <!-- FOOTER -->
-    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800 relative z-20">
+    <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800 relative z-50">
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
                 <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
-                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="flex gap-2 max-w-md">
+                <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="flex gap-2 max-w-md">
                     <input type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
-                    <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20 select-none">Sign up</button>
+                    <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
                 </form>
             </div>
             <div>
@@ -658,10 +590,10 @@
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
                 <ul class="space-y-4 text-gray-400 flex flex-col items-start">
-                    <li><button data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
-                    <li><button data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
-                    <li><button data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
-                    <li><button data-policy="terms" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Terms of Service</button></li>
+                    <li><a href="#" data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Contact Information</a></li>
+                    <li><a href="#" data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Privacy Policy</a></li>
+                    <li><a href="#" data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Refund Policy</a></li>
+                    <li><a href="#" data-policy="terms" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Terms of Service</a></li>
                 </ul>
             </div>
         </div>
@@ -688,11 +620,30 @@
                 }
             }, 3000); 
 
-            // --- Scroll Spy Navigation ---
+            // --- Scroll Logic Engine ---
             const sections = document.querySelectorAll("section[id], div[id='home']");
             const navLinks = document.querySelectorAll(".hidden.md\\:flex a.nav-link");
+            const topNavWrapper = document.getElementById('global-nav-wrapper');
+            const progressBar = document.getElementById('scroll-progress-bar');
+            let lastScrollTop = 0;
             
             window.addEventListener("scroll", () => {
+                let st = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (progressBar) {
+                    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                    let scrolled = (winScroll / height) * 100;
+                    progressBar.style.width = scrolled + "%";
+                }
+
+                if (st > lastScrollTop && st > 150) {
+                    if(topNavWrapper) topNavWrapper.style.transform = 'translateY(-100%)';
+                } else {
+                    if(topNavWrapper) topNavWrapper.style.transform = 'translateY(0)';
+                }
+                lastScrollTop = st <= 0 ? 0 : st;
+
                 let current = "";
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
@@ -710,6 +661,33 @@
                     }
                 });
             }, { passive: true });
+
+            // --- Form Feedback ---
+            const form = document.getElementById('newsletter-form');
+            const submitBtn = document.getElementById('newsletter-submit');
+            if(form && submitBtn) {
+                form.addEventListener('submit', () => {
+                    submitBtn.innerHTML = 'Sending...';
+                    submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+                });
+            }
+
+            // --- Graceful Image Reveal ---
+            const lazyImages = document.querySelectorAll('.lazy-blur');
+            const lazyImageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.complete) {
+                            img.classList.add('is-loaded');
+                        } else {
+                            img.addEventListener('load', () => img.classList.add('is-loaded'));
+                        }
+                        observer.unobserve(img);
+                    }
+                });
+            }, { rootMargin: "0px 0px 200px 0px" });
+            lazyImages.forEach(img => lazyImageObserver.observe(img));
 
             // --- Mobile Menu ---
             const menuBtn = document.getElementById('menu-btn');
@@ -745,9 +723,15 @@
                     const targetContent = document.getElementById(`content-${policyType}`);
                     if(targetContent) targetContent.classList.remove('hidden');
                     
-                    legalTitle.textContent = policyTitles[policyType];
-                    legalModal.scrollTo(0, 0);
+                    const titles = {
+                        'contact': 'Contact Information',
+                        'privacy': 'Privacy Policy',
+                        'refund': 'Refund Policy',
+                        'terms': 'Terms of Service'
+                    };
+                    legalTitle.textContent = titles[policyType] || 'Policy';
                     
+                    legalModal.scrollTo(0, 0);
                     legalModal.classList.add('modal-open');
                     document.body.style.overflow = 'hidden'; 
                 });
@@ -771,13 +755,12 @@
                 if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
             });
 
-            // --- Smart Canvas Pausing (Battery/CPU Saver) ---
+            // --- Optimized Canvas Particles ---
             const canvas = document.getElementById('particle-canvas');
             if(canvas) {
                 const ctx = canvas.getContext('2d');
                 let ps = [];
                 let animationId;
-                
                 const particleCount = window.innerWidth < 768 ? 20 : 40;
 
                 function init() {
@@ -794,12 +777,10 @@
                 }
                 
                 function draw() {
-                    // Instantly pause canvas when scrolling out of hero section
                     if (window.scrollY > window.innerHeight) {
                         animationId = requestAnimationFrame(draw);
                         return;
                     }
-                    
                     ctx.clearRect(0,0,canvas.width,canvas.height);
                     ps.forEach(p => {
                         ctx.fillStyle = `rgba(14, 165, 233, ${p.o})`;
@@ -822,6 +803,21 @@
                 draw();
             }
 
+            // --- Zero-Lag CSS Trigger for Crystal Fade ---
+            const heroGraphics = document.getElementById('hero-graphics');
+            let isFaded = false;
+
+            window.addEventListener('scroll', () => {
+                let scrollY = window.scrollY;
+                if (scrollY > 50 && !isFaded) {
+                    if(heroGraphics) heroGraphics.style.opacity = '0';
+                    isFaded = true;
+                } else if (scrollY <= 50 && isFaded) {
+                    if(heroGraphics) heroGraphics.style.opacity = '1';
+                    isFaded = false;
+                }
+            }, { passive: true });
+
             // --- Optimized Scroll Observer ---
             const obs = new IntersectionObserver((es, observer) => {
                 es.forEach(e => { 
@@ -833,14 +829,14 @@
             }, { threshold: 0.15 });
             document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
 
-            // --- Preloader Fade Out & Initial Hero Animation ---
+            // --- Preloader Fade Out & SVG Draw ---
             window.onload = () => {
                 const preloader = document.getElementById('preloader');
                 if(preloader) {
                     setTimeout(() => {
                         preloader.classList.add('preloader-hidden');
                         document.body.classList.add('start-hero-anim');
-                    }, 500);
+                    }, 300);
                 } else {
                     document.body.classList.add('start-hero-anim');
                 }
