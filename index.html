@@ -2,8 +2,18 @@
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <!-- CRITICAL FIX: viewport-fit=cover enables the iPhone Notch Safe Area -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <!-- PWA Manifest Link -->
+    <link rel="manifest" href="site.webmanifest">
+    
+    <!-- Native App Mode (Save to Home Screen) -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="AruSalt">
+    <link rel="apple-touch-icon" href="IMG_2333.png">
+    <meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
+
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
     <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
     
@@ -34,20 +44,17 @@
     }
     </script>
     
-    <!-- Favicon -->
     <link rel="icon" href="IMG_2333.png" type="image/png">
-    
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts with display: swap -->
+    <!-- Google Fonts Preloading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Custom Styles -->
     <style>
-        /* Increased padding to account for the new combined header height */
         html { scroll-padding-top: 140px; }
         body {
             font-family: 'Inter', sans-serif;
@@ -57,6 +64,12 @@
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Custom Premium Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 20px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #0ea5e9; }
+
         ::selection { background-color: #0ea5e9; color: white; }
         .text-theme-blue { color: #0ea5e9; }
         .bg-theme-blue { background-color: #0ea5e9; }
@@ -64,6 +77,7 @@
 
         .hover-lift {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform, box-shadow; 
         }
         .hover-lift:hover {
             transform: translateY(-8px) scale(1.02);
@@ -79,6 +93,7 @@
         .loader-crystal {
             width: 180px; height: 180px; stroke: #0ea5e9; stroke-width: 3; fill: none;
             animation: pulse 2s infinite ease-in-out;
+            will-change: filter, transform;
         }
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
@@ -90,25 +105,26 @@
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
+            will-change: transform;
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
-        /* --- Seamless Marquee Animation --- */
         .marquee-content {
             display: flex;
             flex-wrap: nowrap;
             white-space: nowrap; 
             width: max-content;
             animation: marquee 25s linear infinite;
+            will-change: transform; 
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* Legal Slide-Over Animation */
         #legal-modal {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
         }
         .modal-open {
             transform: translateX(0) !important;
@@ -119,15 +135,16 @@
         #hero-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0.5; z-index: 0;
-            transform: scale(1.05);
+            transform: scale(1.1); /* Slightly larger to allow for 3D parallax scroll */
+            will-change: transform;
         }
         
-        /* OPTICAL CENTERING FIX: Shifted the top calculation down by 40px to account for the header */
         #svg-crystal {
             position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%);
             width: 250px; height: 250px; max-width: 65vw; stroke: #0ea5e9; stroke-width: 4;
             stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
             filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
+            will-change: opacity; 
         }
         #svg-crystal path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
@@ -139,18 +156,24 @@
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             transform: translateY(20px); text-shadow: 0 4px 20px rgba(0,0,0,0.6); color: white;
+            will-change: opacity, transform;
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
 
         .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
         .content-section-alt { position: relative; z-index: 11; background-color: #f8fafc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
 
-        .animate-on-scroll { opacity: 0; transform: translateY(40px); transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+        .animate-on-scroll { 
+            opacity: 0; transform: translateY(40px); 
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); 
+            will-change: opacity, transform; 
+        }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 150ms; }
         .delay-2 { transition-delay: 300ms; }
 
         .blend-icon { mix-blend-mode: multiply; filter: contrast(1.1); }
+        .nav-link.active { color: #0ea5e9; }
         
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll { transition: none !important; opacity: 1; transform: none; }
@@ -174,16 +197,15 @@
     <!-- NATIVE LEGAL POLICIES OVERLAY -->
     <div id="legal-modal" class="fixed inset-0 z-[100] bg-white transform translate-x-full overflow-y-auto">
         <div class="sticky top-0 bg-white/90 backdrop-blur-xl border-b border-gray-100 z-20 px-4 md:px-8 py-4 flex items-center justify-between" style="padding-top: max(env(safe-area-inset-top), 1rem);">
-            <button id="close-legal" class="p-2 -ml-2 text-gray-900 hover:text-theme-blue transition-colors rounded-full active:scale-95 flex items-center gap-2 group">
+            <button id="close-legal" class="p-2 -ml-2 text-gray-900 hover:text-theme-blue transition-colors rounded-full active:scale-95 flex items-center gap-2 group select-none">
                 <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
                 <span class="font-semibold text-sm">Back</span>
             </button>
-            <h2 id="legal-title" class="absolute left-1/2 transform -translate-x-1/2 font-bold text-lg md:text-xl text-gray-900 tracking-tight">Policy</h2>
+            <h2 id="legal-title" class="absolute left-1/2 transform -translate-x-1/2 font-bold text-lg md:text-xl text-gray-900 tracking-tight select-none">Policy</h2>
             <div class="w-10"></div> 
         </div>
 
         <div class="container mx-auto max-w-3xl px-6 py-12 text-gray-600 leading-relaxed text-base md:text-lg">
-            <!-- Contact Information -->
             <div id="content-contact" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h1>
                 <p class="mb-4"><strong>Trade name:</strong> AruSalt</p>
@@ -192,7 +214,6 @@
                 <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
             </div>
 
-            <!-- Refund Policy -->
             <div id="content-refund" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h1>
                 <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
@@ -213,7 +234,6 @@
                 <p class="mb-4">If more than 15 business days have passed since we've approved your return, please contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
             </div>
 
-            <!-- Privacy Policy -->
             <div id="content-privacy" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h1>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
@@ -252,11 +272,8 @@
                 <p class="mb-4">The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services in order to provide and improve the Services for you. Information you submit to the Services will be transmitted to and shared with Shopify as well as third parties.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Security and Retention of Your Information</h3>
                 <p class="mb-4">Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee "perfect security." How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Contact</h3>
-                <p class="mb-4">Should you have any questions about our privacy practices or this Privacy Policy, please call <a href="tel:+2975922506" class="text-theme-blue">+297 5922506</a> or email us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a> or contact us at AruSalt Aruba, L.G. Smith Boulevard 95, 00000 Noord, Aruba.</p>
             </div>
 
-            <!-- Terms of Service -->
             <div id="content-terms" class="policy-content hidden">
                 <h1 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h1>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
@@ -280,8 +297,6 @@
                 <p class="mb-4 uppercase text-sm font-semibold tracking-wider text-gray-500">To the fullest extent provided by law, in no case shall AruSalt, our partners, directors, officers, employees, or affiliates be liable for any injury, loss, claim, or any direct, indirect, incidental, punitive, special or consequential damages of any kind.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 21 - GOVERNING LAW</h3>
                 <p class="mb-4">These Terms of Service and any separate agreements whereby we provide you Services shall be governed by and construed in accordance with the federal and state or territorial courts in the jurisdiction where AruSalt is headquartered.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">SECTION 24 - CONTACT INFORMATION</h3>
-                <p class="mb-4">Questions about the Terms of Service should be sent to us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
             </div>
         </div>
     </div>
@@ -289,8 +304,8 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
-        <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (Disabled selection) -->
+        <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
             <div class="marquee-content whitespace-nowrap flex">
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
@@ -299,24 +314,22 @@
             </div>
         </div>
 
-        <!-- HEADER -->
-        <header class="relative w-full transition-all duration-300">
+        <!-- HEADER (Disabled Selection) -->
+        <header class="relative w-full transition-all duration-300 select-none">
             <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
                     
-                    <!-- PERFECTLY CENTERED HEADER LOGO -->
-                    <!-- Added translate-y-1 to perfectly center the logo physically and optically -->
                     <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
                         <img src="IMG_2333.png" alt="AruSalt Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
                     
                     <div class="hidden md:flex space-x-10">
-                        <a href="#home" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                        <a href="#history" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                        <a href="#shop" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
-                        <a href="#about" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
-                        <a href="#contact" class="text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
+                        <a href="#home" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
+                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
+                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
+                        <a href="#about" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                        <a href="#contact" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                     </div>
                     
                     <button id="menu-btn" class="md:hidden p-3 text-gray-900 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
@@ -328,27 +341,36 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9">
+    <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9 select-none">
         <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
-        <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
-        <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Products</a>
         <a href="#about" class="menu-link text-2xl font-semibold text-gray-900">About Us</a>
+        <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Products</a>
+        <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
         <a href="#contact" class="menu-link text-2xl font-semibold text-theme-blue">Contact</a>
     </div>
 
-    <!-- WHATSAPP FLOATING BUTTON -->
-    <a href="https://wa.me/2975922506" target="_blank" rel="noopener noreferrer" class="fixed bottom-6 right-6 z-[70] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 hover-lift" aria-label="Chat with us on WhatsApp">
-        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12.031 21.171l-1.353-.414-3.528.94 1.111-3.23-.497-1.196c-1.127-2.71-1.127-5.918 0-8.628 2.053-4.94 7.795-7.234 12.825-5.116 5.03 2.119 7.397 7.9 5.344 12.84-2.052 4.941-7.794 7.235-12.825 5.116-.363-.153-.71-.328-1.042-.521v-.002l.004.004-.039-.004z" fill="#25D366"/>
-            <path d="M19.467 4.542C17.481 2.562 14.836 1.47 12.032 1.47 6.22 1.47 1.492 6.195 1.492 12c0 1.86.486 3.676 1.411 5.275L1.47 22.531l5.417-1.42c1.545.856 3.284 1.31 5.059 1.31h.005c5.812 0 10.54-4.726 10.54-10.536 0-2.817-1.096-5.462-3.024-7.343zm-7.435 16.14h-.004c-1.572 0-3.115-.422-4.464-1.222l-.32-.19-3.32.87.886-3.235-.208-.331a8.777 8.777 0 0 1-1.341-4.708c0-4.862 3.957-8.818 8.824-8.818 2.355 0 4.57.917 6.236 2.583 1.666 1.666 2.583 3.882 2.583 6.237 0 4.861-3.957 8.817-8.824 8.817h-.048zm4.846-6.62c-.266-.134-1.574-.778-1.819-.867-.245-.09-.423-.134-.6.134-.178.267-.687.868-.843 1.045-.156.178-.312.201-.578.067-.266-.134-1.123-.414-2.14-1.32-.789-.705-1.321-1.576-1.477-1.843-.156-.267-.017-.411.116-.545.12-.12.266-.312.4-.467.133-.156.178-.267.266-.445.089-.178.044-.334-.022-.467-.067-.134-.6-1.446-.822-1.98-.216-.52-.435-.45-.6-.458-.156-.008-.334-.01-.511-.01-.178 0-.467.067-.712.334-.244.267-.933.912-.933 2.224 0 1.312.956 2.58 1.089 2.758.133.178 1.88 2.868 4.555 4.022.637.275 1.134.439 1.52.562.64.204 1.222.175 1.682.106.518-.077 1.574-.643 1.796-1.265.222-.622.222-1.156.156-1.266-.067-.11-.245-.177-.511-.31h.001z" fill="#fff"/>
-        </svg>
-    </a>
+    <!-- WHATSAPP FLOATING BUTTON & SMART NUDGE -->
+    <div class="fixed bottom-6 right-6 z-[70] flex items-end gap-4 pointer-events-none select-none">
+        <div id="wa-nudge" class="bg-white text-gray-800 text-xs sm:text-sm font-semibold py-3 px-5 rounded-2xl shadow-2xl opacity-0 translate-x-8 transition-all duration-700 flex items-center gap-3 border border-gray-100">
+            Need help? Chat with us!
+            <span class="relative flex h-3 w-3">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-3 w-3 bg-[#25D366]"></span>
+            </span>
+        </div>
+        <a href="https://wa.me/2975922506" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 hover-lift pointer-events-auto" aria-label="Chat with us on WhatsApp">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12.031 21.171l-1.353-.414-3.528.94 1.111-3.23-.497-1.196c-1.127-2.71-1.127-5.918 0-8.628 2.053-4.94 7.795-7.234 12.825-5.116 5.03 2.119 7.397 7.9 5.344 12.84-2.052 4.941-7.794 7.235-12.825 5.116-.363-.153-.71-.328-1.042-.521v-.002l.004.004-.039-.004z" fill="#25D366"/>
+                <path d="M19.467 4.542C17.481 2.562 14.836 1.47 12.032 1.47 6.22 1.47 1.492 6.195 1.492 12c0 1.86.486 3.676 1.411 5.275L1.47 22.531l5.417-1.42c1.545.856 3.284 1.31 5.059 1.31h.005c5.812 0 10.54-4.726 10.54-10.536 0-2.817-1.096-5.462-3.024-7.343zm-7.435 16.14h-.004c-1.572 0-3.115-.422-4.464-1.222l-.32-.19-3.32.87.886-3.235-.208-.331a8.777 8.777 0 0 1-1.341-4.708c0-4.862 3.957-8.818 8.824-8.818 2.355 0 4.57.917 6.236 2.583 1.666 1.666 2.583 3.882 2.583 6.237 0 4.861-3.957 8.817-8.824 8.817h-.048zm4.846-6.62c-.266-.134-1.574-.778-1.819-.867-.245-.09-.423-.134-.6.134-.178.267-.687.868-.843 1.045-.156.178-.312.201-.578.067-.266-.134-1.123-.414-2.14-1.32-.789-.705-1.321-1.576-1.477-1.843-.156-.267-.017-.411.116-.545.12-.12.266-.312.4-.467.133-.156.178-.267.266-.445.089-.178.044-.334-.022-.467-.067-.134-.6-1.446-.822-1.98-.216-.52-.435-.45-.6-.458-.156-.008-.334-.01-.511-.01-.178 0-.467.067-.712.334-.244.267-.933.912-.933 2.224 0 1.312.956 2.58 1.089 2.758.133.178 1.88 2.868 4.555 4.022.637.275 1.134.439 1.52.562.64.204 1.222.175 1.682.106.518-.077 1.574-.643 1.796-1.265.222-.622.222-1.156.156-1.266-.067-.11-.245-.177-.511-.31h.001z" fill="#fff"/>
+            </svg>
+        </a>
+    </div>
 
     <main>
         <!-- HERO -->
         <div class="relative" id="home">
             <div id="sticky-wrapper">
-                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high">
+                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async">
                 <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                     <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
                     <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
@@ -401,7 +423,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1">
                         <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <img src="IMG_2243.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" alt="AruSalt crystallization">
+                            <img src="IMG_2243.webp" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" decoding="async" alt="AruSalt crystallization">
                         </div>
                     </div>
                 </div>
@@ -415,7 +437,7 @@
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <h3 class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">Salt Crystallization Mesh</h3>
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
-                            <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" alt="Salt Mesh Close Up">
+                            <img src="IMG_2166.jpeg" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
@@ -429,7 +451,7 @@
             </div>
         </section>
 
-        <!-- PRODUCTS -->
+        <!-- PRODUCTS (Added ontouchstart for perfect Mobile Hover states) -->
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
@@ -437,26 +459,28 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
-                <!-- Product 1 -->
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
-                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">In Stores</span>
-                        <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left cursor-pointer" ontouchstart="">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
+                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
+                        
+                        <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
+                        <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$29.00</p>
-                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors">Find a Retailer</a>
+                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
                 
-                <!-- Product 2 -->
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
-                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative">
-                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-10 uppercase tracking-wide">In Stores</span>
-                        <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left cursor-pointer" ontouchstart="">
+                    <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
+                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
+                        
+                        <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
+                        <img src="IMG_2167.webp" alt="Aruban History" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p class="text-lg text-gray-500 mb-6">$49.00</p>
-                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors">Find a Retailer</a>
+                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
             </div>
 
@@ -479,17 +503,17 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="animate-on-scroll flex flex-col items-center">
-                        <img src="IMG_2169.webp" alt="Hand-harvested" loading="lazy" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <img src="IMG_2169.webp" alt="Hand-harvested" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
                     </div>
                     <div class="animate-on-scroll delay-1 flex flex-col items-center">
-                        <img src="IMG_2255.png" alt="Sun-dried" loading="lazy" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <img src="IMG_2255.png" alt="Sun-dried" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
                     </div>
                     <div class="animate-on-scroll delay-2 flex flex-col items-center">
-                        <img src="IMG_2249.webp" alt="Pure and Natural" loading="lazy" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <img src="IMG_2249.webp" alt="Pure and Natural" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
                     </div>
@@ -503,11 +527,34 @@
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Retail Partners</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 animate-on-scroll">Find us locally in Aruba</h2>
                 
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-8 opacity-70">
-                    <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Luxury Hotel</span></div>
-                    <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Local Boutique</span></div>
-                    <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Fine Dining</span></div>
-                    <div class="flex items-center justify-center p-6 border border-gray-100 rounded-2xl bg-gray-50"><span class="font-bold text-lg text-gray-400">Gift Shop</span></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
+                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default" ontouchstart="">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
+                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Luxury Hotels</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Available in the gift shops of premier resorts across Palm Beach.</p>
+                    </div>
+                    
+                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-75" ontouchstart="">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
+                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Local Boutiques</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Found in curated, high-end island specialty stores.</p>
+                    </div>
+                    
+                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-150" ontouchstart="">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
+                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Fine Dining</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">Used as the exclusive finishing salt by top local chefs.</p>
+                    </div>
+                    
+                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-200" ontouchstart="">
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
+                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Gift Shops</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed">The perfect authentic Aruban souvenir to take back home.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -523,7 +570,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1 group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2242.jpeg" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Hand holding natural sea salt over ocean">
+                            <img src="IMG_2242.jpeg" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Hand holding natural sea salt over ocean">
                         </div>
                     </div>
                 </div>
@@ -531,7 +578,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2165.webp" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salina Ranchoe 1924 people dumping salt">
+                            <img src="IMG_2165.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="Salina Ranchoe 1924 people dumping salt">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
@@ -549,7 +596,7 @@
                     </div>
                     <div class="animate-on-scroll delay-1 relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2167.webp" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="The locals posing on a pile of salt">
+                            <img src="IMG_2167.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="The locals posing on a pile of salt">
                         </div>
                     </div>
                 </div>
@@ -557,7 +604,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="IMG_2168.webp" loading="lazy" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="People picking salt from the water in flat ponds">
+                            <img src="IMG_2168.webp" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="People picking salt from the water in flat ponds">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
@@ -575,7 +622,7 @@
             <div class="relative z-10 text-center text-white px-6">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
-                <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl">Find a Retailer</a>
+                <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl select-none">Find a Retailer</a>
             </div>
         </section>
 
@@ -587,21 +634,21 @@
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
                 <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
-                <form class="flex gap-2 max-w-md">
+                <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="flex gap-2 max-w-md">
                     <input type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
-                    <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20">Sign up</button>
+                    <button type="submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-colors shadow-lg shadow-theme-blue/20 select-none">Sign up</button>
                 </form>
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
-                <ul class="space-y-4 text-gray-400">
+                <ul class="space-y-4 text-gray-400 select-none">
                     <li><a href="#" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Search</a></li>
                     <li><a href="#about" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
-                <ul class="space-y-4 text-gray-400 flex flex-col items-start">
+                <ul class="space-y-4 text-gray-400 flex flex-col items-start select-none">
                     <li><button data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
                     <li><button data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
                     <li><button data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
@@ -618,6 +665,43 @@
     <!-- SCRIPTS -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            
+            // --- Smart WhatsApp Nudge Animation ---
+            setTimeout(() => {
+                const nudge = document.getElementById('wa-nudge');
+                if(nudge) {
+                    nudge.classList.remove('opacity-0', 'translate-x-8');
+                    nudge.classList.add('opacity-100', 'translate-x-0');
+                    setTimeout(() => {
+                        nudge.classList.remove('opacity-100', 'translate-x-0');
+                        nudge.classList.add('opacity-0', 'translate-x-8');
+                    }, 5000);
+                }
+            }, 3000); 
+
+            // --- Scroll Spy Navigation ---
+            const sections = document.querySelectorAll("section[id], div[id='home']");
+            const navLinks = document.querySelectorAll(".hidden.md\\:flex a.nav-link");
+            
+            window.addEventListener("scroll", () => {
+                let current = "";
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    if (scrollY >= sectionTop - 300) { 
+                        current = section.getAttribute("id");
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove("text-theme-blue");
+                    link.classList.add("text-gray-700");
+                    if (link.getAttribute("href").includes(current)) {
+                        link.classList.remove("text-gray-700");
+                        link.classList.add("text-theme-blue");
+                    }
+                });
+            }, { passive: true });
+
             // --- Mobile Menu ---
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
@@ -630,7 +714,7 @@
                 });
             }
 
-            // --- Native Legal Slide-Over Engine ---
+            // --- Native Legal Slide-Over Engine (With Swipe-to-Close) ---
             const legalModal = document.getElementById('legal-modal');
             const closeLegalBtn = document.getElementById('close-legal');
             const legalTitle = document.getElementById('legal-title');
@@ -644,6 +728,11 @@
                 'terms': 'Terms of Service'
             };
 
+            const closeModal = () => {
+                legalModal.classList.remove('modal-open');
+                document.body.style.overflow = ''; 
+            };
+
             policyLinks.forEach(link => {
                 link.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -655,7 +744,6 @@
                     if(targetContent) targetContent.classList.remove('hidden');
                     
                     legalTitle.textContent = policyTitles[policyType];
-                    
                     legalModal.scrollTo(0, 0);
                     
                     legalModal.classList.add('modal-open');
@@ -663,12 +751,24 @@
                 });
             });
 
-            if(closeLegalBtn) {
-                closeLegalBtn.addEventListener('click', () => {
-                    legalModal.classList.remove('modal-open');
-                    document.body.style.overflow = ''; 
-                });
-            }
+            if(closeLegalBtn) closeLegalBtn.addEventListener('click', closeModal);
+            
+            // Native iPhone Swipe-to-Close gesture
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            legalModal.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            }, {passive: true});
+
+            legalModal.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                if (touchEndX - touchStartX > 100) closeModal(); // Swiped right by 100px
+            }, {passive: true});
+
+            document.addEventListener('keydown', (e) => {
+                if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
+            });
 
             // --- Battery Optimized Canvas Particles ---
             const canvas = document.getElementById('particle-canvas');
@@ -729,19 +829,40 @@
                 }
             }
 
-            // --- Scrollytelling Crystal Fade ---
+            // --- GPU Accelerated 3D Hero Parallax (Lag Fix) ---
             const crystal = document.getElementById('svg-crystal');
-            if(crystal) {
-                window.addEventListener('scroll', () => {
-                    let op = 1 - (window.scrollY / 400);
-                    crystal.style.opacity = Math.max(0, op);
-                });
-            }
+            const heroBg = document.getElementById('hero-bg-image');
+            let ticking = false;
 
-            // --- Scroll Observer (Smooth Fades) ---
-            const obs = new IntersectionObserver((es) => {
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        let scrollY = window.scrollY;
+                        
+                        // Parallax effect on Ocean Background
+                        if(heroBg && scrollY < window.innerHeight) {
+                            heroBg.style.transform = `scale(1.1) translateY(${scrollY * 0.3}px)`;
+                        }
+                        
+                        // Fade effect on Crystal
+                        if(crystal) {
+                            let op = 1 - (scrollY / 400);
+                            crystal.style.opacity = Math.max(0, op);
+                        }
+                        
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            // --- Optimized Scroll Observer ---
+            const obs = new IntersectionObserver((es, observer) => {
                 es.forEach(e => { 
-                    if(e.isIntersecting) { e.target.classList.add('is-visible'); }
+                    if(e.isIntersecting) { 
+                        e.target.classList.add('is-visible'); 
+                        observer.unobserve(e.target); 
+                    }
                 });
             }, { threshold: 0.15 });
             document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
