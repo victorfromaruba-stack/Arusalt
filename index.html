@@ -77,7 +77,6 @@
 
         .hover-lift {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform, box-shadow; 
         }
         .hover-lift:hover {
             transform: translateY(-8px) scale(1.02);
@@ -93,7 +92,6 @@
         .loader-crystal {
             width: 180px; height: 180px; stroke: #0ea5e9; stroke-width: 3; fill: none;
             animation: pulse 2s infinite ease-in-out;
-            will-change: filter, transform;
         }
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.6; filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.2)); }
@@ -105,7 +103,6 @@
         #mobile-menu { 
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.4s; 
             background-color: rgba(253, 253, 253, 0.98); 
-            will-change: transform;
         }
         .mobile-menu-closed { transform: translateX(100%); visibility: hidden; pointer-events: none; }
 
@@ -115,7 +112,6 @@
             white-space: nowrap; 
             width: max-content;
             animation: marquee 25s linear infinite;
-            will-change: transform; 
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
@@ -124,7 +120,6 @@
 
         #legal-modal {
             transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            will-change: transform;
         }
         .modal-open {
             transform: translateX(0) !important;
@@ -135,8 +130,8 @@
         #hero-bg-image {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0.5; z-index: 0;
-            transform: scale(1.1); /* Slightly larger to allow for 3D parallax scroll */
-            will-change: transform;
+            transform: scale(1.1); 
+            will-change: transform; /* Hardware acceleration limited to only the background image */
         }
         
         #svg-crystal {
@@ -144,7 +139,7 @@
             width: 250px; height: 250px; max-width: 65vw; stroke: #0ea5e9; stroke-width: 4;
             stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
             filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
-            will-change: opacity; 
+            will-change: opacity; /* Limited hardware acceleration to only the crystal opacity */
         }
         #svg-crystal path { stroke-dasharray: 1000; stroke-dashoffset: 1000; transition: stroke-dashoffset 2.5s ease-out; }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
@@ -156,7 +151,6 @@
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             transform: translateY(20px); text-shadow: 0 4px 20px rgba(0,0,0,0.6); color: white;
-            will-change: opacity, transform;
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); transition-delay: 1.5s; }
 
@@ -166,7 +160,6 @@
         .animate-on-scroll { 
             opacity: 0; transform: translateY(40px); 
             transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1); 
-            will-change: opacity, transform; 
         }
         .animate-on-scroll.is-visible { opacity: 1; transform: translateY(0); }
         .delay-1 { transition-delay: 150ms; }
@@ -272,6 +265,8 @@
                 <p class="mb-4">The Services are hosted by Shopify, which collects and processes personal information about your access to and use of the Services in order to provide and improve the Services for you. Information you submit to the Services will be transmitted to and shared with Shopify as well as third parties.</p>
                 <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Security and Retention of Your Information</h3>
                 <p class="mb-4">Please be aware that no security measures are perfect or impenetrable, and we cannot guarantee "perfect security." How long we retain your personal information depends on different factors, such as whether we need the information to maintain your account, provide Services, comply with legal obligations, or resolve disputes.</p>
+                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Contact</h3>
+                <p class="mb-4">Should you have any questions about our privacy practices or this Privacy Policy, please call <a href="tel:+2975922506" class="text-theme-blue">+297 5922506</a> or email us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a> or contact us at AruSalt Aruba, L.G. Smith Boulevard 95, 00000 Noord, Aruba.</p>
             </div>
 
             <div id="content-terms" class="policy-content hidden">
@@ -641,14 +636,14 @@
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
-                <ul class="space-y-4 text-gray-400 select-none">
+                <ul class="space-y-4 text-gray-400">
                     <li><a href="#" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Search</a></li>
                     <li><a href="#about" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
-                <ul class="space-y-4 text-gray-400 flex flex-col items-start select-none">
+                <ul class="space-y-4 text-gray-400 flex flex-col items-start">
                     <li><button data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Contact Information</button></li>
                     <li><button data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Privacy Policy</button></li>
                     <li><button data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors cursor-pointer text-left p-0 bg-transparent border-none">Refund Policy</button></li>
@@ -753,7 +748,6 @@
 
             if(closeLegalBtn) closeLegalBtn.addEventListener('click', closeModal);
             
-            // Native iPhone Swipe-to-Close gesture
             let touchStartX = 0;
             let touchEndX = 0;
 
@@ -770,17 +764,20 @@
                 if(e.key === 'Escape' && legalModal.classList.contains('modal-open')) closeModal();
             });
 
-            // --- Battery Optimized Canvas Particles ---
+            // --- Battery Optimized Canvas Particles (Lag Fix) ---
             const canvas = document.getElementById('particle-canvas');
             if(canvas) {
                 const ctx = canvas.getContext('2d');
                 let ps = [];
                 let animationId;
                 let isVisible = false;
+                
+                // Reduce particles on mobile to save CPU/Battery
+                const particleCount = window.innerWidth < 768 ? 20 : 50;
 
                 function init() {
                     ps = [];
-                    for(let i=0; i<60; i++) {
+                    for(let i=0; i<particleCount; i++) {
                         ps.push({
                             x: Math.random() * canvas.width,
                             y: Math.random() * canvas.height,
@@ -829,7 +826,7 @@
                 }
             }
 
-            // --- GPU Accelerated 3D Hero Parallax (Lag Fix) ---
+            // --- GPU Accelerated 3D Hero Parallax (Lag Fix 2.0) ---
             const crystal = document.getElementById('svg-crystal');
             const heroBg = document.getElementById('hero-bg-image');
             let ticking = false;
@@ -839,14 +836,13 @@
                     window.requestAnimationFrame(() => {
                         let scrollY = window.scrollY;
                         
-                        // Parallax effect on Ocean Background
-                        if(heroBg && scrollY < window.innerHeight) {
-                            heroBg.style.transform = `scale(1.1) translateY(${scrollY * 0.3}px)`;
+                        // Hardware Accelerated translate3d
+                        if(heroBg && scrollY < window.innerHeight && window.innerWidth > 768) {
+                            heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.05)`;
                         }
                         
-                        // Fade effect on Crystal
                         if(crystal) {
-                            let op = 1 - (scrollY / 400);
+                            let op = 1 - (scrollY / 300);
                             crystal.style.opacity = Math.max(0, op);
                         }
                         
