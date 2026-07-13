@@ -97,7 +97,7 @@
         .marquee-content {
             display: flex;
             flex-wrap: nowrap;
-            white-space: nowrap;
+            white-space: nowrap; 
             width: max-content;
             animation: marquee 25s linear infinite;
         }
@@ -121,8 +121,10 @@
             object-fit: cover; opacity: 0.5; z-index: 0;
             transform: scale(1.05);
         }
+        
+        /* OPTICAL CENTERING FIX: Shifted the top calculation down by 40px to account for the header */
         #svg-crystal {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%);
             width: 250px; height: 250px; max-width: 65vw; stroke: #0ea5e9; stroke-width: 4;
             stroke-linecap: round; stroke-linejoin: round; fill: none; z-index: 2;
             filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.5));
@@ -287,9 +289,9 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (Forced Single Line + Transparent Blur) -->
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
         <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
-            <div class="marquee-content">
+            <div class="marquee-content whitespace-nowrap flex">
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
@@ -297,16 +299,16 @@
             </div>
         </div>
 
-        <!-- HEADER (Fixed Proportions) -->
+        <!-- HEADER -->
         <header class="relative w-full transition-all duration-300">
             <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                <!-- Using fixed height blocks ensures perfect padding around the logo -->
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
                     
+                    <!-- PERFECTLY CENTERED HEADER LOGO -->
+                    <!-- Added translate-y-1 to perfectly center the logo physically and optically -->
                     <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
-                        <!-- Much larger logo (h-14 on mobile = 56px), fits perfectly inside the h-20 (80px) nav bar -->
-                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)]">
+                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
                     
                     <div class="hidden md:flex space-x-10">
