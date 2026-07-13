@@ -139,10 +139,11 @@
             will-change: transform; 
         }
         
-        /* HARDWARE ACCELERATED CRYSTAL GLOW (LAG FIX) */
+        /* HARDWARE ACCELERATED CSS TRANSITIONS (LAG FIX 4.0) */
         #crystal-wrapper {
             position: absolute; top: calc(50% + 40px); left: 50%; transform: translate(-50%, -50%);
             width: 250px; height: 250px; max-width: 65vw; z-index: 2;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth CSS Fade */
             will-change: opacity; 
         }
         .glow-orb {
@@ -155,11 +156,17 @@
         }
         #svg-crystal path { 
             stroke-dasharray: 1000; stroke-dashoffset: 1000; 
-            transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1); /* Faster draw speed */
+            transition: stroke-dashoffset 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         .start-hero-anim #svg-crystal path { stroke-dashoffset: 0; }
         
-        #particle-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden; pointer-events: none; will-change: opacity; }
+        #particle-bg { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; 
+            overflow: hidden; pointer-events: none; 
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1); /* Smooth CSS Fade */
+            will-change: opacity; 
+        }
+        
         #scrolly-text { position: relative; z-index: 10; }
         .scroll-scene { height: 80vh; width: 100%; padding: 0 1.5rem; display: flex; align-items: center; justify-content: center; }
         
@@ -317,7 +324,7 @@
     <!-- GLOBAL STICKY WRAPPER: Combines Announcement Bar and Header -->
     <div class="fixed top-0 left-0 right-0 z-50 flex flex-col">
         
-        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR (Disabled selection) -->
+        <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
         <div class="bg-[#0ea5e9]/85 backdrop-blur-md text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
             <div class="marquee-content whitespace-nowrap flex">
                 <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
@@ -327,7 +334,7 @@
             </div>
         </div>
 
-        <!-- HEADER (Disabled Selection) -->
+        <!-- HEADER -->
         <header class="relative w-full transition-all duration-300 select-none">
             <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10 shadow-sm"></div>
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -339,9 +346,9 @@
                     
                     <div class="hidden md:flex space-x-10">
                         <a href="#home" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
                         <a href="#about" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
+                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Products</a>
+                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
                         <a href="#contact" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
                     </div>
                     
@@ -362,7 +369,7 @@
         <a href="#contact" class="menu-link text-2xl font-semibold text-theme-blue">Contact</a>
     </div>
 
-    <!-- WHATSAPP FLOATING BUTTON & SMART NUDGE -->
+    <!-- WHATSAPP FLOATING BUTTON -->
     <div class="fixed bottom-6 right-6 z-[70] flex items-end gap-4 pointer-events-none select-none">
         <div id="wa-nudge" class="bg-white text-gray-800 text-xs sm:text-sm font-semibold py-3 px-5 rounded-2xl shadow-2xl opacity-0 translate-x-8 transition-all duration-700 flex items-center gap-3 border border-gray-100">
             Need help? Chat with us!
@@ -383,9 +390,8 @@
         <!-- HERO -->
         <div class="relative" id="home">
             <div id="sticky-wrapper">
-                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="sync">
+                <img id="hero-bg-image" src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async">
                 
-                <!-- NEW: Fake Glow Trick (Zero-Lag on Mobile) -->
                 <div id="crystal-wrapper">
                     <div class="glow-orb"></div>
                     <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
@@ -481,7 +487,6 @@
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left cursor-pointer" ontouchstart="">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
-                        
                         <img src="IMG_2244.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
                         <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
                     </div>
@@ -493,7 +498,6 @@
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left cursor-pointer" ontouchstart="">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide">In Stores</span>
-                        
                         <img src="IMG_2245.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10">
                         <img src="IMG_2167.webp" alt="Aruban History" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0">
                     </div>
@@ -733,7 +737,7 @@
                 });
             }
 
-            // --- Native Legal Slide-Over Engine (With Swipe-to-Close) ---
+            // --- Native Legal Slide-Over Engine ---
             const legalModal = document.getElementById('legal-modal');
             const closeLegalBtn = document.getElementById('close-legal');
             const legalTitle = document.getElementById('legal-title');
@@ -796,8 +800,7 @@
                 let animationId;
                 let isVisible = false;
                 
-                // Throttle particle count on mobile
-                const particleCount = window.innerWidth < 768 ? 20 : 50;
+                const particleCount = window.innerWidth < 768 ? 25 : 50;
 
                 function init() {
                     ps = [];
@@ -849,33 +852,38 @@
                 }
             }
 
-            // --- GPU Accelerated Scrollytelling (LAG FIX 3.0) ---
+            // --- Ultra-Lightweight Scroll Engine (LAG FIX 4.0) ---
             const crystalWrapper = document.getElementById('crystal-wrapper');
             const particleBg = document.getElementById('particle-bg');
             const heroBg = document.getElementById('hero-bg-image');
+            let isFaded = false;
             let ticking = false;
 
             window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        let scrollY = window.scrollY;
-                        
-                        // Strict GPU hardware layer translation
-                        if(heroBg && scrollY < window.innerHeight && window.innerWidth > 768) {
-                            heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.1)`;
-                        }
-                        
-                        // Apply fade to wrapper, NOT directly to SVG (eliminates drop-shadow repainting lag)
-                        if(crystalWrapper && scrollY < window.innerHeight) {
-                            let op = 1 - (scrollY / 300);
-                            let finalOp = Math.max(0, op);
-                            crystalWrapper.style.opacity = finalOp;
-                            if(particleBg) particleBg.style.opacity = finalOp; // Fades out particles too!
-                        }
-                        
-                        ticking = false;
-                    });
-                    ticking = true;
+                let scrollY = window.scrollY;
+                
+                // 1. Mobile & Desktop: CSS-Triggered Fade (Zero Math Lag)
+                if (scrollY > 150 && !isFaded) {
+                    if(crystalWrapper) crystalWrapper.style.opacity = '0';
+                    if(particleBg) particleBg.style.opacity = '0';
+                    isFaded = true;
+                } else if (scrollY <= 150 && isFaded) {
+                    if(crystalWrapper) crystalWrapper.style.opacity = '1';
+                    if(particleBg) particleBg.style.opacity = '1';
+                    isFaded = false;
+                }
+
+                // 2. Desktop Only: Hardware Accelerated Parallax
+                if (window.innerWidth > 768) {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            if(heroBg && scrollY < window.innerHeight) {
+                                heroBg.style.transform = `translate3d(0, ${scrollY * 0.2}px, 0) scale(1.1)`;
+                            }
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
                 }
             }, { passive: true });
 
