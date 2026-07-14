@@ -46,7 +46,7 @@
     <!-- Social Sharing -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
     <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
-    <meta property="og:image" content="https://arusalt.com/arusalt-pure-sea-salt-jar.webp">
+    <meta property="og:image" content="https://arusalt.com/aruba-coastline-aerial.webp">
     <meta property="og:url" content="https://arusalt.com/">
     <meta property="og:type" content="website">
 
@@ -54,7 +54,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AruSalt - The Essence of Aruba">
     <meta name="twitter:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
-    <meta name="twitter:image" content="https://arusalt.com/arusalt-pure-sea-salt-jar.webp">
+    <meta name="twitter:image" content="https://arusalt.com/aruba-coastline-aerial.webp">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://arusalt.com/">
@@ -65,10 +65,12 @@
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
       "name": "AruSalt",
+      "url": "https://arusalt.com/",
       "image": "https://arusalt.com/aruba-coastline-aerial.webp",
       "description": "Premium, hand-harvested, 100% natural sea salt from Aruba.",
       "telephone": "+2975922506",
       "email": "support@psaruba.com",
+      "priceRange": "$29-$49",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "L.G. Smith Boulevard 95",
@@ -78,7 +80,7 @@
       }
     }
     </script>
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="product-schema">
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -151,6 +153,7 @@
     </script>
     
     <link rel="icon" href="arusalt-logo.png" type="image/png">
+    <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // Scope hover:/group-hover: utilities to devices that support real hover (mouse/trackpad).
@@ -168,7 +171,6 @@
     <!-- Google Fonts Preloading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" as="style">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <!-- Custom Styles -->
@@ -427,6 +429,7 @@
             html { scroll-behavior: auto; }
             #particle-canvas { display: none !important; }
             .loader-crystal, #wa-nudge .animate-ping, #scroll-arrow { animation: none !important; }
+            #wa-nudge { transition: none !important; }
         }
 
         /* Visible keyboard focus (previously relied on browser default only) */
@@ -479,27 +482,27 @@
 
         <div class="container mx-auto max-w-3xl px-6 py-12 text-gray-600 leading-relaxed text-base md:text-lg">
             <div id="content-contact" class="policy-content hidden">
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h2>
+                <h3 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h3>
                 <p class="mb-4"><strong>Trade name:</strong> AruSalt</p>
                 <p class="mb-4"><strong>Phone number:</strong> <a href="tel:+2975922506" class="text-theme-blue hover:underline">+297 5922506</a></p>
                 <p class="mb-4"><strong>Email:</strong> <a href="mailto:support@psaruba.com" class="text-theme-blue hover:underline">support@psaruba.com</a></p>
                 <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
             </div>
             <div id="content-refund" class="policy-content hidden">
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h2>
+                <h3 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h3>
                 <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
                 <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h3>
+                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h4>
                 <p class="mb-4">Certain types of items cannot be returned, like perishable goods. Please get in touch if you have questions or concerns about your specific item.</p>
             </div>
             <div id="content-privacy" class="policy-content hidden">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h2>
-                <p class="mb-8 text-sm uppercase tracking-widest text-gray-400">Last updated: July 1, 2026</p>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h3>
+                <p class="mb-8 text-sm uppercase tracking-widest text-gray-500">Last updated: July 1, 2026</p>
                 <p class="mb-4">AruSalt operates this store and website, including all related information, content, features, tools, products and services, in order to provide you, the customer, with a curated shopping experience (the "Services"). AruSalt is powered by Shopify, which enables us to provide the Services to you.</p>
             </div>
             <div id="content-terms" class="policy-content hidden">
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h2>
-                <h3 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h3>
+                <h3 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h3>
+                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">OVERVIEW</h4>
                 <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this store and website, including all related information, content, features, tools, products and services in order to provide you, the customer, with a curated shopping experience (the "Services").</p>
             </div>
         </div>
@@ -524,7 +527,7 @@
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
 
-                    <a href="#home" id="header-logo-link" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
+                    <a href="#home" id="header-logo-link" tabindex="-1" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
                         <img src="arusalt-logo.png" alt="AruSalt Logo" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
 
@@ -536,7 +539,7 @@
                         <a href="#contact" class="nav-link text-sm font-semibold tracking-wide">Contact</a>
                     </div>
 
-                    <button id="menu-btn" class="md:hidden p-3 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
+                    <button id="menu-btn" class="md:hidden p-3 z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu" aria-expanded="false" aria-controls="mobile-menu">
                         <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                     </button>
                 </div>
@@ -545,7 +548,7 @@
     </div>
 
     <!-- MOBILE MENU -->
-    <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9 select-none">
+    <div id="mobile-menu" class="mobile-menu-closed fixed inset-0 z-40 md:hidden backdrop-blur-xl flex flex-col items-center justify-center space-y-9 select-none" role="dialog" aria-modal="true" aria-label="Main menu">
         <a href="#home" class="menu-link text-2xl font-semibold text-gray-900">Home</a>
         <a href="#history" class="menu-link text-2xl font-semibold text-gray-900">History</a>
         <a href="#shop" class="menu-link text-2xl font-semibold text-gray-900">Shop</a>
@@ -715,11 +718,11 @@
             <div class="container mx-auto max-w-5xl">
                 <div class="text-center mb-12 animate-on-scroll">
                     <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Know the difference</span>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Not all salt is created equal</h2>
+                    <h2 id="salt-comparison-heading" class="text-3xl md:text-4xl font-bold text-gray-900">Not all salt is created equal</h2>
                     <div class="diamond-divider mt-6"><span class="diamond-mark"></span></div>
                 </div>
                 <div class="overflow-x-auto animate-on-scroll delay-1">
-                    <table class="w-full min-w-[640px] border-collapse text-left">
+                    <table class="w-full min-w-[640px] border-collapse text-left" aria-labelledby="salt-comparison-heading">
                         <thead>
                             <tr class="border-b-2 border-gray-900">
                                 <th scope="col" class="py-4 pr-4 text-sm font-bold uppercase tracking-wider text-gray-500"></th>
@@ -773,7 +776,7 @@
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
                         <img src="arusalt-pure-sea-salt-jar.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
-                        <img src="salt-crystals-macro.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
+                        <img src="salt-crystals-macro.jpeg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
@@ -788,7 +791,7 @@
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
                         <img src="arusalt-caribbean-bath-salt-jar.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
-                        <img src="salt-varieties-line.webp" alt="Rows of colorful hand-blended salt varieties" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
+                        <img src="salt-varieties-line.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
@@ -1004,7 +1007,7 @@
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Commercial decline</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, the knowledge and appreciation for naturally harvested sea salt never disappeared. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, but the knowledge and appreciation for naturally harvested sea salt never faded. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
                         <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-coral pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
                     </div>
                 </div>
@@ -1099,7 +1102,7 @@
                 <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-md">
                     <div class="flex gap-2">
                         <label for="newsletter-email" class="sr-only">Email address</label>
-                        <input id="newsletter-email" type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:border-theme-blue transition-colors" required>
+                        <input id="newsletter-email" type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-theme-blue transition-colors" required>
                         <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
                     </div>
                     <p id="newsletter-message" class="text-sm mt-3 hidden" role="status"></p>
@@ -1116,21 +1119,21 @@
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
                 <ul class="space-y-4 text-gray-400 flex flex-col items-start">
-                    <li><a href="#" data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Contact Information</a></li>
-                    <li><a href="#" data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Privacy Policy</a></li>
-                    <li><a href="#" data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Refund Policy</a></li>
-                    <li><a href="#" data-policy="terms" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none">Terms of Service</a></li>
+                    <li><button type="button" data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Contact Information</button></li>
+                    <li><button type="button" data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Privacy Policy</button></li>
+                    <li><button type="button" data-policy="refund" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Refund Policy</button></li>
+                    <li><button type="button" data-policy="terms" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Terms of Service</button></li>
                 </ul>
             </div>
         </div>
-        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-800 text-center md:text-left text-gray-500 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="max-w-7xl mx-auto pt-8 border-t border-gray-800 text-center md:text-left text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; 2026 AruSalt. All rights reserved.</p>
             <div class="flex items-center gap-4">
                 <button type="button" id="contrast-toggle" aria-pressed="false" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs font-semibold uppercase tracking-wide">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v18M12 3a9 9 0 010 18 9 9 0 010-18z"/></svg>
                     High contrast
                 </button>
-                <p class="font-medium text-gray-600">Built in Aruba</p>
+                <p class="font-medium text-gray-400">Built in Aruba</p>
             </div>
         </div>
     </footer>
@@ -1162,7 +1165,16 @@
             const siteHeader = document.getElementById('site-header');
             const heroSentinel = document.getElementById('hero-sentinel');
             const backToTop = document.getElementById('back-to-top');
+            const headerLogoLink = document.getElementById('header-logo-link');
             let lastScrollTop = 0;
+
+            // header-logo-link is opacity:0/pointer-events:none (not display:none) while the
+            // big hero logo is on screen, so it stays keyboard-focusable-but-invisible unless
+            // tabIndex is toggled alongside its visibility — same fix as back-to-top below.
+            const setHeaderScrolled = (isScrolled) => {
+                siteHeader.classList.toggle('is-scrolled', isScrolled);
+                if (headerLogoLink) headerLogoLink.tabIndex = isScrolled ? 0 : -1;
+            };
 
             // Header stays transparent over the hero photo, then picks up a solid backdrop
             // once the page has scrolled into the white content sections. Driven by
@@ -1173,7 +1185,7 @@
             if (supportsHeaderObserver) {
                 const headerObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        siteHeader.classList.toggle('is-scrolled', !entry.isIntersecting);
+                        setHeaderScrolled(!entry.isIntersecting);
                     });
                 });
                 headerObserver.observe(heroSentinel);
@@ -1204,7 +1216,7 @@
 
                 // Fallback for browsers without IntersectionObserver
                 if (!supportsHeaderObserver && siteHeader) {
-                    siteHeader.classList.toggle('is-scrolled', st > 100);
+                    setHeaderScrolled(st > 100);
                 }
 
                 let current = "";
@@ -1284,11 +1296,53 @@
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
             if(menuBtn && mobileMenu) {
-                menuBtn.onclick = () => mobileMenu.classList.toggle('mobile-menu-closed');
-                mobileMenu.querySelectorAll('.menu-link').forEach(link => {
-                    link.addEventListener('click', () => {
-                        mobileMenu.classList.add('mobile-menu-closed');
+                // The menu covers the full viewport, so background content needs the same
+                // inert-locking treatment as the legal modal — otherwise Tab can still reach
+                // content hidden behind the overlay. global-nav-wrapper is deliberately excluded:
+                // it sits above the menu (z-50 vs z-40) and stays visible/usable while open,
+                // and menu-btn itself lives inside it and must stay reachable to close the menu.
+                const menuBackgroundRegions = [
+                    document.querySelector('main'),
+                    document.querySelector('footer'),
+                    document.getElementById('whatsapp-widget'),
+                    document.getElementById('back-to-top')
+                ].filter(Boolean);
+
+                const openMobileMenu = () => {
+                    mobileMenu.classList.remove('mobile-menu-closed');
+                    menuBtn.setAttribute('aria-expanded', 'true');
+                    menuBackgroundRegions.forEach(el => el.setAttribute('inert', ''));
+                    // The visibility:hidden -> visible change (via the class removal above) is
+                    // CSS-transition-driven and isn't committed within the current tick, so an
+                    // immediate .focus() call silently no-ops — a single rAF isn't reliably
+                    // enough either (still mid-transition-setup on the next frame in testing),
+                    // so defer two frames, a standard pattern for this exact class of timing gap.
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            const firstLink = mobileMenu.querySelector('.menu-link');
+                            if (firstLink) firstLink.focus();
+                        });
                     });
+                };
+
+                const closeMobileMenu = () => {
+                    mobileMenu.classList.add('mobile-menu-closed');
+                    menuBtn.setAttribute('aria-expanded', 'false');
+                    menuBackgroundRegions.forEach(el => el.removeAttribute('inert'));
+                    menuBtn.focus();
+                };
+
+                menuBtn.addEventListener('click', () => {
+                    if (mobileMenu.classList.contains('mobile-menu-closed')) openMobileMenu();
+                    else closeMobileMenu();
+                });
+
+                mobileMenu.querySelectorAll('.menu-link').forEach(link => {
+                    link.addEventListener('click', closeMobileMenu);
+                });
+
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && !mobileMenu.classList.contains('mobile-menu-closed')) closeMobileMenu();
                 });
             }
 
@@ -1452,10 +1506,19 @@
                     init(); 
                 });
                 
-                canvas.width = window.innerWidth; 
-                canvas.height = window.innerHeight; 
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
                 init();
                 draw();
+
+                // The initial prefersReducedMotion check only covers the OS-level setting at
+                // page load; if a user toggles it mid-session, stop the still-running loop too.
+                window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', (e) => {
+                    if (e.matches) {
+                        cancelAnimationFrame(animationId);
+                        ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    }
+                });
             }
 
             // --- Zero-Lag CSS Trigger for Crystal Fade ---
@@ -1545,6 +1608,30 @@
                             setText('cms-bathsalt-description', data.products.bathSalt.description);
                             setText('cms-bathsalt-price', data.products.bathSalt.price);
                             setText('cms-bathsalt-netweight', data.products.bathSalt.netWeight);
+                        }
+
+                        // Keep the schema.org Product JSON-LD's price in sync too — otherwise
+                        // a price edited via the CMS updates the visible page but silently
+                        // leaves stale data in what Google actually reads for rich results.
+                        const schemaEl = document.getElementById('product-schema');
+                        if (schemaEl) {
+                            try {
+                                const schema = JSON.parse(schemaEl.textContent);
+                                if (Array.isArray(schema['@graph'])) {
+                                    schema['@graph'].forEach(item => {
+                                        if (!item || item['@type'] !== 'Product' || !item.offers) return;
+                                        const isBathSalt = typeof item.name === 'string' && item.name.includes('Bath Salt');
+                                        const priceStr = isBathSalt
+                                            ? data.products.bathSalt && data.products.bathSalt.price
+                                            : data.products.seaSalt && data.products.seaSalt.price;
+                                        if (typeof priceStr === 'string') {
+                                            const numeric = priceStr.replace(/[^0-9.]/g, '');
+                                            if (numeric) item.offers.price = numeric;
+                                        }
+                                    });
+                                    schemaEl.textContent = JSON.stringify(schema);
+                                }
+                            } catch (e) { /* malformed JSON-LD — leave schema as-is */ }
                         }
                     }
 
