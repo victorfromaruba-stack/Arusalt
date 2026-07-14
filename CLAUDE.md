@@ -31,6 +31,7 @@ Standard flow for any non-trivial change: make the edit → relevant specialist 
 - No new image files unless I ask for one.
 - Never fabricate business details, prices, store credentials, or a canonical domain — ask me instead.
 - Canonical domain is confirmed: **arusalt.com**. CNAME, canonical tag, og:url, and schema.org URLs are all aligned on it; robots.txt/sitemap.xml also point at it. Don't reintroduce arusaltaruba.com without asking first.
+- Resolved: the live Shopify store (arusaltaruba.com) shows both products as "Sold out" — this is intentional, not a discrepancy to fix. Products are in-store-only for now; the Shopify listings are deliberately kept in place (sold out) so online ordering can be switched on later without rebuilding the store. Keep "AVAILABLE EXCLUSIVELY IN STORES" / "Find a Retailer" copy as-is until priority #2 below actually goes live.
 - Run `qa-validator` after any HTML/CSS/JS change, before telling me something is done.
 
 ## Current priority order
