@@ -30,7 +30,7 @@ Standard flow for any non-trivial change: make the edit → relevant specialist 
 - Keep the single-file HTML + Tailwind-CDN approach unless I explicitly ask to change it.
 - No new image files unless I ask for one.
 - Never fabricate business details, prices, store credentials, or a canonical domain — ask me instead.
-- Open item: the project has referenced both `arusalt.com` and `arusaltaruba.com` in different places. This hasn't been reconciled. Ask me which is canonical before hardcoding either one further.
+- Canonical domain is confirmed: **arusalt.com**. CNAME, canonical tag, og:url, and schema.org URLs are all aligned on it; robots.txt/sitemap.xml also point at it. Don't reintroduce arusaltaruba.com without asking first.
 - Run `qa-validator` after any HTML/CSS/JS change, before telling me something is done.
 
 ## Current priority order
@@ -38,4 +38,4 @@ Standard flow for any non-trivial change: make the edit → relevant specialist 
 1. Match copy site-wide to the real Shopify store — `copy-auditor` (I'll provide screenshots or the live URL)
 2. Wire up Shopify Buy Button for both products — `shopify-integrator` (I'll provide the real embed snippets from Shopify admin)
 3. Once Buy Button is live: remove hardcoded prices from the HTML, update the "AVAILABLE EXCLUSIVELY IN STORES" marquee copy since it'll no longer be accurate
-4. Smaller open items: dead "Search" link in the footer, generic image filenames (`IMG_2243.webp`), no `sitemap.xml`/`robots.txt` yet, no analytics wired in, no service worker despite PWA-style meta tags already present, parallax background not yet tested on a real older Android/iOS device
+4. Smaller open items: generic image filenames (`IMG_2243.webp`), no analytics wired in, no service worker despite PWA-style meta tags already present, parallax background not yet tested on a real older Android/iOS device. (Done: dead footer "Search" link removed, `sitemap.xml`/`robots.txt` added.)

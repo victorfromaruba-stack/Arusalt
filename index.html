@@ -240,8 +240,30 @@
         .delay-1 { transition-delay: 150ms; }
         .delay-2 { transition-delay: 300ms; }
 
-        .blend-icon { mix-blend-mode: multiply; filter: contrast(1.1); }
         .nav-link.active { color: #0ea5e9; }
+
+        /* Feature icon badge: soft ocean-tinted circle housing a hand-drawn SVG mark */
+        .feature-icon-badge {
+            width: 5rem; height: 5rem; border-radius: 9999px;
+            background-color: #f4f9fc; border: 1px solid #e6f2f8;
+            display: flex; align-items: center; justify-content: center;
+            transform: scale(0.8);
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.5s ease;
+        }
+        .animate-on-scroll.is-visible .feature-icon-badge { transform: scale(1); }
+        @media (prefers-reduced-motion: reduce) {
+            .feature-icon-badge { transform: scale(1); transition: none; }
+        }
+
+        /* Slow cinematic drift on the hero photo */
+        .ken-burns { animation: kenBurns 24s ease-in-out infinite alternate; }
+        @keyframes kenBurns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.09) translate(-1%, -1%); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .ken-burns { animation: none !important; }
+        }
         
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll, .lazy-blur { transition: none !important; opacity: 1; transform: none; filter: blur(0); }
@@ -393,7 +415,7 @@
 
     <!-- LAYER 1: BULLETPROOF FIXED BACKGROUND -->
     <div class="fixed-layer z-[-2] bg-black">
-        <img src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65">
+        <img src="IMG_2243.webp" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65 ken-burns">
         <div class="cinematic-gradient"></div>
     </div>
 
@@ -432,8 +454,8 @@
         <!-- Hero Text -->
         <div class="min-h-[80vh] flex flex-col items-center justify-center px-4 py-20 pb-32">
             <div class="hero-text-block text-center max-w-4xl z-10">
-                <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
-                <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-3xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
+                <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.05] text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
+                <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-2xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
             </div>
         </div>
 
@@ -535,17 +557,31 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
                     <div class="animate-on-scroll flex flex-col items-center">
-                        <img src="IMG_2169.webp" alt="Hand-harvested" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <div class="feature-icon-badge mb-6">
+                            <svg class="w-9 h-9 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M7.5 12.5V6.25a1.25 1.25 0 0 1 2.5 0V11M10 11V4.75a1.25 1.25 0 0 1 2.5 0V11M12.5 11.25V6.5a1.25 1.25 0 0 1 2.5 0v6M15 12v-1.75a1.25 1.25 0 0 1 2.5 0v5.25a5.5 5.5 0 0 1-5.5 5.5h-1.5a5.5 5.5 0 0 1-4.71-2.66L4 15.5"/>
+                            </svg>
+                        </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Hand-harvested</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Produced in small batches using traditional methods with care and craftsmanship.</p>
                     </div>
                     <div class="animate-on-scroll delay-1 flex flex-col items-center">
-                        <img src="IMG_2255.png" alt="Sun-dried" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <div class="feature-icon-badge mb-6">
+                            <svg class="w-9 h-9 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <circle cx="12" cy="12" r="4.25"/>
+                                <path d="M12 2.75v2.5M12 18.75v2.5M4.93 4.93l1.77 1.77M17.3 17.3l1.77 1.77M2.75 12h2.5M18.75 12h2.5M4.93 19.07l1.77-1.77M17.3 6.7l1.77-1.77"/>
+                            </svg>
+                        </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Sun-dried</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Naturally dried under the caribbean sun to preserve texture and minerals.</p>
                     </div>
                     <div class="animate-on-scroll delay-2 flex flex-col items-center">
-                        <img src="IMG_2249.webp" alt="Pure and Natural" loading="lazy" decoding="async" class="h-24 w-24 mb-6 object-contain blend-icon mix-blend-multiply">
+                        <div class="feature-icon-badge mb-6">
+                            <svg class="w-9 h-9 text-gray-900" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 3c-3.5 4.2-6 7.6-6 10.75a6 6 0 0 0 12 0C18 10.6 15.5 7.2 12 3Z"/>
+                                <path d="M9.75 15.25a2.5 2.5 0 0 0 2.5 2.5"/>
+                            </svg>
+                        </div>
                         <h3 class="text-xl font-bold text-gray-900 mb-3">Pure and Natural</h3>
                         <p class="text-gray-600 leading-relaxed px-4">Free from additives, processing, or refinement and naturally contains essential trace minerals.</p>
                     </div>
@@ -679,8 +715,9 @@
             <div>
                 <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
                 <ul class="space-y-4 text-gray-400">
-                    <li><a href="#" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Search</a></li>
                     <li><a href="#about" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
+                    <li><a href="#shop" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Products</a></li>
+                    <li><a href="#contact" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Contact</a></li>
                 </ul>
             </div>
             <div>
