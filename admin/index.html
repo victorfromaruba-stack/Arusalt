@@ -9,7 +9,11 @@
        it's an authenticated internal tool page, not public marketing content, and the
        Decap CMS bundle needs unsafe-eval to run. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://*.netlify.com https://unpkg.com wss://*.netlify.com; font-src 'self' data:; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self';">
-  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <!-- Not deferred, and loaded before decap-cms.js: Decap's git-gateway backend checks
+       for window.netlifyIdentity as soon as it boots, and if this is deferred it hasn't
+       run yet by then — Decap falls back to its own plain login form instead of letting
+       the Identity widget handle invite/recovery tokens in the URL. -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
