@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Content Manager — AruSalt</title>
+  <!-- This admin panel is intentionally more permissive than the public site's CSP —
+       it's an authenticated internal tool page, not public marketing content, and the
+       Decap CMS bundle needs unsafe-eval to run. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://identity.netlify.com https://unpkg.com; style-src 'self' 'unsafe-inline' https://unpkg.com; img-src 'self' data: https:; connect-src 'self' https://api.github.com https://*.netlify.com https://unpkg.com wss://*.netlify.com; font-src 'self' data:; frame-src https://identity.netlify.com; object-src 'none'; base-uri 'self';">
+  <script defer src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+</head>
+<body>
+  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    // Netlify Identity invite/recovery links land here with a token in the URL —
+    // this redirects the user into the login modal instead of a dead page.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.on("init", (user) => {
+        if (!user) {
+          window.netlifyIdentity.on("login", () => {
+            document.location.href = "/admin/";
+          });
+        }
+      });
+    }
+  </script>
+</body>
+</html>

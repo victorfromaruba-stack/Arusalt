@@ -2,6 +2,17 @@
 
 AruSalt is a small, real hand-harvested sea salt brand from Aruba. This project is a single-file HTML + Tailwind CDN website (no build step, no framework). Two products exist today, sold in-store only: Pure Caribbean Sea Salt ($29) and Caribbean Bath Salt ($49). We plan to add online ordering through Shopify.
 
+## Content editing system (no-GitHub-access editors)
+
+Some copy is editable without touching GitHub, via a small Decap CMS instance at `/admin`:
+- `content/site.json` holds the editable fields (hero headline/subhead, announcement bar text, both products' description/price/net weight, the retailers list, newsletter blurb). Non-editable content stays hardcoded in `index.html` as before.
+- A hydration script at the end of `index.html`'s `<script>` block fetches `content/site.json` on page load and patches it into elements tagged `id="cms-*"` (or `class="cms-marquee-line1/2"`), rebuilding `#cms-retailers-grid` entirely from the `retailers` array. If the fetch fails for any reason, the static HTML already in the page is the fallback — the page never breaks from this.
+- `admin/config.yml` defines the Decap CMS field schema (must stay in sync with `content/site.json`'s shape, and with the `id`s in `index.html` that the hydration script reads).
+- `admin/index.html` is the CMS login/editor page. It has its own separate CSP meta tag (more permissive than the main site's, since it needs to load the Decap CMS bundle from unpkg and Netlify Identity) and is excluded from search indexing (`robots.txt` + `noindex` meta).
+- Backend is `git-gateway` + Netlify Identity — editors log in with an email/password Netlify Identity account (invited by the site owner), never a GitHub account. Netlify proxies the actual git commits using the owner's GitHub authorization, done once during setup.
+- `publish_mode: editorial_workflow` — edits sit as drafts/in-review before anything merges to `main` and goes live, rather than publishing instantly. Deliberate given the owner's security priorities; can be simplified to `publish_mode: simple` later if the review step proves like unnecessary friction.
+- When adding a new editable field: add it to `content/site.json`, add the matching field block to `admin/config.yml`, tag the target element in `index.html` with a `cms-*` id/class, and add the corresponding lookup in the hydration script.
+
 ## The team
 
 This project has specialist subagents defined in `.claude/agents/`. Delegate to them rather than doing everything in the main session:
@@ -33,6 +44,8 @@ Standard flow for any non-trivial change: make the edit → relevant specialist 
 - Canonical domain is confirmed: **arusalt.com**. CNAME, canonical tag, og:url, and schema.org URLs are all aligned on it; robots.txt/sitemap.xml also point at it. Don't reintroduce arusaltaruba.com without asking first.
 - Resolved: the live Shopify store (arusaltaruba.com) shows both products as "Sold out" — this is intentional, not a discrepancy to fix. Products are in-store-only for now; the Shopify listings are deliberately kept in place (sold out) so online ordering can be switched on later without rebuilding the store. Keep "AVAILABLE EXCLUSIVELY IN STORES" / "Find a Retailer" copy as-is until priority #2 below actually goes live.
 - Run `qa-validator` after any HTML/CSS/JS change, before telling me something is done.
+- `index.html` has a Content-Security-Policy meta tag. If you add a new external resource (script, stylesheet, font, fetch target), update the CSP to allow it explicitly — don't loosen it to a wildcard, and don't add `unsafe-eval` to the main site's CSP (only `admin/index.html`, a separate document, has that, because the Decap CMS bundle needs it).
+- GitHub Pages can't serve custom HTTP headers, so `X-Frame-Options`, `X-Content-Type-Options`, and CSP's `frame-ancestors` directive can't be set from this repo at all — that's a platform limitation, not something to keep re-flagging as an open bug.
 
 ## Current priority order
 

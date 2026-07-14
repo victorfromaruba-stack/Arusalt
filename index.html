@@ -3,7 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    
+
+    <!-- Security headers available via <meta> on a static host with no server config.
+         Note: frame-ancestors / X-Frame-Options / X-Content-Type-Options can only be set
+         via a real HTTP header, which GitHub Pages doesn't support — see CLAUDE.md. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io;">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="site.webmanifest">
     
@@ -382,10 +388,10 @@
         <!-- SEAMLESS MARQUEE ANNOUNCEMENT BAR -->
         <div class="bg-theme-blue text-white text-[10px] sm:text-xs font-bold tracking-widest sm:tracking-[0.2em] shadow-sm overflow-hidden flex items-center w-full select-none pointer-events-auto" style="padding-top: max(env(safe-area-inset-top), 0.6rem); padding-bottom: 0.6rem;">
             <div class="marquee-content whitespace-nowrap flex">
-                <span class="px-8 flex-shrink-0 whitespace-nowrap">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
-                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true">HAND-HARVESTED IN ARUBA <span class="mx-2 opacity-60">•</span> AVAILABLE EXCLUSIVELY IN STORES</span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap"><span class="cms-marquee-line1">HAND-HARVESTED IN ARUBA</span> <span class="mx-2 opacity-60">•</span> <span class="cms-marquee-line2">AVAILABLE EXCLUSIVELY IN STORES</span></span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true"><span class="cms-marquee-line1">HAND-HARVESTED IN ARUBA</span> <span class="mx-2 opacity-60">•</span> <span class="cms-marquee-line2">AVAILABLE EXCLUSIVELY IN STORES</span></span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true"><span class="cms-marquee-line1">HAND-HARVESTED IN ARUBA</span> <span class="mx-2 opacity-60">•</span> <span class="cms-marquee-line2">AVAILABLE EXCLUSIVELY IN STORES</span></span>
+                <span class="px-8 flex-shrink-0 whitespace-nowrap" aria-hidden="true"><span class="cms-marquee-line1">HAND-HARVESTED IN ARUBA</span> <span class="mx-2 opacity-60">•</span> <span class="cms-marquee-line2">AVAILABLE EXCLUSIVELY IN STORES</span></span>
             </div>
         </div>
 
@@ -476,8 +482,8 @@
         <!-- Hero Text -->
         <div class="min-h-[80vh] flex flex-col items-center justify-center px-4 py-20 pb-32">
             <div class="hero-text-block text-center max-w-4xl z-10">
-                <h1 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.05] text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
-                <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-2xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
+                <h1 id="cms-hero-headline" class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight mb-6 leading-[1.05] text-white drop-shadow-2xl">Bring a touch of the island to your home.</h1>
+                <p id="cms-hero-subheading" class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-gray-200 drop-shadow-lg max-w-2xl mx-auto">We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do.</p>
             </div>
         </div>
 
@@ -542,9 +548,9 @@
                         <img src="IMG_2166.jpeg" alt="Macro Salt Crystals" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
-                    <p class="text-gray-600 leading-relaxed mb-4">Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt — sprinkle lightly just before serving to enhance flavor without overpowering the dish.</p>
-                    <p class="text-lg text-gray-500 mb-1">$29.00</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 30 g</p>
+                    <p id="cms-seasalt-description" class="text-gray-600 leading-relaxed mb-4">Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt — sprinkle lightly just before serving to enhance flavor without overpowering the dish.</p>
+                    <p id="cms-seasalt-price" class="text-lg text-gray-500 mb-1">$29.00</p>
+                    <p id="cms-seasalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 30 g</p>
                     <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
                 
@@ -556,9 +562,9 @@
                         <img src="salt-varieties-line.webp" alt="Rows of colorful hand-blended salt varieties" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
-                    <p class="text-gray-600 leading-relaxed mb-4">Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean — available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.</p>
-                    <p class="text-lg text-gray-500 mb-1">$49.00</p>
-                    <p class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 250 g</p>
+                    <p id="cms-bathsalt-description" class="text-gray-600 leading-relaxed mb-4">Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean — available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.</p>
+                    <p id="cms-bathsalt-price" class="text-lg text-gray-500 mb-1">$49.00</p>
+                    <p id="cms-bathsalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 250 g</p>
                     <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
             </div>
@@ -622,7 +628,7 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate-on-scroll">Find us locally in Aruba</h2>
                 <div class="diamond-divider mb-12"><span class="diamond-mark"></span></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                <div id="cms-retailers-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
                     <a href="https://www.thpalmandcompany.com" target="_blank" rel="noopener noreferrer" class="group relative block p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
                         <svg class="w-8 h-8 text-gray-900 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
@@ -723,7 +729,7 @@
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
-                <p class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
+                <p id="cms-newsletter-blurb" class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
                 <!-- NOTE: action still points at a placeholder ID — swap in your real Formspree endpoint (or any POST endpoint) before launch, or signups will silently fail. -->
                 <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-md">
                     <div class="flex gap-2">
@@ -1080,6 +1086,83 @@
                     document.body.classList.add('start-hero-anim');
                 }
             };
+
+            // --- CMS Content Hydration ---
+            // Pulls editable copy from content/site.json (edited via /admin, the Decap CMS
+            // panel) and patches it into the page. The static text already in this HTML is
+            // the fallback/default — if this fetch fails for any reason (file missing,
+            // offline, JSON malformed), the page still reads correctly as-is.
+            fetch('content/site.json', { cache: 'no-store' })
+                .then(res => res.ok ? res.json() : null)
+                .then(data => {
+                    if (!data || typeof data !== 'object') return;
+
+                    const setText = (id, value) => {
+                        if (typeof value !== 'string' || !value.trim()) return;
+                        const el = document.getElementById(id);
+                        if (el) el.textContent = value;
+                    };
+
+                    if (data.hero) {
+                        setText('cms-hero-headline', data.hero.headline);
+                        setText('cms-hero-subheading', data.hero.subheading);
+                    }
+
+                    if (data.marquee) {
+                        if (typeof data.marquee.line1 === 'string' && data.marquee.line1.trim()) {
+                            document.querySelectorAll('.cms-marquee-line1').forEach(el => { el.textContent = data.marquee.line1; });
+                        }
+                        if (typeof data.marquee.line2 === 'string' && data.marquee.line2.trim()) {
+                            document.querySelectorAll('.cms-marquee-line2').forEach(el => { el.textContent = data.marquee.line2; });
+                        }
+                    }
+
+                    if (data.products) {
+                        if (data.products.seaSalt) {
+                            setText('cms-seasalt-description', data.products.seaSalt.description);
+                            setText('cms-seasalt-price', data.products.seaSalt.price);
+                            setText('cms-seasalt-netweight', data.products.seaSalt.netWeight);
+                        }
+                        if (data.products.bathSalt) {
+                            setText('cms-bathsalt-description', data.products.bathSalt.description);
+                            setText('cms-bathsalt-price', data.products.bathSalt.price);
+                            setText('cms-bathsalt-netweight', data.products.bathSalt.netWeight);
+                        }
+                    }
+
+                    if (Array.isArray(data.retailers) && data.retailers.length) {
+                        const grid = document.getElementById('cms-retailers-grid');
+                        if (grid) {
+                            const cards = data.retailers
+                                .filter(r => r && typeof r.name === 'string' && typeof r.link === 'string' && /^https:\/\//i.test(r.link))
+                                .map(r => {
+                                    const a = document.createElement('a');
+                                    a.href = r.link;
+                                    a.target = '_blank';
+                                    a.rel = 'noopener noreferrer';
+                                    a.className = 'group relative block p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden';
+                                    a.innerHTML = `
+                                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
+                                        <svg class="w-8 h-8 text-gray-900 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                                        <h3 class="font-bold text-xl text-gray-900 mb-2"></h3>
+                                        <p class="text-sm text-gray-500 leading-relaxed mb-4"></p>
+                                        <span class="text-xs font-bold uppercase tracking-widest text-theme-blue inline-flex items-center gap-1.5"><span class="cms-link-text"></span> <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                                    `;
+                                    a.querySelector('h3').textContent = r.name;
+                                    a.querySelector('p').textContent = r.description || '';
+                                    a.querySelector('.cms-link-text').textContent = r.linkText || 'Visit site';
+                                    return a;
+                                });
+                            if (cards.length) {
+                                grid.innerHTML = '';
+                                cards.forEach(card => grid.appendChild(card));
+                            }
+                        }
+                    }
+
+                    setText('cms-newsletter-blurb', data.newsletterBlurb);
+                })
+                .catch(() => { /* content/site.json missing or unreachable — static defaults stand */ });
         });
     </script>
 </body>

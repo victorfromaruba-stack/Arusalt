@@ -1,0 +1,62 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Editorial workflow: edits are saved as drafts and go through a review status
+# (draft -> in review -> ready) before anything merges into the live main branch.
+# Slower than instant-publish, but nothing reaches the live site without a
+# deliberate publish step — chosen deliberately given the site owner's security
+# priorities.
+publish_mode: editorial_workflow
+
+media_folder: ""
+public_folder: ""
+
+collections:
+  - name: "site"
+    label: "Website Content"
+    files:
+      - file: "content/site.json"
+        label: "Site Content"
+        name: "site"
+        fields:
+          - label: "Hero Section"
+            name: "hero"
+            widget: "object"
+            fields:
+              - { label: "Headline", name: "headline", widget: "string" }
+              - { label: "Subheading", name: "subheading", widget: "text" }
+          - label: "Announcement Bar"
+            name: "marquee"
+            widget: "object"
+            fields:
+              - { label: "Line 1", name: "line1", widget: "string" }
+              - { label: "Line 2", name: "line2", widget: "string" }
+          - label: "Products"
+            name: "products"
+            widget: "object"
+            fields:
+              - label: "Pure Caribbean Sea Salt"
+                name: "seaSalt"
+                widget: "object"
+                fields:
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Price (include $ sign)", name: "price", widget: "string" }
+                  - { label: "Net Weight", name: "netWeight", widget: "string" }
+              - label: "Caribbean Bath Salt"
+                name: "bathSalt"
+                widget: "object"
+                fields:
+                  - { label: "Description", name: "description", widget: "text" }
+                  - { label: "Price (include $ sign)", name: "price", widget: "string" }
+                  - { label: "Net Weight", name: "netWeight", widget: "string" }
+          - label: "Retailers (Find us locally section)"
+            name: "retailers"
+            widget: "list"
+            summary: "{{name}}"
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Description", name: "description", widget: "text" }
+              - { label: "Link URL", name: "link", widget: "string" }
+              - { label: "Link button text", name: "linkText", widget: "string", default: "Visit site" }
+          - { label: "Newsletter blurb", name: "newsletterBlurb", widget: "string" }
