@@ -10,6 +10,16 @@
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
+    <!-- Netlify Identity recovery/invite/confirmation emails link to this site's root with
+         a token in the URL hash, but the Identity widget that actually processes that token
+         only runs on /admin/ — redirect there immediately, preserving the hash, before this
+         page renders anything else. -->
+    <script>
+        if (/(confirmation_token|invite_token|recovery_token|email_change_token)=/.test(window.location.hash)) {
+            window.location.replace('/admin/' + window.location.hash);
+        }
+    </script>
+
     <!-- PWA Manifest Link -->
     <link rel="manifest" href="site.webmanifest">
     
