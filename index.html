@@ -7,7 +7,7 @@
     <!-- Security headers available via <meta> on a static host with no server config.
          Note: frame-ancestors / X-Frame-Options / X-Content-Type-Options can only be set
          via a real HTTP header, which GitHub Pages doesn't support — see CLAUDE.md. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://plausible.io; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://plausible.io https://cdn.tailwindcss.com; form-action 'self' https://formspree.io;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Netlify Identity recovery/invite/confirmation emails link to this site's root with
