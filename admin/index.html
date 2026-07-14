@@ -14,6 +14,17 @@
        run yet by then — Decap falls back to its own plain login form instead of letting
        the Identity widget handle invite/recovery tokens in the URL. -->
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <script>
+    // Decap CMS has its own hash-based router for internal navigation (#/collections/...).
+    // If it loads and boots before the Identity widget has parsed the URL, Decap's router
+    // can rewrite the hash first — observed turning #recovery_token=X into
+    // #/recovery_token=X, which the widget no longer recognizes. Calling init() here,
+    // still in <head> and before decap-cms.js is even requested, makes the widget read
+    // the original unmangled hash and pop its recovery/invite modal immediately.
+    if (window.netlifyIdentity) {
+      window.netlifyIdentity.init();
+    }
+  </script>
 </head>
 <body>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
