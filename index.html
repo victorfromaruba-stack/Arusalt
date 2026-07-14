@@ -202,26 +202,23 @@
             border-radius: 50%; z-index: -1;
         }
         
-        /* Pure CSS SVG Drawing (Eliminates JS Loading Bugs) */
-        #svg-crystal {
-            width: 100%; height: 100%; stroke: #0ea5e9; stroke-width: 4;
-            stroke-linecap: round; stroke-linejoin: round; fill: none;
-        }
-        #svg-crystal path { 
-            stroke-dasharray: 1000; stroke-dashoffset: 1000; 
-            animation: drawPath 2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.3s;
-        }
-        @keyframes drawPath {
-            to { stroke-dashoffset: 0; }
-        }
-        
         /* Hero Text & Scrolling Layers */
         .hero-text-block {
             opacity: 0; transition: opacity 1.2s ease-out, transform 1.2s ease-out;
             transform: translateY(30px); text-shadow: 0 4px 20px rgba(0,0,0,0.8); color: white;
         }
         .start-hero-anim .hero-text-block { opacity: 1; transform: translateY(0); }
+
+        /* Hero logo reveal: fades/scales in alongside the hero text on the same preloader-driven trigger */
+        .hero-logo-reveal {
+            opacity: 0; transform: scale(0.9);
+            transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition-delay: 0.2s;
+        }
+        .start-hero-anim .hero-logo-reveal { opacity: 1; transform: scale(1); }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-logo-reveal { opacity: 1; transform: scale(1); transition: none; }
+        }
 
         .content-section { position: relative; z-index: 11; background-color: #ffffff; padding-top: 6rem; padding-bottom: 6rem; }
         .content-section-alt { position: relative; z-index: 11; background-color: #f4f9fc; padding-top: 6rem; padding-bottom: 6rem; border-top: 1px solid #e6f2f8; border-bottom: 1px solid #e6f2f8; }
@@ -240,7 +237,23 @@
         .delay-1 { transition-delay: 150ms; }
         .delay-2 { transition-delay: 300ms; }
 
-        .nav-link.active { color: #0ea5e9; }
+        /* Header: transparent over the hero photo, solid once scrolled into content */
+        #header-bg {
+            background-color: transparent; border-bottom: 1px solid transparent;
+            transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease, backdrop-filter 0.5s ease;
+        }
+        #site-header.is-scrolled #header-bg {
+            background-color: rgba(255,255,255,0.9);
+            backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border-bottom-color: rgba(0,0,0,0.05);
+            box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
+        }
+        .nav-link { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.45); transition: color 0.4s ease, text-shadow 0.4s ease; }
+        #site-header.is-scrolled .nav-link { color: #374151; text-shadow: none; }
+        .nav-link:hover { color: #0ea5e9; text-shadow: none; }
+        .nav-link.active { color: #0ea5e9 !important; text-shadow: none; }
+        #menu-btn { color: #fff; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.45)); transition: color 0.4s ease, filter 0.4s ease; }
+        #site-header.is-scrolled #menu-btn { color: #111827; filter: none; }
 
         /* Feature icon badge: soft ocean-tinted circle housing a hand-drawn SVG mark */
         .feature-icon-badge {
@@ -267,7 +280,7 @@
         
         @media (prefers-reduced-motion: reduce) {
             .animate-on-scroll, .lazy-blur { transition: none !important; opacity: 1; transform: none; filter: blur(0); }
-            .marquee-content, #svg-crystal path { animation: none !important; stroke-dashoffset: 0; }
+            .marquee-content { animation: none !important; }
             html { scroll-behavior: auto; }
             #particle-canvas { display: none !important; }
         }
@@ -362,24 +375,24 @@
         </div>
 
         <!-- HEADER -->
-        <header class="relative w-full select-none pointer-events-auto shadow-sm">
-            <div class="absolute inset-0 bg-white/90 backdrop-blur-xl border-b border-black/5 -z-10"></div>
+        <header id="site-header" class="relative w-full select-none pointer-events-auto">
+            <div id="header-bg" class="absolute inset-0 -z-10"></div>
             <nav class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
-                    
+
                     <a href="#home" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
-                        <img src="IMG_2333.png" alt="AruSalt Logo" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
+                        <img src="IMG_2333.png" alt="AruSalt Logo" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
-                    
+
                     <div class="hidden md:flex space-x-10">
-                        <a href="#home" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Home</a>
-                        <a href="#history" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">History</a>
-                        <a href="#shop" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Shop</a>
-                        <a href="#about" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">About Us</a>
-                        <a href="#contact" class="nav-link text-sm font-semibold text-gray-700 hover:text-theme-blue transition-colors tracking-wide">Contact</a>
+                        <a href="#home" class="nav-link text-sm font-semibold tracking-wide">Home</a>
+                        <a href="#history" class="nav-link text-sm font-semibold tracking-wide">History</a>
+                        <a href="#shop" class="nav-link text-sm font-semibold tracking-wide">Shop</a>
+                        <a href="#about" class="nav-link text-sm font-semibold tracking-wide">About Us</a>
+                        <a href="#contact" class="nav-link text-sm font-semibold tracking-wide">Contact</a>
                     </div>
-                    
-                    <button id="menu-btn" class="md:hidden p-3 text-gray-900 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
+
+                    <button id="menu-btn" class="md:hidden p-3 focus:outline-none z-50 relative active:scale-95 transition-transform" aria-label="Toggle Menu">
                         <svg class="h-7 w-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
                     </button>
                 </div>
@@ -419,22 +432,15 @@
         <div class="cinematic-gradient"></div>
     </div>
 
-    <!-- LAYER 2: BULLETPROOF FIXED CRYSTAL & PARTICLES -->
+    <!-- LAYER 2: BULLETPROOF FIXED LOGO & PARTICLES -->
     <div id="hero-graphics" class="fixed-layer z-[-1] flex flex-col items-center justify-center transition-opacity duration-500">
         <!-- Particles -->
         <div class="absolute inset-0 z-10"><canvas id="particle-canvas"></canvas></div>
-        
-        <!-- Crystal -->
-        <div class="relative z-20 w-[220px] h-[220px] max-w-[60vw]">
+
+        <!-- Logo -->
+        <div class="relative z-20 w-[260px] sm:w-[300px] max-w-[65vw] flex items-center justify-center">
             <div class="glow-orb"></div>
-            <svg id="svg-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                <path d="M 50 10 L 90 50 L 50 90 L 10 50 Z"></path>
-                <path d="M 50 30 L 70 50 L 50 70 L 30 50 Z"></path>
-                <path d="M 50 10 L 50 30"></path>
-                <path d="M 90 50 L 70 50"></path>
-                <path d="M 50 90 L 50 70"></path>
-                <path d="M 10 50 L 30 50"></path>
-            </svg>
+            <img id="hero-logo" src="IMG_2333.png" alt="" aria-hidden="true" decoding="async" class="hero-logo-reveal relative w-full h-auto object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
         </div>
 
         <!-- Bouncing Arrow -->
@@ -600,34 +606,30 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate-on-scroll">Find us locally in Aruba</h2>
                 <div class="diamond-divider mb-12"><span class="diamond-mark"></span></div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
-                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default" ontouchstart="">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
+                    <a href="https://www.thpalmandcompany.com" target="_blank" rel="noopener noreferrer" class="group relative block p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden" ontouchstart="">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
-                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        <h3 class="font-bold text-xl text-gray-900 mb-2">Luxury Hotels</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">Available in the gift shops of premier resorts across Palm Beach.</p>
-                    </div>
-                    
-                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-75" ontouchstart="">
+                        <svg class="w-8 h-8 text-gray-900 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">T.H. Palm &amp; Company</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-4">Island boutique at Playa Linda Beach Resort, Palm Beach — resort wear, home décor &amp; gifts.</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-theme-blue inline-flex items-center gap-1.5">Visit site <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                    </a>
+
+                    <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" class="group relative block p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden delay-75" ontouchstart="">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
-                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
-                        <h3 class="font-bold text-xl text-gray-900 mb-2">Local Boutiques</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">Found in curated, high-end island specialty stores.</p>
-                    </div>
-                    
-                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-150" ontouchstart="">
+                        <svg class="w-8 h-8 text-gray-900 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds — Hilton Aruba</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-4">Available in the gift shop at Hilton Aruba, Palm Beach.</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-theme-blue inline-flex items-center gap-1.5">Follow on Instagram <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                    </a>
+
+                    <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" class="group relative block p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden delay-150" ontouchstart="">
                         <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
-                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 15.546c-.523 0-1.046.151-1.5.454a2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.704 2.704 0 00-3 0 2.704 2.704 0 01-3 0 2.701 2.701 0 00-1.5-.454M9 6v2m3-2v2m3-2v2M9 3h.01M12 3h.01M15 3h.01M21 21v-7a2 2 0 00-2-2H5a2 2 0 00-2 2v7h18zm-3-9v-2a2 2 0 00-2-2H8a2 2 0 00-2 2v2h12z"></path></svg>
-                        <h3 class="font-bold text-xl text-gray-900 mb-2">Fine Dining</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">Used as the exclusive finishing salt by top local chefs.</p>
-                    </div>
-                    
-                    <div class="group relative p-8 rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-500 overflow-hidden cursor-default delay-200" ontouchstart="">
-                        <div class="absolute top-0 right-0 w-24 h-24 bg-[#0ea5e9]/5 rounded-bl-full -mr-4 -mt-4 transition-transform duration-500 group-hover:scale-150 group-hover:bg-[#0ea5e9]/10 -z-10"></div>
-                        <svg class="w-8 h-8 text-theme-blue mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
-                        <h3 class="font-bold text-xl text-gray-900 mb-2">Gift Shops</h3>
-                        <p class="text-sm text-gray-500 leading-relaxed">The perfect authentic Aruban souvenir to take back home.</p>
-                    </div>
+                        <svg class="w-8 h-8 text-gray-900 mb-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds — Marriott Aruba</h3>
+                        <p class="text-sm text-gray-500 leading-relaxed mb-4">Available in the gift shop at Marriott Aruba, Palm Beach.</p>
+                        <span class="text-xs font-bold uppercase tracking-widest text-theme-blue inline-flex items-center gap-1.5">Follow on Instagram <svg class="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></span>
+                    </a>
                 </div>
             </div>
         </section>
@@ -758,15 +760,17 @@
             }, 3000); 
 
             // --- Scroll Logic Engine ---
-            const sections = document.querySelectorAll("section[id], div[id='home']");
+            const sections = document.querySelectorAll("section[id], main[id], footer[id]");
             const navLinks = document.querySelectorAll(".hidden.md\\:flex a.nav-link");
             const topNavWrapper = document.getElementById('global-nav-wrapper');
             const progressBar = document.getElementById('scroll-progress-bar');
+            const siteHeader = document.getElementById('site-header');
+            const HEADER_SCROLL_THRESHOLD = 100;
             let lastScrollTop = 0;
-            
+
             window.addEventListener("scroll", () => {
                 let st = window.pageYOffset || document.documentElement.scrollTop;
-                
+
                 if (progressBar) {
                     let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
                     let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -781,21 +785,20 @@
                 }
                 lastScrollTop = st <= 0 ? 0 : st;
 
+                // Header stays transparent over the hero photo, then picks up a solid
+                // backdrop once the page has scrolled into the white content sections
+                if (siteHeader) siteHeader.classList.toggle('is-scrolled', st > HEADER_SCROLL_THRESHOLD);
+
                 let current = "";
                 sections.forEach(section => {
                     const sectionTop = section.offsetTop;
-                    if (window.scrollY >= sectionTop - 300) { 
+                    if (window.scrollY >= sectionTop - 300) {
                         current = section.getAttribute("id");
                     }
                 });
 
                 navLinks.forEach(link => {
-                    link.classList.remove("text-theme-blue");
-                    link.classList.add("text-gray-700");
-                    if (link.getAttribute("href").includes(current)) {
-                        link.classList.remove("text-gray-700");
-                        link.classList.add("text-theme-blue");
-                    }
+                    link.classList.toggle("active", link.getAttribute("href").includes(current));
                 });
             }, { passive: true });
 
