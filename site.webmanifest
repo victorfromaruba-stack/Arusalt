@@ -9,9 +9,9 @@
   "icons": [
     {
       "src": "IMG_2333.png",
-      "sizes": "512x512",
+      "sizes": "1207x988",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     }
   ]
 }
