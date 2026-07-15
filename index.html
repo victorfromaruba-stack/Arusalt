@@ -280,6 +280,17 @@
             50% { transform: scale(1.05); opacity: 1; }
             100% { transform: scale(0.95); opacity: 0.6; }
         }
+        /* Offsets the crystal up from dead-center so it lands exactly where the diamond mark
+           sits within the hero logo (the logo is a diamond-over-wave-over-wordmark lockup, so
+           its own vertical center is lower than the diamond's) — on translateX, on the parent
+           wrapper rather than .loader-crystal itself, so it composes with (rather than fights)
+           the crystal's own pulse keyframes, which set their own transform: scale(...). The
+           two breakpoints mirror the hero logo's own w-[260px]/sm:w-[300px] responsive sizing,
+           since the diamond's offset from center scales with the logo's rendered size. */
+        .loader-crystal-wrap { transform: translateY(-35px); }
+        @media (min-width: 640px) {
+            .loader-crystal-wrap { transform: translateY(-43px); }
+        }
         .preloader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
         /* Navigation & Menus */
@@ -458,12 +469,14 @@
 
     <!-- PRELOADER -->
     <div id="preloader">
-        <svg class="loader-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <g class="text-theme-blue" fill="currentColor">
-                <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
-                <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
-            </g>
-        </svg>
+        <div class="loader-crystal-wrap">
+            <svg class="loader-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <g class="text-theme-blue" fill="currentColor">
+                    <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
+                    <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
+                </g>
+            </svg>
+        </div>
     </div>
 
     <!-- THE "JOURNEY" SCROLL PROGRESS BAR -->
