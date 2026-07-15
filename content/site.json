@@ -9,12 +9,12 @@
   },
   "products": {
     "seaSalt": {
-      "description": "Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt — sprinkle lightly just before serving to enhance flavor without overpowering the dish.",
+      "description": "Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt: sprinkle lightly just before serving to enhance flavor without overpowering the dish.",
       "price": "$29.00",
       "netWeight": "Net weight: 30 g"
     },
     "bathSalt": {
-      "description": "Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean — available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.",
+      "description": "Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean, available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.",
       "price": "$49.00",
       "netWeight": "Net weight: 250 g"
     }
@@ -22,18 +22,18 @@
   "retailers": [
     {
       "name": "T.H. Palm & Company",
-      "description": "Island boutique at Playa Linda Beach Resort, Palm Beach — resort wear, home décor & gifts.",
+      "description": "Island boutique at Playa Linda Beach Resort, Palm Beach, offering resort wear, home décor & gifts.",
       "link": "https://www.thpalmandcompany.com",
       "linkText": "Visit site"
     },
     {
-      "name": "Trade Winds — Hilton Aruba",
+      "name": "Trade Winds at Hilton Aruba",
       "description": "Available in the gift shop at Hilton Aruba, Palm Beach.",
       "link": "https://www.instagram.com/tradewindsaua",
       "linkText": "Follow on Instagram"
     },
     {
-      "name": "Trade Winds — Marriott Aruba",
+      "name": "Trade Winds at Marriott Aruba",
       "description": "Available in the gift shop at Marriott Aruba, Palm Beach.",
       "link": "https://www.instagram.com/tradewindsaua",
       "linkText": "Follow on Instagram"
