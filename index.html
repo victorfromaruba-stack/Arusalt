@@ -37,7 +37,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="AruSalt">
-    <link rel="apple-touch-icon" href="arusalt-logo-512.png">
+    <link rel="apple-touch-icon" href="images/logo/arusalt-logo-512.png">
     <meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
 
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
@@ -46,7 +46,7 @@
     <!-- Social Sharing -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
     <meta property="og:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
-    <meta property="og:image" content="https://arusalt.com/aruba-coastline-aerial.webp">
+    <meta property="og:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial.webp">
     <meta property="og:url" content="https://arusalt.com/">
     <meta property="og:type" content="website">
 
@@ -54,7 +54,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AruSalt - The Essence of Aruba">
     <meta name="twitter:description" content="Pure, hand-harvested finishing salt. A taste of the island in every crystal.">
-    <meta name="twitter:image" content="https://arusalt.com/aruba-coastline-aerial.webp">
+    <meta name="twitter:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial.webp">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://arusalt.com/">
@@ -66,7 +66,7 @@
       "@type": "LocalBusiness",
       "name": "AruSalt",
       "url": "https://arusalt.com/",
-      "image": "https://arusalt.com/aruba-coastline-aerial.webp",
+      "image": "https://arusalt.com/images/hero/aruba-coastline-aerial.webp",
       "description": "Premium, hand-harvested, 100% natural sea salt from Aruba.",
       "telephone": "+2975922506",
       "email": "info@arusalt.com",
@@ -86,7 +86,7 @@
         {
           "@type": "Product",
           "name": "AruSalt – Pure Caribbean Sea Salt",
-          "image": "https://arusalt.com/arusalt-pure-sea-salt-jar.webp",
+          "image": "https://arusalt.com/images/products/arusalt-pure-sea-salt-jar.webp",
           "description": "Unrefined, hand-harvested, solar-evaporated finishing salt from Aruba.",
           "brand": { "@type": "Brand", "name": "AruSalt" },
           "offers": {
@@ -99,7 +99,7 @@
         {
           "@type": "Product",
           "name": "AruSalt – Caribbean Bath Salt",
-          "image": "https://arusalt.com/arusalt-caribbean-bath-salt-jar.webp",
+          "image": "https://arusalt.com/images/products/arusalt-caribbean-bath-salt-jar.webp",
           "description": "Hand-harvested Caribbean sea salt blended for the bath.",
           "brand": { "@type": "Brand", "name": "AruSalt" },
           "offers": {
@@ -151,7 +151,7 @@
     }
     </script>
     
-    <link rel="icon" href="arusalt-logo.png" type="image/png">
+    <link rel="icon" href="images/logo/arusalt-logo.png" type="image/png">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -271,9 +271,17 @@
             display: flex; justify-content: center; align-items: center;
             transition: opacity 0.8s ease-out, visibility 0.8s;
         }
+        /* images/logo/arusalt-diamond-icon.png is a tight crop of just the diamond mark from the real
+           logo artwork (pixel-perfect match, not a hand-drawn approximation) — so its display
+           width IS the diamond's actual width, unlike the old synthetic SVG where the diamond
+           only filled 80% of its own viewBox. Sized to match the diamond's real rendered width
+           within the hero logo (~46.7% of the logo's own width) at each breakpoint. */
         .loader-crystal {
-            width: 180px; height: 180px; stroke: #0ea5e9; stroke-width: 3; fill: none;
+            width: 121px; height: auto;
             animation: pulse 2s infinite ease-in-out;
+        }
+        @media (min-width: 640px) {
+            .loader-crystal { width: 140px; }
         }
         @keyframes pulse {
             0% { transform: scale(0.95); opacity: 0.6; }
@@ -470,12 +478,7 @@
     <!-- PRELOADER -->
     <div id="preloader">
         <div class="loader-crystal-wrap">
-            <svg class="loader-crystal" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <g class="text-theme-blue" fill="currentColor">
-                    <path fill-rule="evenodd" d="M 50 10 L 90 50 L 50 90 L 10 50 Z M 50 30 L 70 50 L 50 70 L 30 50 Z" stroke-width="4" stroke="currentColor" fill="none"></path>
-                    <path d="M 50 10 L 50 30 M 90 50 L 70 50 M 50 90 L 50 70 M 10 50 L 30 50" stroke-width="4" stroke="currentColor"></path>
-                </g>
-            </svg>
+            <img class="loader-crystal" src="images/logo/arusalt-diamond-icon.png" alt="" aria-hidden="true" decoding="async">
         </div>
     </div>
 
@@ -544,7 +547,7 @@
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
 
                     <a href="#home" id="header-logo-link" tabindex="-1" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
-                        <img src="arusalt-logo.png" alt="AruSalt Logo" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
+                        <img src="images/logo/arusalt-logo.png" alt="AruSalt Logo" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
 
                     <div class="hidden md:flex space-x-10">
@@ -596,7 +599,7 @@
 
     <!-- LAYER 1: BULLETPROOF FIXED BACKGROUND -->
     <div class="fixed-layer z-[-2] bg-black">
-        <img src="aruba-coastline-aerial.webp" srcset="aruba-coastline-aerial-768w.webp 768w, aruba-coastline-aerial-1280w.webp 1280w, aruba-coastline-aerial.webp 1920w" sizes="100vw" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65 ken-burns">
+        <img src="images/hero/aruba-coastline-aerial.webp" srcset="images/hero/aruba-coastline-aerial-768w.webp 768w, images/hero/aruba-coastline-aerial-1280w.webp 1280w, images/hero/aruba-coastline-aerial.webp 1920w" sizes="100vw" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65 ken-burns">
         <div class="cinematic-gradient"></div>
     </div>
 
@@ -608,7 +611,7 @@
         <!-- Logo -->
         <div class="relative z-20 w-[260px] sm:w-[300px] max-w-[65vw] flex items-center justify-center">
             <div class="glow-orb"></div>
-            <img id="hero-logo" src="arusalt-logo.png" alt="" aria-hidden="true" decoding="async" class="hero-logo-reveal relative w-full h-auto object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
+            <img id="hero-logo" src="images/logo/arusalt-logo.png" alt="" aria-hidden="true" decoding="async" class="hero-logo-reveal relative w-full h-auto object-contain drop-shadow-[0_8px_30px_rgba(0,0,0,0.45)]">
         </div>
 
         <!-- Bouncing Arrow -->
@@ -651,7 +654,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1">
                         <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl bg-gray-50 group">
-                            <img src="aruba-coastline-aerial.webp" srcset="aruba-coastline-aerial-480w.webp 480w, aruba-coastline-aerial-768w.webp 768w, aruba-coastline-aerial-1280w.webp 1280w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Aerial view of Aruba's rugged Caribbean coastline">
+                            <img src="images/hero/aruba-coastline-aerial.webp" srcset="images/hero/aruba-coastline-aerial-480w.webp 480w, images/hero/aruba-coastline-aerial-768w.webp 768w, images/hero/aruba-coastline-aerial-1280w.webp 1280w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Aerial view of Aruba's rugged Caribbean coastline">
                         </div>
                     </div>
                 </div>
@@ -715,7 +718,7 @@
                 <div class="grid md:grid-cols-2 gap-20 items-center">
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
-                            <img src="salt-crystals-macro.jpeg" srcset="salt-crystals-macro-480w.jpeg 480w, salt-crystals-macro-800w.jpeg 800w, salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
+                            <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
@@ -791,8 +794,8 @@
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
-                        <img src="arusalt-pure-sea-salt-jar.webp" srcset="arusalt-pure-sea-salt-jar-480w.webp 480w, arusalt-pure-sea-salt-jar-800w.webp 800w, arusalt-pure-sea-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
-                        <img src="salt-crystals-macro.jpeg" srcset="salt-crystals-macro-480w.jpeg 480w, salt-crystals-macro-800w.jpeg 800w, salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
+                        <img src="images/products/arusalt-pure-sea-salt-jar.webp" srcset="images/products/arusalt-pure-sea-salt-jar-480w.webp 480w, images/products/arusalt-pure-sea-salt-jar-800w.webp 800w, images/products/arusalt-pure-sea-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
@@ -806,8 +809,8 @@
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
-                        <img src="arusalt-caribbean-bath-salt-jar.webp" srcset="arusalt-caribbean-bath-salt-jar-480w.webp 480w, arusalt-caribbean-bath-salt-jar-800w.webp 800w, arusalt-caribbean-bath-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
-                        <img src="salt-varieties-line.webp" srcset="salt-varieties-line-480w.webp 480w, salt-varieties-line-800w.webp 800w, salt-varieties-line.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
+                        <img src="images/products/arusalt-caribbean-bath-salt-jar.webp" srcset="images/products/arusalt-caribbean-bath-salt-jar-480w.webp 480w, images/products/arusalt-caribbean-bath-salt-jar-800w.webp 800w, images/products/arusalt-caribbean-bath-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="images/products/salt-varieties-line.webp" srcset="images/products/salt-varieties-line-480w.webp 480w, images/products/salt-varieties-line-800w.webp 800w, images/products/salt-varieties-line.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
@@ -984,7 +987,7 @@
                     </div>
                     <div class="relative animate-on-scroll delay-1 group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="hand-holding-sea-salt-ocean.jpeg" srcset="hand-holding-sea-salt-ocean-480w.jpeg 480w, hand-holding-sea-salt-ocean-800w.jpeg 800w, hand-holding-sea-salt-ocean.jpeg 1083w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Hand holding natural sea salt over ocean">
+                            <img src="images/history/hand-holding-sea-salt-ocean.jpeg" srcset="images/history/hand-holding-sea-salt-ocean-480w.jpeg 480w, images/history/hand-holding-sea-salt-ocean-800w.jpeg 800w, images/history/hand-holding-sea-salt-ocean.jpeg 1083w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Hand holding natural sea salt over ocean">
                         </div>
                     </div>
                 </div>
@@ -992,7 +995,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="salina-ranchoe-1924-archival.webp" srcset="salina-ranchoe-1924-archival-480w.webp 480w, salina-ranchoe-1924-archival-800w.webp 800w, salina-ranchoe-1924-archival.webp 1200w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Salina Ranchoe 1924 people dumping salt">
+                            <img src="images/history/salina-ranchoe-1924-archival.webp" srcset="images/history/salina-ranchoe-1924-archival-480w.webp 480w, images/history/salina-ranchoe-1924-archival-800w.webp 800w, images/history/salina-ranchoe-1924-archival.webp 1200w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Salina Ranchoe 1924 people dumping salt">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
@@ -1010,7 +1013,7 @@
                     </div>
                     <div class="animate-on-scroll delay-1 relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="aruba-salt-harvesters-1923.jpg" srcset="aruba-salt-harvesters-1923-480w.jpg 480w, aruba-salt-harvesters-1923.jpg 700w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="The locals posing on a pile of salt, 1923">
+                            <img src="images/history/aruba-salt-harvesters-1923.jpg" srcset="images/history/aruba-salt-harvesters-1923-480w.jpg 480w, images/history/aruba-salt-harvesters-1923.jpg 700w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="The locals posing on a pile of salt, 1923">
                         </div>
                     </div>
                 </div>
@@ -1018,7 +1021,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="aruba-salt-mound-1923.jpg" srcset="aruba-salt-mound-1923-480w.jpg 480w, aruba-salt-mound-1923-800w.jpg 800w, aruba-salt-mound-1923.jpg 1000w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Workers loading harvested salt onto a large mound, 1923">
+                            <img src="images/history/aruba-salt-mound-1923.jpg" srcset="images/history/aruba-salt-mound-1923-480w.jpg 480w, images/history/aruba-salt-mound-1923-800w.jpg 800w, images/history/aruba-salt-mound-1923.jpg 1000w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Workers loading harvested salt onto a large mound, 1923">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">

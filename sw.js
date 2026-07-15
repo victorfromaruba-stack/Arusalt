@@ -3,9 +3,9 @@ const CORE_ASSETS = [
     '/',
     '/index.html',
     '/site.webmanifest',
-    '/arusalt-logo.png',
-    '/arusalt-logo-192.png',
-    '/arusalt-logo-512.png'
+    '/images/logo/arusalt-logo.png',
+    '/images/logo/arusalt-logo-192.png',
+    '/images/logo/arusalt-logo-512.png'
 ];
 
 self.addEventListener('install', (event) => {
