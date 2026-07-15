@@ -989,7 +989,7 @@
                 
                 <div id="cms-retailers-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
                     <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
-                        <img src="images/retailers/th-palm-rattan-chair-aruba.webp" srcset="images/retailers/th-palm-rattan-chair-aruba-480w.webp 480w, images/retailers/th-palm-rattan-chair-aruba-800w.webp 800w, images/retailers/th-palm-rattan-chair-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
+                        <img src="images/retailers/th-palm-tree-framed-beach-aruba.webp" srcset="images/retailers/th-palm-tree-framed-beach-aruba-480w.webp 480w, images/retailers/th-palm-tree-framed-beach-aruba-800w.webp 800w, images/retailers/th-palm-tree-framed-beach-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
                         <div class="p-8 pt-6">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">T.H. Palm &amp; Company</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Island boutique at Playa Linda Beach Resort, Palm Beach, offering resort wear, home décor &amp; gifts.</p>
@@ -1001,7 +1001,7 @@
                     </div>
 
                     <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden delay-75">
-                        <img src="images/retailers/trade-winds-hilton-umbrella-aruba.webp" srcset="images/retailers/trade-winds-hilton-umbrella-aruba-480w.webp 480w, images/retailers/trade-winds-hilton-umbrella-aruba-800w.webp 800w, images/retailers/trade-winds-hilton-umbrella-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
+                        <img src="images/retailers/trade-winds-hilton-family-beach-day-aruba.webp" srcset="images/retailers/trade-winds-hilton-family-beach-day-aruba-480w.webp 480w, images/retailers/trade-winds-hilton-family-beach-day-aruba-800w.webp 800w, images/retailers/trade-winds-hilton-family-beach-day-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
                         <div class="p-8 pt-6">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds at Hilton Aruba</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Available in the gift shop at Hilton Aruba, Palm Beach.</p>
@@ -1013,7 +1013,7 @@
                     </div>
 
                     <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden delay-150">
-                        <img src="images/retailers/trade-winds-marriott-lounge-chair-aruba.webp" srcset="images/retailers/trade-winds-marriott-lounge-chair-aruba-480w.webp 480w, images/retailers/trade-winds-marriott-lounge-chair-aruba-800w.webp 800w, images/retailers/trade-winds-marriott-lounge-chair-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
+                        <img src="images/retailers/trade-winds-marriott-coastal-walk-aruba.webp" srcset="images/retailers/trade-winds-marriott-coastal-walk-aruba-480w.webp 480w, images/retailers/trade-winds-marriott-coastal-walk-aruba-800w.webp 800w, images/retailers/trade-winds-marriott-coastal-walk-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
                         <div class="p-8 pt-6">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds at Marriott Aruba</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Available in the gift shop at Marriott Aruba, Palm Beach.</p>
@@ -1716,7 +1716,7 @@
                                 .map(r => {
                                     const div = document.createElement('div');
                                     div.className = 'group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden';
-                                    const banner = /hilton/i.test(r.name) ? 'trade-winds-hilton-umbrella-aruba' : /marriott/i.test(r.name) ? 'trade-winds-marriott-lounge-chair-aruba' : 'th-palm-rattan-chair-aruba';
+                                    const banner = /hilton/i.test(r.name) ? 'trade-winds-hilton-family-beach-day-aruba' : /marriott/i.test(r.name) ? 'trade-winds-marriott-coastal-walk-aruba' : 'th-palm-tree-framed-beach-aruba';
                                     div.innerHTML = `
                                         <img src="images/retailers/${banner}.webp" srcset="images/retailers/${banner}-480w.webp 480w, images/retailers/${banner}-800w.webp 800w, images/retailers/${banner}.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105" alt="" aria-hidden="true">
                                         <div class="p-8 pt-6">
