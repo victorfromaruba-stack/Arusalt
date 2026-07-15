@@ -7,7 +7,7 @@
     <!-- Security headers available via <meta> on a static host with no server config.
          Note: frame-ancestors / X-Frame-Options / X-Content-Type-Options can only be set
          via a real HTTP header, which GitHub Pages doesn't support — see CLAUDE.md. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://formspree.io https://plausible.io https://cdn.tailwindcss.com; form-action 'self' https://formspree.io;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self'; connect-src 'self' https://formspree.io https://plausible.io https://cdn.tailwindcss.com; form-action 'self' https://formspree.io;">
     <meta name="referrer" content="strict-origin-when-cross-origin">
 
     <!-- Netlify Identity recovery/invite/confirmation emails link to this site's root with
@@ -41,7 +41,7 @@
     <meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
 
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
-    <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated finishing salts harvested from the pristine Caribbean waters.">
+    <meta name="description" content="Experience the essence of Aruba with AruSalt. 100% natural, solar-evaporated sea salt harvested from the pristine Caribbean waters.">
     
     <!-- Social Sharing -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
@@ -49,6 +49,8 @@
     <meta property="og:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial.webp">
     <meta property="og:url" content="https://arusalt.com/">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="AruSalt">
+    <meta property="og:locale" content="en_US">
 
     <!-- Twitter/X Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -60,7 +62,7 @@
     <link rel="canonical" href="https://arusalt.com/">
     
     <!-- Google SEO Schema Data -->
-    <script type="application/ld+json">
+    <script type="application/ld+json" id="localbusiness-schema">
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
@@ -151,7 +153,8 @@
     }
     </script>
     
-    <link rel="icon" href="images/logo/arusalt-logo.png" type="image/png">
+    <link rel="icon" href="images/logo/arusalt-logo-192.png" type="image/png" sizes="192x192">
+    <link rel="icon" href="images/logo/arusalt-logo-512.png" type="image/png" sizes="512x512">
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -452,6 +455,7 @@
             #particle-canvas { display: none !important; }
             .loader-crystal, #wa-nudge .animate-ping, #scroll-arrow { animation: none !important; }
             #wa-nudge { transition: none !important; }
+            .hover-lift, .group:hover .group-hover\:scale-105, .group:hover .group-hover\:scale-110, .hover\:scale-105:hover { transition: none !important; transform: none !important; }
         }
 
         /* Visible keyboard focus (previously relied on browser default only) */
@@ -466,7 +470,7 @@
             position: absolute; left: 1rem; top: -60px;
             background: #0ea5e9; color: #fff; padding: 0.75rem 1.25rem;
             border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
-            z-index: 200; transition: top 0.2s ease-out;
+            z-index: 10000; transition: top 0.2s ease-out;
         }
         .skip-link:focus { top: 1rem; }
     </style>
@@ -508,21 +512,24 @@
                 <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, Noord, Aruba</p>
             </div>
             <div id="content-refund" class="policy-content hidden">
-                <h3 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h3>
-                <p class="mb-4">We want you to love your AruSalt. If you purchased directly from us, we offer a 30-day return policy: you have 30 days after receiving your item to request a return. Items must be unused, in their original packaging, and accompanied by proof of purchase.</p>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Refund policy</h3>
+                <p class="mb-8 text-sm uppercase tracking-widest text-gray-500">Last updated: July 15, 2026</p>
+                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">In-store purchases</h4>
+                <p class="mb-4">AruSalt is currently sold exclusively in stores through our retail partners, not directly through this website. If you purchased AruSalt from one of them, their own return policy applies. Please check with the store where you made your purchase, or contact us at <a href="mailto:info@arusalt.com" class="text-theme-blue hover:underline">info@arusalt.com</a> and we'll help point you in the right direction.</p>
+                <p class="mb-4">The policy below describes how returns will work once online ordering is available directly through this website.</p>
+                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Returns</h4>
+                <p class="mb-4">We plan to offer a 30-day return policy: once online ordering is available, you'll have 30 days after receiving your item to request a return. Items must be unused, in their original packaging, and accompanied by proof of purchase.</p>
                 <p class="mb-4">To start a return, contact us at <a href="mailto:info@arusalt.com" class="text-theme-blue hover:underline">info@arusalt.com</a>. If your return is approved, we'll send you instructions on how and where to send your package. Items sent back without first requesting a return will not be accepted.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Damages and issues</h4>
                 <p class="mb-4">Please inspect your order as soon as it arrives. If an item is defective, damaged, or you received the wrong item, contact us right away so we can make it right.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions and non-returnable items</h4>
-                <p class="mb-4">Certain items cannot be returned, including perishable goods, custom or personalized orders, and sale items. Please get in touch if you have questions or concerns about your specific item.</p>
+                <p class="mb-4">Certain items will not be returnable, including perishable goods, custom or personalized orders, and sale items. Please get in touch if you have questions or concerns about your specific item.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exchanges</h4>
-                <p class="mb-4">The fastest way to get the item you want is to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
+                <p class="mb-4">Once online ordering is available, the fastest way to get the item you want will be to return the item you have, and once the return is accepted, make a separate purchase for the new item.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">European Union 14-day cooling off period</h4>
-                <p class="mb-4">If your order ships to the European Union, you have the right to cancel or return your order within 14 days, for any reason and without justification, in addition to the rights described above.</p>
+                <p class="mb-4">Once online ordering is available, if your order ships to the European Union, you'll have the right to cancel or return your order within 14 days, for any reason and without justification, in addition to the rights described above.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Refunds</h4>
                 <p class="mb-4">Once we've received and inspected your return, we'll let you know whether it's approved. If approved, you'll be automatically refunded to your original payment method within 10 business days. Please note it can take extra time for your bank or credit card company to process and post the refund.</p>
-                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">In-store purchases</h4>
-                <p class="mb-4">AruSalt is currently sold exclusively in stores through our retail partners. If you purchased AruSalt from one of them, their own return policy applies. Please check with the store where you made your purchase, or contact us at <a href="mailto:info@arusalt.com" class="text-theme-blue hover:underline">info@arusalt.com</a> and we'll help point you in the right direction.</p>
             </div>
             <div id="content-privacy" class="policy-content hidden">
                 <h3 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h3>
@@ -560,7 +567,8 @@
                 <p class="mb-4">Questions about this Privacy Policy can be directed to <a href="mailto:info@arusalt.com" class="text-theme-blue hover:underline">info@arusalt.com</a> or <a href="tel:+2975922506" class="text-theme-blue hover:underline">+297 5922506</a>.</p>
             </div>
             <div id="content-terms" class="policy-content hidden">
-                <h3 class="text-3xl font-bold text-gray-900 mb-8">Terms of service</h3>
+                <h3 class="text-3xl font-bold text-gray-900 mb-4">Terms of service</h3>
+                <p class="mb-8 text-sm uppercase tracking-widest text-gray-500">Last updated: July 15, 2026</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Overview</h4>
                 <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this website, including all related information, content, features, tools and services (the "Services"), to give you a curated look at our hand-harvested sea salt and where to find it in Aruba, and, once available, to power online ordering through Shopify.</p>
                 <p class="mb-4">By visiting or using our Services, you agree to be bound by these Terms of Service and our Privacy Policy.</p>
@@ -729,7 +737,7 @@
         <!-- ABOUT US -->
         <section id="about" class="content-section px-6 shadow-[0_-20px_50px_rgba(0,0,0,0.5)] rounded-t-[3rem]">
             <div class="container mx-auto max-w-6xl">
-                <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="animate-on-scroll">
                         <span class="block text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 mb-4">AruSalt crystallization</span>
                         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">About Us</h2>
@@ -804,7 +812,7 @@
         <!-- THE SALT & MESH -->
         <section class="content-section px-6">
             <div class="container mx-auto max-w-6xl">
-                <div class="grid md:grid-cols-2 gap-20 items-center">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
                             <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
@@ -812,7 +820,7 @@
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
                         <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">The Salt</h2>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the Caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural, requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
                         <p class="text-gray-600 text-lg leading-relaxed font-medium">Our hand-cultivated, Aruban-made salt is slightly moist and moderately coarse. It's valued for its briny sweet taste of the Caribbean Sea, for its pleasingly distinct texture (not too hard and not too soft), and for its beautiful square shape, size, and color.</p>
@@ -874,8 +882,8 @@
         <section id="shop" class="content-section px-6">
             <div class="container mx-auto max-w-5xl text-center mb-16 animate-on-scroll">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">A tiny pinch of salt</span>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Our different flavors & products</h2>
-                <div class="diamond-divider"><span class="diamond-mark"></span></div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900">Our different flavors & products</h2>
+                <div class="diamond-divider mt-6"><span class="diamond-mark"></span></div>
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
@@ -926,9 +934,9 @@
         <div class="relative z-[11] px-6 py-10 bg-coral-pale border-y border-coral-pale">
             <div class="container mx-auto max-w-4xl flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
                 <div class="flex items-center gap-4">
-                    <svg class="w-10 h-10 text-coral flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M20 12v9H4v-9M2 7h20v5H2V7zm10 14V7m0 0C10 3 7 3 6 5c-1 2 1 3 3 2m3-2c2-4 5-4 6-2 1 2-1 3-3 2"/></svg>
+                    <svg class="w-10 h-10 text-gray-900 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M20 12v9H4v-9M2 7h20v5H2V7zm10 14V7m0 0C10 3 7 3 6 5c-1 2 1 3 3 2m3-2c2-4 5-4 6-2 1 2-1 3-3 2"/></svg>
                     <div>
-                        <h3 class="text-gray-900 font-bold text-lg">Bringing a piece of Aruba home?</h3>
+                        <h2 class="text-gray-900 font-bold text-lg">Bringing a piece of Aruba home?</h2>
                         <p class="text-gray-600 text-sm">AruSalt makes an authentic, giftable taste of the island for family, friends, or yourself.</p>
                     </div>
                 </div>
@@ -984,42 +992,42 @@
         <section id="retailers" class="content-section px-6 pb-24">
             <div class="container mx-auto max-w-6xl text-center">
                 <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Retail Partners</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 animate-on-scroll">Find us locally in Aruba</h2>
-                <div class="diamond-divider mb-12"><span class="diamond-mark"></span></div>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 animate-on-scroll">Find us locally in Aruba</h2>
+                <div class="diamond-divider mt-6 mb-12"><span class="diamond-mark"></span></div>
                 
                 <div id="cms-retailers-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-4xl mx-auto">
-                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden">
-                        <img src="images/retailers/th-palm-tree-framed-beach-aruba.webp" srcset="images/retailers/th-palm-tree-framed-beach-aruba-480w.webp 480w, images/retailers/th-palm-tree-framed-beach-aruba-800w.webp 800w, images/retailers/th-palm-tree-framed-beach-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
-                        <div class="p-8 pt-6">
+                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col">
+                        <div class="aspect-[400/150] overflow-hidden bg-gray-50"><img src="images/retailers/th-palm-tree-framed-beach-aruba.webp" srcset="images/retailers/th-palm-tree-framed-beach-aruba-480w.webp 480w, images/retailers/th-palm-tree-framed-beach-aruba-800w.webp 800w, images/retailers/th-palm-tree-framed-beach-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true"></div>
+                        <div class="p-8 pt-6 flex flex-col flex-1">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">T.H. Palm &amp; Company</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Island boutique at Playa Linda Beach Resort, Palm Beach, offering resort wear, home décor &amp; gifts.</p>
-                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                                <a href="https://www.thpalmandcompany.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5">Visit site <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
-                                <a href="https://www.google.com/maps/search/?api=1&query=T.H.+Palm+%26+Company+Aruba" target="_blank" rel="noopener noreferrer" aria-label="Directions to T.H. Palm & Company" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
+                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-auto pt-1">
+                                <a href="https://www.thpalmandcompany.com" target="_blank" rel="noopener noreferrer" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Visit site <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                                <a href="https://www.google.com/maps/search/?api=1&amp;query=T.H.+Palm+%26+Company+Aruba" target="_blank" rel="noopener noreferrer" aria-label="Directions to T.H. Palm & Company" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden delay-75">
-                        <img src="images/retailers/trade-winds-hilton-family-beach-day-aruba.webp" srcset="images/retailers/trade-winds-hilton-family-beach-day-aruba-480w.webp 480w, images/retailers/trade-winds-hilton-family-beach-day-aruba-800w.webp 800w, images/retailers/trade-winds-hilton-family-beach-day-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
-                        <div class="p-8 pt-6">
+                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col">
+                        <div class="aspect-[400/150] overflow-hidden bg-gray-50"><img src="images/retailers/trade-winds-hilton-family-beach-day-aruba.webp" srcset="images/retailers/trade-winds-hilton-family-beach-day-aruba-480w.webp 480w, images/retailers/trade-winds-hilton-family-beach-day-aruba-800w.webp 800w, images/retailers/trade-winds-hilton-family-beach-day-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true"></div>
+                        <div class="p-8 pt-6 flex flex-col flex-1">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds at Hilton Aruba</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Available in the gift shop at Hilton Aruba, Palm Beach.</p>
-                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                                <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" aria-label="Follow Trade Winds at Hilton Aruba on Instagram" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5">Follow on Instagram <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Hilton+Aruba+Caribbean+Resort" target="_blank" rel="noopener noreferrer" aria-label="Directions to Trade Winds at Hilton Aruba" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
+                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-auto pt-1">
+                                <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" aria-label="Follow Trade Winds at Hilton Aruba on Instagram" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Follow on Instagram <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                                <a href="https://www.google.com/maps/search/?api=1&amp;query=Hilton+Aruba+Caribbean+Resort" target="_blank" rel="noopener noreferrer" aria-label="Directions to Trade Winds at Hilton Aruba" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden delay-150">
-                        <img src="images/retailers/trade-winds-marriott-coastal-walk-aruba.webp" srcset="images/retailers/trade-winds-marriott-coastal-walk-aruba-480w.webp 480w, images/retailers/trade-winds-marriott-coastal-walk-aruba-800w.webp 800w, images/retailers/trade-winds-marriott-coastal-walk-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true">
-                        <div class="p-8 pt-6">
+                    <div class="group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col">
+                        <div class="aspect-[400/150] overflow-hidden bg-gray-50"><img src="images/retailers/trade-winds-marriott-coastal-walk-aruba.webp" srcset="images/retailers/trade-winds-marriott-coastal-walk-aruba-480w.webp 480w, images/retailers/trade-winds-marriott-coastal-walk-aruba-800w.webp 800w, images/retailers/trade-winds-marriott-coastal-walk-aruba.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover block transition duration-1000 group-hover:scale-105 lazy-blur" alt="" aria-hidden="true"></div>
+                        <div class="p-8 pt-6 flex flex-col flex-1">
                             <h3 class="font-bold text-xl text-gray-900 mb-2">Trade Winds at Marriott Aruba</h3>
                             <p class="text-sm text-gray-500 leading-relaxed mb-5">Available in the gift shop at Marriott Aruba, Palm Beach.</p>
-                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                                <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" aria-label="Follow Trade Winds at Marriott Aruba on Instagram" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5">Follow on Instagram <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
-                                <a href="https://www.google.com/maps/search/?api=1&query=Aruba+Marriott+Resort" target="_blank" rel="noopener noreferrer" aria-label="Directions to Trade Winds at Marriott Aruba" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
+                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-auto pt-1">
+                                <a href="https://www.instagram.com/tradewindsaua" target="_blank" rel="noopener noreferrer" aria-label="Follow Trade Winds at Marriott Aruba on Instagram" class="text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Follow on Instagram <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                                <a href="https://www.google.com/maps/search/?api=1&amp;query=Aruba+Marriott+Resort" target="_blank" rel="noopener noreferrer" aria-label="Directions to Trade Winds at Marriott Aruba" class="text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
                             </div>
                         </div>
                     </div>
@@ -1054,7 +1062,7 @@
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Salina Ranchoe</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Rancho (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Ranchoe (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
                         <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
                     </div>
                 </div>
@@ -1062,7 +1070,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="animate-on-scroll">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">The locals</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Using simple hand tools like coconut shells and wooden buckets local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Using simple hand tools like coconut shells and wooden buckets, local harvesters carefully gathered the salt crystals. The work was hard and demanded patience and an understanding of nature, relying entirely on the perfect balance of sunshine, steady trade winds, and time. These traditional methods were passed down through generations and became part of Aruba's cultural heritage.</p>
                         <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba once had several commercial salt pans that supplied salt to the local population. The salt was an essential part of island life, valued for preserving fish and meat long before refrigeration became available. Harvesting was done by local laborers assisted by donkeys to transport the heavy loads from the salinas.</p>
                     </div>
                     <div class="animate-on-scroll delay-1 relative group">
@@ -1155,7 +1163,7 @@
         </section>
 
         <!-- CTA BACKGROUND -->
-        <section class="h-[50vh] relative flex items-center justify-center bg-transparent pointer-events-none">
+        <section class="min-h-[50vh] py-16 relative flex items-center justify-center bg-transparent pointer-events-none">
             <div class="relative z-10 text-center text-white px-6 pointer-events-auto">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
@@ -1167,10 +1175,11 @@
 
     <!-- FOOTER -->
     <footer id="contact" class="bg-[#111827] text-white pt-24 pb-12 px-6 border-t border-gray-800 relative z-50">
+        <h2 class="sr-only">Footer</h2>
         <div class="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-16">
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
-                <p id="cms-newsletter-blurb" class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavour inspiration, and stories from Aruba.</p>
+                <p id="cms-newsletter-blurb" class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavor inspiration, and stories from Aruba.</p>
                 <!-- NOTE: action still points at a placeholder ID — swap in your real Formspree endpoint (or any POST endpoint) before launch, or signups will silently fail. -->
                 <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-md">
                     <div class="flex gap-2">
@@ -1182,7 +1191,7 @@
                 </form>
             </div>
             <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h4>
+                <h3 class="font-bold mb-6 text-lg tracking-wide text-white">Customer Help</h3>
                 <ul class="space-y-4 text-gray-400">
                     <li><a href="#about" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">About Us</a></li>
                     <li><a href="#shop" class="block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors">Shop</a></li>
@@ -1190,7 +1199,7 @@
                 </ul>
             </div>
             <div>
-                <h4 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h4>
+                <h3 class="font-bold mb-6 text-lg tracking-wide text-white">Store Policies</h3>
                 <ul class="space-y-4 text-gray-400 flex flex-col items-start">
                     <li><button type="button" data-policy="contact" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Contact Information</button></li>
                     <li><button type="button" data-policy="privacy" class="policy-link block py-2 md:py-0 md:inline hover:text-theme-blue transition-colors text-left bg-transparent border-none cursor-pointer">Privacy Policy</button></li>
@@ -1202,7 +1211,7 @@
         <div class="max-w-7xl mx-auto pt-8 border-t border-gray-800 text-center md:text-left text-gray-400 text-sm flex flex-col md:flex-row justify-between items-center gap-4">
             <p>&copy; 2026 AruSalt. All rights reserved.</p>
             <div class="flex items-center gap-4">
-                <button type="button" id="contrast-toggle" aria-pressed="false" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs font-semibold uppercase tracking-wide">
+                <button type="button" id="contrast-toggle" aria-pressed="false" class="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-xs font-semibold uppercase tracking-wide py-2 -my-2">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v18M12 3a9 9 0 010 18 9 9 0 010-18z"/></svg>
                     High contrast
                 </button>
@@ -1301,7 +1310,10 @@
                 });
 
                 navLinks.forEach(link => {
-                    link.classList.toggle("active", link.getAttribute("href").includes(current));
+                    const isActive = link.getAttribute("href").includes(current);
+                    link.classList.toggle("active", isActive);
+                    if (isActive) link.setAttribute("aria-current", "true");
+                    else link.removeAttribute("aria-current");
                 });
             }, { passive: true });
 
@@ -1706,6 +1718,24 @@
                                 }
                             } catch (e) { /* malformed JSON-LD — leave schema as-is */ }
                         }
+
+                        // Same idea for LocalBusiness's priceRange — recompute from whatever
+                        // the two current product prices actually are, rather than leaving
+                        // a hardcoded "$29-$49" that drifts the moment either price is edited.
+                        const localBusinessEl = document.getElementById('localbusiness-schema');
+                        if (localBusinessEl) {
+                            try {
+                                const lbSchema = JSON.parse(localBusinessEl.textContent);
+                                const prices = [data.products.seaSalt, data.products.bathSalt]
+                                    .map(p => p && typeof p.price === 'string' ? parseFloat(p.price.replace(/[^0-9.]/g, '')) : NaN)
+                                    .filter(n => !isNaN(n));
+                                if (prices.length === 2 && lbSchema.priceRange) {
+                                    const lo = Math.min(...prices), hi = Math.max(...prices);
+                                    lbSchema.priceRange = '$' + lo.toFixed(0) + '-$' + hi.toFixed(0);
+                                    localBusinessEl.textContent = JSON.stringify(lbSchema);
+                                }
+                            } catch (e) { /* malformed JSON-LD — leave schema as-is */ }
+                        }
                     }
 
                     if (Array.isArray(data.retailers) && data.retailers.length) {
@@ -1715,16 +1745,16 @@
                                 .filter(r => r && typeof r.name === 'string' && typeof r.link === 'string' && /^https:\/\//i.test(r.link))
                                 .map(r => {
                                     const div = document.createElement('div');
-                                    div.className = 'group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden';
+                                    div.className = 'group relative rounded-3xl bg-white border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-500 overflow-hidden flex flex-col';
                                     const banner = /hilton/i.test(r.name) ? 'trade-winds-hilton-family-beach-day-aruba' : /marriott/i.test(r.name) ? 'trade-winds-marriott-coastal-walk-aruba' : 'th-palm-tree-framed-beach-aruba';
                                     div.innerHTML = `
-                                        <img src="images/retailers/${banner}.webp" srcset="images/retailers/${banner}-480w.webp 480w, images/retailers/${banner}-800w.webp 800w, images/retailers/${banner}.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-auto block transition duration-1000 group-hover:scale-105" alt="" aria-hidden="true">
-                                        <div class="p-8 pt-6">
+                                        <div class="aspect-[400/150] overflow-hidden bg-gray-50"><img src="images/retailers/${banner}.webp" srcset="images/retailers/${banner}-480w.webp 480w, images/retailers/${banner}-800w.webp 800w, images/retailers/${banner}.webp 1400w" sizes="(min-width: 768px) 30vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover block transition duration-1000 group-hover:scale-105" alt="" aria-hidden="true"></div>
+                                        <div class="p-8 pt-6 flex flex-col flex-1">
                                             <h3 class="font-bold text-xl text-gray-900 mb-2"></h3>
                                             <p class="text-sm text-gray-500 leading-relaxed mb-5"></p>
-                                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
-                                                <a class="cms-link-primary text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5" target="_blank" rel="noopener noreferrer"><span class="cms-link-text"></span> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
-                                                <a class="cms-link-directions text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5" target="_blank" rel="noopener noreferrer">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
+                                            <div class="flex flex-wrap items-center gap-x-5 gap-y-2 mt-auto pt-1">
+                                                <a class="cms-link-primary text-xs font-bold uppercase tracking-widest text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2" target="_blank" rel="noopener noreferrer"><span class="cms-link-text"></span> <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></a>
+                                                <a class="cms-link-directions text-xs font-bold uppercase tracking-widest text-gray-500 hover:text-theme-blue hover:underline inline-flex items-center gap-1.5 py-2 -my-2" target="_blank" rel="noopener noreferrer">Directions <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg></a>
                                             </div>
                                         </div>
                                     `;
