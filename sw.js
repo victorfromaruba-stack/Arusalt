@@ -1,9 +1,11 @@
-const CACHE_NAME = 'arusalt-v1';
+const CACHE_NAME = 'arusalt-v2';
 const CORE_ASSETS = [
     '/',
     '/index.html',
     '/site.webmanifest',
-    '/arusalt-logo.png'
+    '/arusalt-logo.png',
+    '/arusalt-logo-192.png',
+    '/arusalt-logo-512.png'
 ];
 
 self.addEventListener('install', (event) => {

@@ -37,7 +37,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="AruSalt">
-    <link rel="apple-touch-icon" href="arusalt-logo.png">
+    <link rel="apple-touch-icon" href="arusalt-logo-512.png">
     <meta name="theme-color" content="#0ea5e9" id="theme-color-meta">
 
     <title>AruSalt - Premium Hand-Harvested Sea Salt from Aruba</title>
@@ -69,13 +69,12 @@
       "image": "https://arusalt.com/aruba-coastline-aerial.webp",
       "description": "Premium, hand-harvested, 100% natural sea salt from Aruba.",
       "telephone": "+2975922506",
-      "email": "support@psaruba.com",
+      "email": "info@arusalt.com",
       "priceRange": "$29-$49",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "L.G. Smith Boulevard 95",
         "addressLocality": "Noord",
-        "postalCode": "00000",
         "addressCountry": "AW"
       }
     }
@@ -197,6 +196,10 @@
         .border-coral { border-color: var(--coral); }
         .bg-coral-pale { background-color: #fdf1f1; }
         .hover\:bg-coral-dark:hover { background-color: #e2555d; }
+        /* The brand coral (--coral) only reaches ~3:1 on white — fine for the decorative dot
+           next to it, but this small bold badge text needs the full 4.5:1 AA ratio, so it
+           gets its own darker shade rather than changing the brand color used elsewhere. */
+        .text-coral-contrast { color: #c73e46; }
         .border-coral-pale { border-color: #f8d9da; }
 
         /* Custom Scrollbar */
@@ -485,13 +488,13 @@
                 <h3 class="text-3xl font-bold text-gray-900 mb-8">Contact information</h3>
                 <p class="mb-4"><strong>Trade name:</strong> AruSalt</p>
                 <p class="mb-4"><strong>Phone number:</strong> <a href="tel:+2975922506" class="text-theme-blue hover:underline">+297 5922506</a></p>
-                <p class="mb-4"><strong>Email:</strong> <a href="mailto:support@psaruba.com" class="text-theme-blue hover:underline">support@psaruba.com</a></p>
-                <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, 00000 Noord, Aruba</p>
+                <p class="mb-4"><strong>Email:</strong> <a href="mailto:info@arusalt.com" class="text-theme-blue hover:underline">info@arusalt.com</a></p>
+                <p class="mb-4"><strong>Physical address:</strong> L.G. Smith Boulevard 95, Noord, Aruba</p>
             </div>
             <div id="content-refund" class="policy-content hidden">
                 <h3 class="text-3xl font-bold text-gray-900 mb-8">Refund policy</h3>
                 <p class="mb-4">We have a 30-day return policy, which means you have 30 days after receiving your item to request a return.</p>
-                <p class="mb-4">To start a return, you can contact us at <a href="mailto:support@psaruba.com" class="text-theme-blue">support@psaruba.com</a>.</p>
+                <p class="mb-4">To start a return, you can contact us at <a href="mailto:info@arusalt.com" class="text-theme-blue">info@arusalt.com</a>.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Exceptions/non-returnable items</h4>
                 <p class="mb-4">Certain types of items cannot be returned, like perishable goods. Please get in touch if you have questions or concerns about your specific item.</p>
             </div>
@@ -703,7 +706,7 @@
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
-                        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">THE SALT</h2>
+                        <h2 class="text-4xl md:text-5xl font-bold mb-8 text-gray-900 leading-tight">The Salt</h2>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Our salt is unrefined, crunchy sea salt, crafted entirely by hand in small batches from the caribbean ocean. Our traditional process, utilizing open-air salt pans, is entirely natural requiring only the sea, wind, sun, and patience. We evaporate fresh, clean, filtered seawater outdoors under the sun and bathed by ocean breezes.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">Unlike most other saltmakers, we do not boil or oven-dry seawater, nor trap the forming crystals in a factory building or greenhouse. We use no anti-caking agents, bleaching additives, or other chemical additions. We proudly and painstakingly craft our products to our exacting standards without cutting corners.</p>
                         <p class="mb-6 text-gray-600 text-lg leading-relaxed">By carefully balancing solar evaporation and exposure to crisp, clean ocean breezes, seawater slowly forms into brilliant white salt crystals with a mild, briny flavor and a soft, distinctive, wonderfully pleasing crunch. Our salts are known for their "sweet" and clean flavor, with no aftertaste or the chemical, metallic, or medicinal notes commonly found in table salt, kosher salt, and most factory-finished or boiled salts.</p>
@@ -771,9 +774,9 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left cursor-pointer">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
                         <img src="arusalt-pure-sea-salt-jar.webp" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="salt-crystals-macro.jpeg" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
@@ -786,9 +789,9 @@
                     <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
                 
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left cursor-pointer">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
 
                         <img src="arusalt-caribbean-bath-salt-jar.webp" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="salt-varieties-line.webp" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
