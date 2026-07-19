@@ -43,6 +43,7 @@ collections:
                   - { label: "Description", name: "description", widget: "text" }
                   - { label: "Price (include $ sign)", name: "price", widget: "string" }
                   - { label: "Net Weight", name: "netWeight", widget: "string" }
+                  - { label: "Stripe Buy Link (leave blank to keep showing \"Find a Retailer\")", name: "buyLink", widget: "string", required: false, hint: "Paste the Stripe Payment Link URL for this product, e.g. https://buy.stripe.com/xxxxx. Leave empty until it's ready to go live." }
               - label: "Caribbean Bath Salt"
                 name: "bathSalt"
                 widget: "object"
@@ -50,6 +51,7 @@ collections:
                   - { label: "Description", name: "description", widget: "text" }
                   - { label: "Price (include $ sign)", name: "price", widget: "string" }
                   - { label: "Net Weight", name: "netWeight", widget: "string" }
+                  - { label: "Stripe Buy Link (leave blank to keep showing \"Find a Retailer\")", name: "buyLink", widget: "string", required: false, hint: "Paste the Stripe Payment Link URL for this product, e.g. https://buy.stripe.com/xxxxx. Leave empty until it's ready to go live." }
           - label: "Retailers (Find us locally section)"
             name: "retailers"
             widget: "list"

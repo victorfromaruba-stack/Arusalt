@@ -539,7 +539,7 @@
             <div id="content-privacy" class="policy-content hidden">
                 <h3 class="text-3xl font-bold text-gray-900 mb-4">Privacy policy</h3>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-500">Last updated: July 15, 2026</p>
-                <p class="mb-4">AruSalt operates this website, including all related information, content, features, tools and services (the "Services"), to give you a curated look at our hand-harvested sea salt and where to find it in Aruba, and, once available, to power online ordering through Shopify. This Privacy Policy describes how we collect, use and disclose your personal information when you visit or interact with the Services.</p>
+                <p class="mb-4">AruSalt operates this website, including all related information, content, features, tools and services (the "Services"), to give you a curated look at our hand-harvested sea salt and where to find it in Aruba, and, once available, to power online ordering through Stripe. This Privacy Policy describes how we collect, use and disclose your personal information when you visit or interact with the Services.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Personal information we collect</h4>
                 <p class="mb-4">The personal information we collect depends on how you interact with our Services. It may include:</p>
                 <ul class="list-disc pl-6 mb-4 space-y-1">
@@ -575,7 +575,7 @@
                 <h3 class="text-3xl font-bold text-gray-900 mb-4">Terms of service</h3>
                 <p class="mb-8 text-sm uppercase tracking-widest text-gray-500">Last updated: July 15, 2026</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">Overview</h4>
-                <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this website, including all related information, content, features, tools and services (the "Services"), to give you a curated look at our hand-harvested sea salt and where to find it in Aruba, and, once available, to power online ordering through Shopify.</p>
+                <p class="mb-4">Welcome to AruSalt. The terms "we", "us" and "our" refer to AruSalt. AruSalt operates this website, including all related information, content, features, tools and services (the "Services"), to give you a curated look at our hand-harvested sea salt and where to find it in Aruba, and, once available, to power online ordering through Stripe.</p>
                 <p class="mb-4">By visiting or using our Services, you agree to be bound by these Terms of Service and our Privacy Policy.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">1. Access</h4>
                 <p class="mb-4">You must be of legal age in your jurisdiction, or have the consent of a parent or guardian, to use our Services.</p>
@@ -593,8 +593,8 @@
                 <p class="mb-4">We may provide access to third-party tools, such as our newsletter signup or WhatsApp chat, that we neither monitor nor control. These tools are provided "as is" and "as available", without warranties of any kind, and any use of them is at your own risk.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">8. Third-party links</h4>
                 <p class="mb-4">Our Services may link to third-party websites, including our retail partners and social media pages. We are not responsible for examining or evaluating the content or accuracy of those sites, and you access them at your own risk.</p>
-                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">9. Relationship with Shopify</h4>
-                <p class="mb-4">When online ordering is available, purchases made through our Services will be made directly with AruSalt, using Shopify as our e-commerce platform. Shopify is not responsible for the products sold or for resolving order-related issues, which remain our responsibility.</p>
+                <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">9. Relationship with Stripe</h4>
+                <p class="mb-4">When online ordering is available, purchases made through our Services will be made directly with AruSalt, using Stripe to process payment. Stripe is not responsible for the products sold or for resolving order-related issues, which remain our responsibility.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">10. Privacy</h4>
                 <p class="mb-4">All personal information we collect through the Services is subject to our Privacy Policy.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">11. Feedback</h4>
@@ -894,7 +894,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span><span id="cms-seasalt-badge-text">In Stores</span></span>
 
                         <img src="images/products/arusalt-pure-sea-salt-jar.webp" srcset="images/products/arusalt-pure-sea-salt-jar-480w.webp 480w, images/products/arusalt-pure-sea-salt-jar-800w.webp 800w, images/products/arusalt-pure-sea-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
@@ -904,12 +904,12 @@
                     <p id="cms-seasalt-description" class="text-gray-600 leading-relaxed mb-4">Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt: sprinkle lightly just before serving to enhance flavor without overpowering the dish.</p>
                     <p id="cms-seasalt-price" class="text-lg text-gray-500 mb-1">$29.00</p>
                     <p id="cms-seasalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 30 g</p>
-                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
+                    <a id="cms-seasalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
-                
+
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
-                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span>In Stores</span>
+                        <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span><span id="cms-bathsalt-badge-text">In Stores</span></span>
 
                         <img src="images/products/arusalt-caribbean-bath-salt-jar.webp" srcset="images/products/arusalt-caribbean-bath-salt-jar-480w.webp 480w, images/products/arusalt-caribbean-bath-salt-jar-800w.webp 800w, images/products/arusalt-caribbean-bath-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="images/products/bath-salt-blend-varieties-flatlay.webp" srcset="images/products/bath-salt-blend-varieties-flatlay-480w.webp 480w, images/products/bath-salt-blend-varieties-flatlay-800w.webp 800w, images/products/bath-salt-blend-varieties-flatlay.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
@@ -919,7 +919,7 @@
                     <p id="cms-bathsalt-description" class="text-gray-600 leading-relaxed mb-4">Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean, available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.</p>
                     <p id="cms-bathsalt-price" class="text-lg text-gray-500 mb-1">$49.00</p>
                     <p id="cms-bathsalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 250 g</p>
-                    <a href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
+                    <a id="cms-bathsalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
             </div>
 
@@ -1697,16 +1697,34 @@
                         }
                     }
 
+                    // Activates a product's real "Buy Now" button once its CMS buyLink field
+                    // is filled in with a real Stripe Payment Link. Until then, the CTA stays
+                    // exactly as it ships today ("Find a Retailer" -> #retailers), so this is
+                    // safe to leave blank indefinitely with no visible change to the page.
+                    const activateBuyLink = (prefix, product) => {
+                        if (!product || typeof product.buyLink !== 'string' || !/^https:\/\//i.test(product.buyLink)) return;
+                        const cta = document.getElementById(`cms-${prefix}-cta`);
+                        if (cta) {
+                            cta.href = product.buyLink;
+                            cta.textContent = 'Buy Now';
+                            cta.removeAttribute('target');
+                            cta.removeAttribute('rel');
+                        }
+                        setText(`cms-${prefix}-badge-text`, 'In Stores & Online');
+                    };
+
                     if (data.products) {
                         if (data.products.seaSalt) {
                             setText('cms-seasalt-description', data.products.seaSalt.description);
                             setText('cms-seasalt-price', data.products.seaSalt.price);
                             setText('cms-seasalt-netweight', data.products.seaSalt.netWeight);
+                            activateBuyLink('seasalt', data.products.seaSalt);
                         }
                         if (data.products.bathSalt) {
                             setText('cms-bathsalt-description', data.products.bathSalt.description);
                             setText('cms-bathsalt-price', data.products.bathSalt.price);
                             setText('cms-bathsalt-netweight', data.products.bathSalt.netWeight);
+                            activateBuyLink('bathsalt', data.products.bathSalt);
                         }
 
                         // Keep the schema.org Product JSON-LD's price in sync too — otherwise
@@ -1720,12 +1738,17 @@
                                     schema['@graph'].forEach(item => {
                                         if (!item || item['@type'] !== 'Product' || !item.offers) return;
                                         const isBathSalt = typeof item.name === 'string' && item.name.includes('Bath Salt');
-                                        const priceStr = isBathSalt
-                                            ? data.products.bathSalt && data.products.bathSalt.price
-                                            : data.products.seaSalt && data.products.seaSalt.price;
-                                        if (typeof priceStr === 'string') {
-                                            const numeric = priceStr.replace(/[^0-9.]/g, '');
+                                        const product = isBathSalt ? data.products.bathSalt : data.products.seaSalt;
+                                        if (!product) return;
+                                        if (typeof product.price === 'string') {
+                                            const numeric = product.price.replace(/[^0-9.]/g, '');
                                             if (numeric) item.offers.price = numeric;
+                                        }
+                                        // Once a real Stripe buy link exists, this product is no longer
+                                        // in-store-only — reflect that in what Google actually indexes.
+                                        if (typeof product.buyLink === 'string' && /^https:\/\//i.test(product.buyLink)) {
+                                            item.offers.availability = 'https://schema.org/InStock';
+                                            item.offers.url = product.buyLink;
                                         }
                                     });
                                     schemaEl.textContent = JSON.stringify(schema);
