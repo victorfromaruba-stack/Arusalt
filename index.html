@@ -185,7 +185,6 @@
         html { scroll-padding-top: 175px; }
         :root {
             --coral: #ef6a72;
-            --coral-dark: #d94f57;
         }
         body {
             font-family: 'Inter', sans-serif;
@@ -203,12 +202,15 @@
         .bg-coral { background-color: var(--coral); }
         .border-coral { border-color: var(--coral); }
         .bg-coral-pale { background-color: #fdf1f1; }
-        .hover\:bg-coral-dark:hover { background-color: #e2555d; }
         /* The brand coral (--coral) only reaches ~3:1 on white — fine for the decorative dot
            next to it, but this small bold badge text needs the full 4.5:1 AA ratio, so it
            gets its own darker shade rather than changing the brand color used elsewhere. */
         .text-coral-contrast { color: #c73e46; }
         .border-coral-pale { border-color: #f8d9da; }
+        /* Same #c73e46 AA-passing shade as .text-coral-contrast, reused for the Gift Banner's
+           solid coral CTA button, whose white-on-coral text also failed AA at the base brand coral. */
+        .bg-coral-contrast { background-color: #c73e46; }
+        .hover\:bg-coral-contrast-dark:hover { background-color: #b5313a; }
 
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; }
@@ -217,22 +219,35 @@
         ::-webkit-scrollbar-thumb:hover { background-color: #0ea5e9; }
 
         ::selection { background-color: #0ea5e9; color: white; }
-        .text-theme-blue { color: #0ea5e9; }
-        .bg-theme-blue { background-color: #0ea5e9; }
+        /* Brand blue #0ea5e9 measures ~2.8:1 on white, below WCAG AA's 4.5:1 for normal text.
+           #0879ab is the same hue darkened to comfortably clear AA (~4.6:1) for small text/UI
+           uses; large elements/backgrounds that only need 3:1 (::selection, scrollbar) keep
+           the original brand blue since AA doesn't require a change there. */
+        .text-theme-blue { color: #0879ab; }
+        .bg-theme-blue { background-color: #0879ab; }
         /* Direct box-shadow override, not the --tw-shadow custom-property approach Tailwind
            itself uses: Tailwind's CDN-generated stylesheet for .shadow-lg is injected after
            this block and would otherwise win the cascade on the shared --tw-shadow property. */
-        #newsletter-submit.shadow-theme-blue\/20 { box-shadow: 0 10px 15px -3px rgb(14 165 233 / 0.2), 0 4px 6px -4px rgb(14 165 233 / 0.2) !important; }
+        #newsletter-submit.shadow-theme-blue\/20 { box-shadow: 0 10px 15px -3px rgb(8 121 171 / 0.2), 0 4px 6px -4px rgb(8 121 171 / 0.2) !important; }
         /* text-theme-blue isn't a real Tailwind color token (never added to tailwind.config),
            so Tailwind's JIT never generates a rule for the hover: variant used across the
            site (footer links, the legal modal's Back button, retailer "Directions" links) —
            those hover states were silently inert. This makes hover:text-theme-blue work. */
-        .hover\:text-theme-blue:hover { color: #0ea5e9; }
+        .hover\:text-theme-blue:hover { color: #0879ab; }
+        /* #0879ab was darkened for AA on light backgrounds (see .text-theme-blue above),
+           but the footer (#contact) has a near-black background, where a darker blue
+           only makes contrast worse. Scoped override keeps the footer's link-hover
+           color at the original, lighter brand blue, which already clears AA there
+           (~6.4:1) comfortably. */
+        #contact .hover\:text-theme-blue:hover { color: #0ea5e9; }
+        /* bg-theme-blue has the same JIT gap for its hover: variant — the product-card "Find a
+           Retailer" buttons' hover-to-filled-blue effect was silently inert without this. */
+        .hover\:bg-theme-blue:hover { background-color: #0879ab; }
         /* Same underlying issue for border-theme-blue: the "Find a Retailer" buttons and the
            newsletter input's focus state were silently falling back to Tailwind's default
            gray border instead of the intended brand blue. */
-        .border-theme-blue { border-color: #0ea5e9; }
-        .focus\:border-theme-blue:focus { border-color: #0ea5e9; }
+        .border-theme-blue { border-color: #0879ab; }
+        .focus\:border-theme-blue:focus { border-color: #0879ab; }
 
         .hover-lift {
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -257,14 +272,26 @@
         /* FAQ accordion chevron */
         .faq-trigger[aria-expanded="true"] .faq-chevron { transform: rotate(180deg); }
 
-        /* High-contrast mode: a user-activated, opt-in swap of the brand blue (which
-           measures ~2.8:1 on white, below WCAG AA) for a darker variant that passes AA,
-           without changing the default site-wide look. Persisted via localStorage. */
+        /* High-contrast mode: a user-activated, opt-in swap of the default brand blue
+           (#0879ab, ~4.6:1, already AA) for an even darker variant, for users who want
+           more headroom than the AA minimum. Persisted via localStorage. Nav link
+           hover/active is scoped to .is-scrolled like the default-mode rule above:
+           #075985 is even lower-contrast than #0879ab against the transparent hero
+           header, so it must not apply there either. */
         html.high-contrast .text-theme-blue,
-        html.high-contrast .hover\:text-theme-blue:hover,
-        html.high-contrast .nav-link.active,
-        html.high-contrast .nav-link:hover {
+        html.high-contrast .hover\:text-theme-blue:hover {
             color: #075985 !important;
+        }
+        html.high-contrast #site-header.is-scrolled .nav-link.active,
+        html.high-contrast #site-header.is-scrolled .nav-link:hover {
+            color: #075985 !important;
+        }
+        /* Same dark-background exception as the default-mode footer override above:
+           #075985 is even darker than #0879ab, so on the footer's near-black background
+           it would be worse, not better. Use a lighter blue for extra headroom instead
+           (still same hue family), which is what "more contrast" actually means here. */
+        html.high-contrast #contact .hover\:text-theme-blue:hover {
+            color: #38bdf8 !important;
         }
         html.high-contrast .border-theme-blue,
         html.high-contrast .focus\:border-theme-blue:focus {
@@ -410,8 +437,17 @@
         }
         .nav-link { color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,0.45); transition: color 0.4s ease, text-shadow 0.4s ease; }
         #site-header.is-scrolled .nav-link { color: #374151; text-shadow: none; }
-        .nav-link:hover { color: #0ea5e9; text-shadow: none; }
-        .nav-link.active { color: #0ea5e9 !important; text-shadow: none; }
+        /* Hover/active only switch to the brand blue once the header has its solid light
+           background (.is-scrolled). Against the transparent header over the hero photo,
+           #0879ab drops under AA, so that state keeps the default white+shadow (already
+           proven readable there) and signals hover/active via underline instead of color. */
+        .nav-link:hover, .nav-link.active { text-decoration: underline; text-underline-offset: 4px; }
+        #site-header.is-scrolled .nav-link:hover,
+        #site-header.is-scrolled .nav-link.active {
+            color: #0879ab !important;
+            text-shadow: none;
+            text-decoration: none;
+        }
         #menu-btn { color: #fff; filter: drop-shadow(0 1px 4px rgba(0,0,0,0.45)); transition: color 0.4s ease, filter 0.4s ease; }
         #site-header.is-scrolled #menu-btn { color: #111827; filter: none; }
 
@@ -465,7 +501,7 @@
 
         /* Visible keyboard focus (previously relied on browser default only) */
         a:focus-visible, button:focus-visible, input:focus-visible {
-            outline: 2px solid #0ea5e9;
+            outline: 2px solid #0879ab;
             outline-offset: 3px;
             border-radius: 4px;
         }
@@ -473,7 +509,7 @@
         /* Skip link: hidden until keyboard-focused */
         .skip-link {
             position: absolute; left: 1rem; top: -60px;
-            background: #0ea5e9; color: #fff; padding: 0.75rem 1.25rem;
+            background: #0879ab; color: #fff; padding: 0.75rem 1.25rem;
             border-radius: 0.5rem; font-weight: 600; font-size: 0.875rem;
             z-index: 10000; transition: top 0.2s ease-out;
         }
@@ -904,7 +940,7 @@
                     <p id="cms-seasalt-description" class="text-gray-600 leading-relaxed mb-4">Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt: sprinkle lightly just before serving to enhance flavor without overpowering the dish.</p>
                     <p id="cms-seasalt-price" class="text-lg text-gray-500 mb-1">$29.00</p>
                     <p id="cms-seasalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 30 g</p>
-                    <a id="cms-seasalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
+                    <a id="cms-seasalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-full text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
 
                 <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
@@ -919,7 +955,7 @@
                     <p id="cms-bathsalt-description" class="text-gray-600 leading-relaxed mb-4">Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean, available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.</p>
                     <p id="cms-bathsalt-price" class="text-lg text-gray-500 mb-1">$49.00</p>
                     <p id="cms-bathsalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 250 g</p>
-                    <a id="cms-bathsalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-xl text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
+                    <a id="cms-bathsalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-full text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
             </div>
 
@@ -945,7 +981,7 @@
                         <p class="text-gray-600 text-sm">AruSalt makes an authentic, giftable taste of the island for family, friends, or yourself.</p>
                     </div>
                 </div>
-                <a href="#retailers" class="flex-shrink-0 inline-block bg-coral text-white font-bold px-6 py-3 rounded-full text-sm uppercase tracking-wide hover:bg-coral-dark hover:scale-105 transition-all duration-300 shadow-lg select-none">Find a Retailer</a>
+                <a href="#retailers" class="flex-shrink-0 inline-block bg-coral-contrast text-white font-bold px-6 py-3 rounded-full text-sm uppercase tracking-wide hover:bg-coral-contrast-dark hover:scale-105 transition-all duration-300 shadow-lg select-none">Find a Retailer</a>
             </div>
         </div>
 
@@ -1181,7 +1217,7 @@
             <div class="relative z-10 text-center text-white px-6 pointer-events-auto">
                 <h2 class="text-4xl md:text-5xl font-bold mb-6 drop-shadow-md">Bring the Island Home</h2>
                 <p class="text-xl md:text-2xl mb-10 font-light opacity-95 drop-shadow-sm">Experience the unparalleled purity and crunch of AruSalt</p>
-                <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full tracking-wide hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl select-none">Find a Retailer</a>
+                <a href="#retailers" class="inline-block bg-white text-gray-900 font-bold px-10 py-4 rounded-full uppercase text-sm tracking-wider hover:bg-gray-100 hover:scale-105 transition-all duration-300 shadow-xl select-none">Find a Retailer</a>
             </div>
         </section>
 
@@ -1199,7 +1235,7 @@
                     <div class="flex gap-2">
                         <label for="newsletter-email" class="sr-only">Email address</label>
                         <input id="newsletter-email" type="email" name="email" placeholder="Email address" class="w-full px-4 py-3 rounded-xl bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:border-theme-blue transition-colors" required>
-                        <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#0284c7] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
+                        <button type="submit" id="newsletter-submit" class="bg-theme-blue text-white font-bold px-6 py-3 rounded-xl hover:bg-[#075985] transition-all duration-300 shadow-lg shadow-theme-blue/20 select-none whitespace-nowrap">Sign up</button>
                     </div>
                     <p id="newsletter-message" class="text-sm mt-3 hidden" role="status"></p>
                 </form>
