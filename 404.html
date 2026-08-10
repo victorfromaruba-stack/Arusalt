@@ -8,7 +8,10 @@
     <title>Page not found - AruSalt</title>
     <meta name="description" content="The page you're looking for doesn't exist. Return to AruSalt, hand-harvested sea salt from Aruba.">
     <link rel="canonical" href="https://arusalt.com/">
-    <link rel="icon" href="images/logo/arusalt-logo-192.png" type="image/png" sizes="192x192">
+    <!-- Root-absolute asset paths: GitHub Pages serves this page for ANY missing URL,
+         including nested ones like /foo/bar — relative paths would resolve against the
+         requested directory and break. -->
+    <link rel="icon" href="/images/logo/arusalt-logo-192.png" type="image/png" sizes="192x192">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
@@ -17,13 +20,14 @@
     <style>
         body { font-family: 'Inter', sans-serif; }
         h1, .font-heading { font-family: 'Space Grotesk', sans-serif; }
-        .text-theme-blue { color: #0ea5e9; }
-        .bg-theme-blue { background-color: #0ea5e9; }
+        /* Same AA-passing blue as the main site (see index.html's contrast notes) */
+        .text-theme-blue { color: #0879ab; }
+        .bg-theme-blue { background-color: #0879ab; }
     </style>
 </head>
 <body class="min-h-screen flex items-center justify-center bg-white px-6">
     <div class="text-center max-w-md">
-        <img src="images/logo/arusalt-diamond-icon.png" alt="" aria-hidden="true" class="w-16 h-auto mx-auto mb-8 opacity-80">
+        <img src="/images/logo/arusalt-diamond-icon.png" alt="" aria-hidden="true" class="w-16 h-auto mx-auto mb-8 opacity-80">
         <p class="text-theme-blue font-bold text-sm uppercase tracking-[0.25em] mb-3">404</p>
         <h1 class="font-heading text-3xl md:text-4xl font-bold text-gray-900 mb-4">This page washed away</h1>
         <p class="text-gray-600 text-lg leading-relaxed mb-8">We couldn't find the page you were looking for. Let's get you back to dry land.</p>

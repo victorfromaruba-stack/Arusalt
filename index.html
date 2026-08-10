@@ -46,7 +46,12 @@
     <!-- Social Sharing -->
     <meta property="og:title" content="AruSalt - The Essence of Aruba">
     <meta property="og:description" content="Hand-harvested, solar-evaporated sea salt from Aruba. A genuine taste of the island, perfect as a gift or souvenir.">
-    <meta property="og:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial.webp">
+    <!-- JPEG (not the site's webp) specifically for link previews: WhatsApp and iMessage
+         are unreliable with webp og:images, and WhatsApp is this business's main channel. -->
+    <meta property="og:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial-og.jpg">
+    <meta property="og:image:type" content="image/jpeg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://arusalt.com/">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="AruSalt">
@@ -56,7 +61,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="AruSalt - The Essence of Aruba">
     <meta name="twitter:description" content="Hand-harvested, solar-evaporated sea salt from Aruba. A genuine taste of the island, perfect as a gift or souvenir.">
-    <meta name="twitter:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial.webp">
+    <meta name="twitter:image" content="https://arusalt.com/images/hero/aruba-coastline-aerial-og.jpg">
 
     <!-- Canonical -->
     <link rel="canonical" href="https://arusalt.com/">
@@ -137,7 +142,7 @@
         {
           "@type": "Question",
           "name": "What products does AruSalt offer?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Two: our Pure Caribbean Sea Salt (30 g, $29.00), a finishing salt for cooking, and our Caribbean Bath Salt (250 g, $49.00) in our signature Aruban Breeze scent. See both products." }
+          "acceptedAnswer": { "@type": "Answer", "text": "Two: our Pure Caribbean Sea Salt (30 g), a finishing salt for cooking, and our Caribbean Bath Salt (250 g) in our signature Aruban Breeze scent. See both products for current prices." }
         },
         {
           "@type": "Question",
@@ -715,7 +720,10 @@
 
     <!-- WHATSAPP FLOATING BUTTON & SMART NUDGE -->
     <div id="whatsapp-widget" class="fixed bottom-6 right-6 z-[70] flex items-end gap-4 pointer-events-none select-none">
-        <div id="wa-nudge" class="bg-white text-gray-800 text-xs sm:text-sm font-semibold py-3 px-5 rounded-2xl shadow-2xl opacity-0 translate-x-8 transition-all duration-700 flex items-center gap-3 border border-gray-100">
+        <!-- aria-hidden: opacity-0 hides this visually but not from screen readers, and the
+             WhatsApp button already carries its own aria-label — without this, AT users hear
+             the nudge text permanently, even while it's invisible. -->
+        <div id="wa-nudge" aria-hidden="true" class="bg-white text-gray-800 text-xs sm:text-sm font-semibold py-3 px-5 rounded-2xl shadow-2xl opacity-0 translate-x-8 transition-all duration-700 flex items-center gap-3 border border-gray-100">
             Need help? Chat with us!
             <span class="relative flex h-3 w-3">
               <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75"></span>
@@ -1179,7 +1187,7 @@
                                 <svg class="faq-chevron w-5 h-5 text-theme-blue flex-shrink-0 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                             </button>
                         </h3>
-                        <div id="faq-answer-4" role="region" aria-labelledby="faq-question-4" class="faq-panel hidden px-6 pb-5 text-gray-600 leading-relaxed">Two: our Pure Caribbean Sea Salt (30 g, $29.00), a finishing salt for cooking, and our Caribbean Bath Salt (250 g, $49.00) in our signature Aruban Breeze scent. See <a href="#shop" class="text-theme-blue hover:underline font-semibold">both products</a>.</div>
+                        <div id="faq-answer-4" role="region" aria-labelledby="faq-question-4" class="faq-panel hidden px-6 pb-5 text-gray-600 leading-relaxed">Two: our Pure Caribbean Sea Salt (30 g), a finishing salt for cooking, and our Caribbean Bath Salt (250 g) in our signature Aruban Breeze scent. See <a href="#shop" class="text-theme-blue hover:underline font-semibold">both products</a> for current prices.</div>
                     </div>
                     <div class="faq-item bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
                         <h3 class="m-0">
@@ -1683,17 +1691,16 @@
             document.querySelectorAll('.animate-on-scroll').forEach(el => obs.observe(el));
 
             // --- Preloader Fade Out & SVG Draw ---
-            window.onload = () => {
-                const preloader = document.getElementById('preloader');
-                if(preloader) {
-                    setTimeout(() => {
-                        preloader.classList.add('preloader-hidden');
-                        document.body.classList.add('start-hero-anim');
-                    }, 300);
-                } else {
-                    document.body.classList.add('start-hero-anim');
-                }
+            const preloader = document.getElementById('preloader');
+            const hidePreloader = () => {
+                if (preloader) preloader.classList.add('preloader-hidden');
+                document.body.classList.add('start-hero-anim');
             };
+            window.onload = () => setTimeout(hidePreloader, 300);
+            // Fail-safe: window.onload waits for every subresource, so one stalled image or
+            // script on a slow connection would otherwise hold visitors on the preloader
+            // indefinitely. Harmless if onload already fired (classList.add is idempotent).
+            setTimeout(hidePreloader, 4000);
 
             // --- Service Worker: real offline support for the PWA manifest/meta tags
             // already in <head>. Never caches content/site.json or /admin/ (see sw.js). ---
@@ -1838,7 +1845,13 @@
                                     primaryLink.href = r.link;
                                     primaryLink.setAttribute('aria-label', (r.linkText || 'Visit site') + ': ' + r.name);
                                     const directionsLink = div.querySelector('.cms-link-directions');
-                                    directionsLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(r.name + ' Aruba');
+                                    // Curated Maps queries for the known retailers (matching the static
+                                    // cards and the banner matcher above) — the hotel gift shops resolve
+                                    // better via the resort's own Maps listing than via "<shop name> Aruba".
+                                    const mapsQuery = /hilton/i.test(r.name) ? 'Hilton Aruba Caribbean Resort'
+                                        : /marriott/i.test(r.name) ? 'Aruba Marriott Resort'
+                                        : r.name + ' Aruba';
+                                    directionsLink.href = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapsQuery);
                                     directionsLink.setAttribute('aria-label', 'Directions to ' + r.name);
                                     return div;
                                 });
