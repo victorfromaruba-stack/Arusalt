@@ -1407,7 +1407,7 @@
 
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    message.classList.remove('hidden', 'text-red-400', 'text-emerald-400', 'text-gray-300');
+                    message.classList.remove('hidden', 'text-red-400', 'text-emerald-400', 'text-gray-400');
 
                     if (!endpointConfigured) {
                         const email = (form.elements.email && form.elements.email.value) || '';
@@ -1419,9 +1419,11 @@
                         const fallbackLink = document.createElement('a');
                         fallbackLink.href = 'mailto:info@arusalt.com';
                         fallbackLink.textContent = 'info@arusalt.com';
-                        fallbackLink.className = 'underline hover:text-white';
+                        // Permanent underline (a link inside running text needs a non-color cue); hover uses the
+                        // footer's contrast-tuned brand blue, same as the footer links (#contact override)
+                        fallbackLink.className = 'underline hover:text-theme-blue';
                         message.append(fallbackLink, '.');
-                        message.classList.add('text-gray-300');
+                        message.classList.add('text-gray-400');
                         return;
                     }
 
