@@ -1,4 +1,4 @@
-const CACHE_NAME = 'arusalt-v2';
+const CACHE_NAME = 'arusalt-v3';
 const CORE_ASSETS = [
     '/',
     '/index.html',

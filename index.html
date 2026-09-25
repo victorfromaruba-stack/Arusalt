@@ -362,6 +362,11 @@
 
         #legal-modal { transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
         .modal-open { transform: translateX(0) !important; }
+        /* While parked off-screen (translate-x-full), the panel's shadow-2xl bled ~40px back
+           into the viewport as a faint gray band down the right edge of every page section.
+           The id selector outranks Tailwind's .shadow-2xl regardless of stylesheet order.
+           (Not visibility:hidden — that would break the synchronous focus() on open.) */
+        #legal-modal:not(.modal-open) { box-shadow: none; }
 
         /* Graceful Image Reveal Engine */
         .lazy-blur {
@@ -505,7 +510,7 @@
         }
 
         /* Visible keyboard focus (previously relied on browser default only) */
-        a:focus-visible, button:focus-visible, input:focus-visible {
+        a:focus-visible, button:focus-visible, input:focus-visible, [tabindex="0"]:focus-visible {
             outline: 2px solid #0879ab;
             outline-offset: 3px;
             border-radius: 4px;
@@ -625,7 +630,7 @@
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">3. Orders</h4>
                 <p class="mb-4">Once online ordering becomes available, your order is not accepted until we confirm it. Products purchased through the Services are for personal use only and may not be resold. Returns are handled in accordance with our Refund Policy.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">4. Prices and billing</h4>
-                <p class="mb-4">Prices, discounts and promotions are subject to change without notice. Posted prices generally exclude applicable taxes and shipping, which will be calculated at checkout once online ordering is available. Once you can order through the Services, you'll be responsible for providing accurate payment information.</p>
+                <p class="mb-4">Prices, discounts and promotions are subject to change without notice. Posted prices include applicable taxes. Once online ordering is available, shipping will be calculated at checkout. Once you can order through the Services, you'll be responsible for providing accurate payment information.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">5. Shipping and delivery</h4>
                 <p class="mb-4">Once online ordering is available, delivery times shown at checkout are estimates only, and we are not liable for delays outside our control. Title and risk of loss for products pass to you upon delivery to the shipping carrier.</p>
                 <h4 class="text-xl font-bold text-gray-900 mt-8 mb-4">6. Intellectual property</h4>
@@ -690,7 +695,7 @@
                 <div class="flex justify-between items-center h-20 sm:h-24 md:h-28">
 
                     <a href="#home" id="header-logo-link" tabindex="-1" class="flex-shrink-0 flex items-center z-10 hover:opacity-80 transition-all hover:scale-105 active:scale-95 pl-1">
-                        <img src="images/logo/arusalt-logo.png" alt="AruSalt Logo" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
+                        <img src="images/logo/arusalt-logo.png" alt="AruSalt home" decoding="async" class="h-14 sm:h-16 md:h-20 w-auto object-contain drop-shadow-[0_2px_8px_rgba(255,255,255,0.9)] translate-y-1">
                     </a>
 
                     <div class="hidden md:flex space-x-10">
@@ -745,7 +750,7 @@
 
     <!-- LAYER 1: BULLETPROOF FIXED BACKGROUND -->
     <div class="fixed-layer z-[-2] bg-black">
-        <img src="images/hero/aruba-coastline-aerial.webp" srcset="images/hero/aruba-coastline-aerial-768w.webp 768w, images/hero/aruba-coastline-aerial-1280w.webp 1280w, images/hero/aruba-coastline-aerial.webp 1920w" sizes="100vw" alt="Aruba Ocean" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65 ken-burns">
+        <img src="images/hero/aruba-coastline-aerial.webp" srcset="images/hero/aruba-coastline-aerial-768w.webp 768w, images/hero/aruba-coastline-aerial-1280w.webp 1280w, images/hero/aruba-coastline-aerial.webp 1920w" sizes="100vw" alt="" fetchpriority="high" decoding="async" class="w-full h-full object-cover opacity-65 ken-burns">
         <div class="cinematic-gradient"></div>
     </div>
 
@@ -864,7 +869,7 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center">
                     <div class="order-2 md:order-1 relative animate-on-scroll delay-1">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 group">
-                            <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Salt Mesh Close Up">
+                            <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" loading="lazy" decoding="async" alt="Close-up of coarse sea salt crystals drying on a mesh screen">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll">
@@ -885,12 +890,18 @@
                     <span class="block text-xs font-semibold text-gray-500 uppercase tracking-[0.25em] mb-4">Know the difference</span>
                     <h2 id="salt-comparison-heading" class="text-3xl md:text-4xl font-bold text-gray-900">Not all salt is created equal</h2>
                     <div class="diamond-divider mt-6"><span class="diamond-mark"></span></div>
+                    <!-- Phones only: the table is min-w-[640px], so below sm it always scrolls sideways,
+                         and the cut-off columns alone didn't read as swipeable. Visual cue only
+                         (aria-hidden); AT users navigate the table by cells, not by swiping. -->
+                    <p class="sm:hidden mt-6 text-xs font-semibold uppercase tracking-widest text-gray-500 inline-flex items-center gap-2" aria-hidden="true">Swipe to compare <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></p>
                 </div>
-                <div class="overflow-x-auto animate-on-scroll delay-1">
+                <!-- role/tabindex: a horizontally scrollable region must be keyboard-reachable
+                     (WCAG 2.1.1), otherwise keyboard users can't bring the off-screen columns into view. -->
+                <div class="overflow-x-auto animate-on-scroll delay-1" role="region" aria-labelledby="salt-comparison-heading" tabindex="0">
                     <table class="w-full min-w-[640px] border-collapse text-left" aria-labelledby="salt-comparison-heading">
                         <thead>
                             <tr class="border-b-2 border-gray-900">
-                                <th scope="col" class="py-4 pr-4 text-sm font-bold uppercase tracking-wider text-gray-500"></th>
+                                <th scope="col" class="sticky left-0 z-10 bg-[#f4f9fc] py-4 pr-4 text-sm font-bold uppercase tracking-wider text-gray-500"></th>
                                 <th scope="col" class="py-4 px-4 text-lg font-bold text-theme-blue">AruSalt</th>
                                 <th scope="col" class="py-4 px-4 text-lg font-bold text-gray-500">Table Salt</th>
                                 <th scope="col" class="py-4 px-4 text-lg font-bold text-gray-500">Kosher Salt</th>
@@ -898,25 +909,25 @@
                         </thead>
                         <tbody class="divide-y divide-gray-100">
                             <tr>
-                                <th scope="row" class="py-5 pr-4 text-sm font-semibold text-gray-900 align-top">How it's made</th>
+                                <th scope="row" class="sticky left-0 z-10 bg-[#f4f9fc] py-5 pr-4 text-sm font-semibold text-gray-900 align-top">How it's made</th>
                                 <td class="py-5 px-4 text-gray-600 align-top">Sun and wind evaporate seawater in open-air pans, with no boiling and no machinery</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Typically mined or produced by fast, industrial vacuum evaporation</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Usually mechanically evaporated, not sun-dried</td>
                             </tr>
                             <tr>
-                                <th scope="row" class="py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Additives</th>
+                                <th scope="row" class="sticky left-0 z-10 bg-[#f4f9fc] py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Additives</th>
                                 <td class="py-5 px-4 text-gray-600 align-top">None at all, no anti-caking or bleaching agents</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Often iodized, commonly includes anti-caking agents</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Generally additive-free, varies by brand</td>
                             </tr>
                             <tr>
-                                <th scope="row" class="py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Texture</th>
+                                <th scope="row" class="sticky left-0 z-10 bg-[#f4f9fc] py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Texture</th>
                                 <td class="py-5 px-4 text-gray-600 align-top">Moderately coarse, slightly moist, distinctive crunch</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Fine, uniform grains</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Coarse, flaky grains</td>
                             </tr>
                             <tr>
-                                <th scope="row" class="py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Flavor</th>
+                                <th scope="row" class="sticky left-0 z-10 bg-[#f4f9fc] py-5 pr-4 text-sm font-semibold text-gray-900 align-top">Flavor</th>
                                 <td class="py-5 px-4 text-gray-600 align-top">Clean, briny-sweet, no aftertaste</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Can carry a chemical or metallic aftertaste</td>
                                 <td class="py-5 px-4 text-gray-500 align-top">Clean but milder, less mineral complexity</td>
@@ -936,43 +947,43 @@
             </div>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10 container mx-auto max-w-5xl mb-12">
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll text-left flex flex-col">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span><span id="cms-seasalt-badge-text">In Stores</span></span>
 
-                        <img src="images/products/arusalt-pure-sea-salt-jar.webp" srcset="images/products/arusalt-pure-sea-salt-jar-480w.webp 480w, images/products/arusalt-pure-sea-salt-jar-800w.webp 800w, images/products/arusalt-pure-sea-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Pure Caribbean Sea Salt White Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="images/products/arusalt-pure-sea-salt-jar.webp" srcset="images/products/arusalt-pure-sea-salt-jar-480w.webp 480w, images/products/arusalt-pure-sea-salt-jar-800w.webp 800w, images/products/arusalt-pure-sea-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="AruSalt Pure Caribbean Sea Salt in a corked glass jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="images/products/salt-crystals-macro.jpeg" srcset="images/products/salt-crystals-macro-480w.jpeg 480w, images/products/salt-crystals-macro-800w.jpeg 800w, images/products/salt-crystals-macro.jpeg 1000w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Pure Caribbean Sea Salt</h3>
                     <p id="cms-seasalt-description" class="text-gray-600 leading-relaxed mb-4">Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt: sprinkle lightly just before serving to enhance flavor without overpowering the dish.</p>
-                    <p id="cms-seasalt-price" class="text-lg text-gray-500 mb-1">$29.00</p>
+                    <p id="cms-seasalt-price" class="mt-auto text-xl font-semibold text-gray-900 mb-1">$29.00</p>
                     <p id="cms-seasalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 30 g</p>
                     <a id="cms-seasalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-full text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
 
-                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left">
+                <div class="bg-white rounded-[2rem] p-6 shadow-sm border border-gray-100 hover-lift group animate-on-scroll delay-1 text-left flex flex-col">
                     <div class="aspect-[4/5] rounded-3xl overflow-hidden mb-6 bg-gray-50 flex items-center justify-center relative group-hover:shadow-lg transition-all duration-500">
                         <span class="absolute top-4 right-4 bg-white/95 backdrop-blur text-coral-contrast text-xs font-bold px-3 py-1 rounded-full shadow-sm z-20 uppercase tracking-wide flex items-center gap-1.5"><span class="w-1.5 h-1.5 bg-coral rounded-full inline-block"></span><span id="cms-bathsalt-badge-text">In Stores</span></span>
 
-                        <img src="images/products/arusalt-caribbean-bath-salt-jar.webp" srcset="images/products/arusalt-caribbean-bath-salt-jar-480w.webp 480w, images/products/arusalt-caribbean-bath-salt-jar-800w.webp 800w, images/products/arusalt-caribbean-bath-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="Caribbean Bath Salt Layered Jar" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
+                        <img src="images/products/arusalt-caribbean-bath-salt-jar.webp" srcset="images/products/arusalt-caribbean-bath-salt-jar-480w.webp 480w, images/products/arusalt-caribbean-bath-salt-jar-800w.webp 800w, images/products/arusalt-caribbean-bath-salt-jar.webp 1086w" sizes="(min-width: 768px) 50vw, 100vw" alt="AruSalt Caribbean Bath Salt in a corked jar, layered pink, yellow, blue and white" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out group-hover:opacity-0 z-10 lazy-blur">
                         <img src="images/products/bath-salt-blend-varieties-flatlay.webp" srcset="images/products/bath-salt-blend-varieties-flatlay-480w.webp 480w, images/products/bath-salt-blend-varieties-flatlay-800w.webp 800w, images/products/bath-salt-blend-varieties-flatlay.webp 1400w" sizes="(min-width: 768px) 50vw, 100vw" alt="" aria-hidden="true" loading="lazy" decoding="async" class="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110 z-0 lazy-blur">
                         <div class="shimmer-sweep" aria-hidden="true"></div>
                     </div>
                     <h3 class="text-2xl font-bold mb-2 text-gray-900">AruSalt – Caribbean Bath Salt</h3>
                     <p id="cms-bathsalt-description" class="text-gray-600 leading-relaxed mb-4">Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean, available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.</p>
-                    <p id="cms-bathsalt-price" class="text-lg text-gray-500 mb-1">$49.00</p>
+                    <p id="cms-bathsalt-price" class="mt-auto text-xl font-semibold text-gray-900 mb-1">$49.00</p>
                     <p id="cms-bathsalt-netweight" class="text-xs uppercase tracking-widest text-gray-500 mb-6">Net weight: 250 g</p>
                     <a id="cms-bathsalt-cta" href="#retailers" class="block w-full py-4 border-2 border-theme-blue text-theme-blue hover:bg-theme-blue hover:text-white rounded-full text-center uppercase text-sm font-bold tracking-wider transition-colors select-none">Find a Retailer</a>
                 </div>
             </div>
 
-            <div class="container mx-auto max-w-4xl flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12 opacity-60">
-                <p class="text-sm font-semibold tracking-wider text-gray-600 uppercase flex items-center gap-2">
+            <div class="container mx-auto max-w-4xl flex flex-col md:flex-row justify-center items-center gap-6 md:gap-12">
+                <p class="text-sm font-semibold tracking-wider text-gray-500 uppercase flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
                     100% Pure & Natural
                 </p>
-                <p class="text-sm font-semibold tracking-wider text-gray-600 uppercase flex items-center gap-2">
+                <p class="text-sm font-semibold tracking-wider text-gray-500 uppercase flex items-center gap-2">
                     <svg class="w-5 h-5 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.3" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                     Sourced in Aruba
                 </p>
@@ -1106,12 +1117,12 @@
                 <div class="grid md:grid-cols-2 gap-16 items-center mb-32">
                     <div class="order-2 md:order-1 animate-on-scroll relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="images/history/salina-ranchoe-salt-flats-1924.webp" srcset="images/history/salina-ranchoe-salt-flats-1924-480w.webp 480w, images/history/salina-ranchoe-salt-flats-1924-800w.webp 800w, images/history/salina-ranchoe-salt-flats-1924.webp 806w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Salina Ranchoe 1924 people dumping salt">
+                            <img src="images/history/salina-ranchoe-salt-flats-1924.webp" srcset="images/history/salina-ranchoe-salt-flats-1924-480w.webp 480w, images/history/salina-ranchoe-salt-flats-1924.webp 763w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover object-left transition duration-1000 group-hover:scale-105 lazy-blur" alt="Harvesters gathering salt by hand in the shallow flats of Salina Ranchoe, 1924">
                         </div>
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Salina Ranchoe</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Ranchoe (pictured above) in Oranjestad. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">For generations, salt was harvested across Aruba, from its rugged rocky coastline to natural salinas such as Salina Ranchoe in Oranjestad, pictured here in 1924. These shallow salt ponds created the ideal conditions for seawater to evaporate naturally under the Caribbean sun, leaving behind bright white salt crystals ready to be collected by hand.</p>
                         <p class="text-gray-600 text-lg leading-relaxed">Historical records show that Aruba had seven natural salt pans by 1816, including Salina Ranchoe. Unlike the large commercial salt works on Bonaire, Aruba's salt production was relatively small and intended primarily for local use.</p>
                     </div>
                 </div>
@@ -1124,7 +1135,7 @@
                     </div>
                     <div class="animate-on-scroll delay-1 relative group">
                         <div class="aspect-[4/3] rounded-3xl overflow-hidden shadow-xl bg-gray-50 border border-gray-100">
-                            <img src="images/history/aruba-salt-harvesters-group-portrait-1923.jpg" srcset="images/history/aruba-salt-harvesters-group-portrait-1923-480w.jpg 480w, images/history/aruba-salt-harvesters-group-portrait-1923.jpg 700w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="The locals posing on a pile of salt, 1923">
+                            <img src="images/history/aruba-salt-harvesters-group-portrait-1923.jpg" srcset="images/history/aruba-salt-harvesters-group-portrait-1923-480w.jpg 480w, images/history/aruba-salt-harvesters-group-portrait-1923.jpg 700w" sizes="(min-width: 768px) 50vw, 100vw" loading="lazy" decoding="async" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105 lazy-blur" alt="Local salt harvesters posing on top of a salt pile, 1923">
                         </div>
                     </div>
                 </div>
@@ -1137,7 +1148,7 @@
                     </div>
                     <div class="order-1 md:order-2 animate-on-scroll delay-1">
                         <h3 class="text-3xl font-bold mb-6 text-gray-900">Commercial decline</h3>
-                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, but the knowledge and appreciation for naturally harvested sea salt never faded. At AruSalt, we are proud to continue this tradition by combining centuries old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old timers.</p>
+                        <p class="mb-6 text-gray-600 text-lg leading-relaxed">Commercial salt harvesting gradually disappeared during the twentieth century, but the knowledge and appreciation for naturally harvested sea salt never faded. At AruSalt, we are proud to continue this tradition by combining centuries-old salt farming techniques with modern quality standards. We still rely on the same natural elements that made salt harvesting possible for the old-timers.</p>
                         <p class="text-xl font-semibold text-gray-900 italic leading-relaxed border-l-4 border-coral pl-4">Every crystal of AruSalt is a tribute to Aruba's rich salt heritage, bringing an authentic piece of the island's history to tables around the world.</p>
                     </div>
                 </div>
@@ -1238,7 +1249,9 @@
             <div class="md:col-span-2">
                 <h3 class="text-2xl font-bold mb-4 text-white">Join AruSalt</h3>
                 <p id="cms-newsletter-blurb" class="text-gray-400 mb-6 max-w-sm leading-relaxed">Get exclusive recipes, flavor inspiration, and stories from Aruba.</p>
-                <!-- NOTE: action still points at a placeholder ID — swap in your real Formspree endpoint (or any POST endpoint) before launch, or signups will silently fail. -->
+                <!-- NOTE: action still points at a placeholder ID. Until the real Formspree endpoint is
+                     swapped in, the submit handler detects the placeholder and falls back to a
+                     pre-filled mailto: to info@arusalt.com instead of POSTing (see the script). -->
                 <form id="newsletter-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="max-w-md">
                     <div class="flex gap-2">
                         <label for="newsletter-email" class="sr-only">Email address</label>
@@ -1366,6 +1379,12 @@
                         current = section.getAttribute("id");
                     }
                 });
+                // The footer is shorter than most viewports, so on tall screens the page runs out
+                // of scroll before it ever crosses the 300px trigger line above; "Contact" could
+                // never become active. At the very bottom, the last section is the current one.
+                if (sections.length && window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+                    current = sections[sections.length - 1].getAttribute("id");
+                }
 
                 navLinks.forEach(link => {
                     const isActive = link.getAttribute("href").includes(current);
@@ -1380,12 +1399,35 @@
             const submitBtn = document.getElementById('newsletter-submit');
             const message = document.getElementById('newsletter-message');
             if (form && submitBtn && message) {
+                // Until a real Formspree form ID replaces the placeholder in the action URL, every
+                // POST would fail and show visitors an error. Instead, hand the signup to the
+                // visitor's email app as a pre-filled message to info@arusalt.com, so the lead
+                // still reaches the business. Switches itself off once the real ID is in place.
+                const endpointConfigured = !(form.getAttribute('action') || '').includes('YOUR_FORM_ID');
+
                 form.addEventListener('submit', async (e) => {
                     e.preventDefault();
+                    message.classList.remove('hidden', 'text-red-400', 'text-emerald-400', 'text-gray-300');
+
+                    if (!endpointConfigured) {
+                        const email = (form.elements.email && form.elements.email.value) || '';
+                        window.location.href = 'mailto:info@arusalt.com'
+                            + '?subject=' + encodeURIComponent('Newsletter signup')
+                            + '&body=' + encodeURIComponent('Hi AruSalt, please add ' + email + ' to your newsletter. Thank you!');
+                        // Built with DOM nodes, not innerHTML, so nothing user-typed is ever parsed as HTML
+                        message.textContent = "Almost there! Your email app should open with your signup ready to send. If it doesn't, email us at ";
+                        const fallbackLink = document.createElement('a');
+                        fallbackLink.href = 'mailto:info@arusalt.com';
+                        fallbackLink.textContent = 'info@arusalt.com';
+                        fallbackLink.className = 'underline hover:text-white';
+                        message.append(fallbackLink, '.');
+                        message.classList.add('text-gray-300');
+                        return;
+                    }
+
                     submitBtn.innerHTML = 'Sending...';
                     submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
                     submitBtn.disabled = true;
-                    message.classList.remove('hidden', 'text-red-400', 'text-emerald-400');
 
                     try {
                         const response = await fetch(form.action, {
