@@ -1,7 +1,7 @@
 {
   "hero": {
-    "headline": "Bring a touch of the island to your home.",
-    "subheading": "We craft pure, natural sea salts with traditional methods, thoughtful production, and respect for the island which defines everything we do."
+    "headline": "Hand-harvested on Aruba.",
+    "subheading": "Square crystals from the north coast, dried in the open air by sun and trade winds. Nothing boiled. Nothing added."
   },
   "marquee": {
     "line1": "HAND-HARVESTED IN ARUBA",
@@ -9,13 +9,13 @@
   },
   "products": {
     "seaSalt": {
-      "description": "Hand-harvested sea salt from the pristine waters of Aruba, naturally sun-dried by warm Caribbean sun and steady trade winds. Rich in essential minerals, with a clean, bright flavor and a subtle crunch. Best used as a finishing salt: sprinkle lightly just before serving to enhance flavor without overpowering the dish.",
+      "description": "Hand-harvested finishing salt from Aruba's north coast, sun-dried in open air by the Caribbean sun and trade winds. Clean, bright, and gently crunchy. Pinch it on just before serving so the crystal stays intact.",
       "price": "$29.00",
       "netWeight": "Net weight: 30 g",
       "buyLink": ""
     },
     "bathSalt": {
-      "description": "Handcrafted bath salt made from pure AruSalt sea salt, harvested and naturally sun-dried in Aruba. Enriched with carefully selected fragrances and colors inspired by the Caribbean, available in our signature scents, including Aruban Breeze, each with its own distinctive color palette for a relaxing, immersive bathing experience. Designed to dissolve smoothly, leaving skin refreshed and transforming every bath into a moment of island escape.",
+      "description": "Pure AruSalt sea salt for the bath, harvested and sun-dried in Aruba, then blended with Caribbean fragrance and color. The signature scent is Aruban Breeze. It dissolves smoothly and leaves the skin refreshed.",
       "price": "$49.00",
       "netWeight": "Net weight: 250 g",
       "buyLink": ""
@@ -41,5 +41,5 @@
       "linkText": "Follow on Instagram"
     }
   ],
-  "newsletterBlurb": "Get exclusive recipes, flavor inspiration, and stories from Aruba."
+  "newsletterBlurb": "Notes from the salt farm, and first word when something new is ready."
 }
